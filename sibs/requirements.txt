@@ -1,0 +1,5 @@
+devtools
+security
+jpa
+my sql connector
+lombok
