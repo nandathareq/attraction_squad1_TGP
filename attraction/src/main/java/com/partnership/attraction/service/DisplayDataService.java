@@ -14,11 +14,12 @@ public class DisplayDataService {
     @Autowired
     AttractionPlaceRepository attractionPlaceRepo;
 
+
     public List<AttractionPlace> showAttraction(String city, String category) {
 
         List<AttractionPlace> allAttraction;
 
-        allAttraction = attractionPlaceRepo.findByCityAndCategory(city, category);
+        allAttraction = attractionPlaceRepo.findByCityAndCategory("city", "category");
 
         if(city == null && category == null && allAttraction.isEmpty()){
             return attractionPlaceRepo.findAll();
@@ -33,5 +34,12 @@ public class DisplayDataService {
         }
         
         return allAttraction;
+    }
+
+    public AttractionPlace showDetails(Integer id){
+        
+        AttractionPlace place = attractionPlaceRepo.findById(id).get();
+        
+        return place;
     }
 }

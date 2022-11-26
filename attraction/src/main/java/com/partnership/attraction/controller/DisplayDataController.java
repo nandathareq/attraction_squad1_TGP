@@ -18,7 +18,7 @@ public class DisplayDataController {
     DisplayDataService displayDataService;
 
     @GetMapping("/details")
-    public List<AttractionPlace> details(@RequestParam(required = false) Map<String, String> params) {
+    public List<AttractionPlace> allDetails(@RequestParam(required = false) Map<String, String> params) {
         String city = params.get("city");
         String category = params.get("category");
         String sortBy = params.get("sortBy");
@@ -50,9 +50,12 @@ public class DisplayDataController {
                         return null;
                 }
             }
-
         }
-
         return data;
+    }
+
+    @GetMapping("/details/{id}")
+    public AttractionPlace details(@PathVariable(required=true,name="id") Integer id) {
+        return displayDataService.showDetails(id);
     }
 }

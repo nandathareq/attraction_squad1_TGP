@@ -19,7 +19,7 @@ public class AttractionSchedule {
 	
 	@Column(name="attraction_date")
 	private String attractionDate;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "attraction_place_id", nullable = false)
 	private AttractionPlace attractionPlace;
