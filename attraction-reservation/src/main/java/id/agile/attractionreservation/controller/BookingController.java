@@ -2,10 +2,15 @@ package id.agile.attractionreservation.controller;
 
 
 import java.awt.print.Printable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.bind.ValidationException;
@@ -76,28 +81,33 @@ public BookingController(AttractionScheduleRepository attractionScheduleReposito
 	
 	@PostMapping("/v1/ticket/book")
 	public void getAllAttractionSchedule(@RequestBody Map<String, ?> body,HttpServletRequest request)  {
+		TimeZone tz = TimeZone.getTimeZone("GMT+07:00");
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
+		df.setTimeZone(tz);
+		String nowAsISO = df.format(new Date(System.currentTimeMillis()));
+		String deadlineAsISO = df.format(new Date(System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(60)));
 
-		System.out.println(body.toString());
+
 		double grandTotal =(double) body.get("grandTotal");
 		List<Map<String,?>> subInvoicesRequest = (List<Map<String, ?>>) body.get("subInvoice");
 		
 		User user = userRepository.findByEmail((String) body.get("issuer"));
-		GrandInvoice grandInvoice = new GrandInvoice(grandTotal,"11/28/2022","11/29/2022","UNPAID",user);
+		GrandInvoice grandInvoice = new GrandInvoice(grandTotal,nowAsISO,deadlineAsISO,"UNPAID",user);
 		grandInvoiceRepository.save(grandInvoice);
 		
 		
 		for (Map<String, ?> subInvoiceRequest : subInvoicesRequest) {
 			User userSubInvoice = userRepository.findByEmail((String) subInvoiceRequest.get("issuedTo"));
 			double total = (double) subInvoiceRequest.get("total");
-			SubInvoice subInvoice = new SubInvoice(total,"11/28/2022","11/29/2022","UNPAID",grandInvoice,userSubInvoice);
+			SubInvoice subInvoice = new SubInvoice(total,nowAsISO,deadlineAsISO,"UNPAID",grandInvoice,userSubInvoice);
 			subInvoiceRepository.save(subInvoice);
 			List<Map<String,?>> subInvoiceItemsRequest = (List<Map<String, ?>>) subInvoiceRequest.get("items");
 			for (Map<String, ?> subInvoiceItemRequest : subInvoiceItemsRequest) {
+				int attractionPlaceId = (int) subInvoiceItemRequest.get("attractionPlaceId");
 				String placeName = (String) subInvoiceItemRequest.get("placeName");
 				int qty = (int) subInvoiceItemRequest.get("qty");
 				double subTotal = (double) subInvoiceItemRequest.get("subTotal");
-				System.out.println(subTotal);
-				InvoiceItem invoiceItem = new InvoiceItem(qty,placeName,subTotal,subInvoice);
+				InvoiceItem invoiceItem = new InvoiceItem(qty,attractionPlaceId,placeName,subTotal,subInvoice);
 				subInvoice.addInvoiceItem(invoiceItem);
 				invoiceItemRepository.save(invoiceItem);
 			}

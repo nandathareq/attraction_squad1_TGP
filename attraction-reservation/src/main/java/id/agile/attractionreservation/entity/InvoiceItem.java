@@ -32,6 +32,9 @@ public class InvoiceItem implements Serializable{
 	@Column(name="qty")
 	private int qty;
 	
+	@Column(name="attraction_place_id")
+	private int attractionPlaceId;
+	
 	@Column(name="place_name")
 	private String placeName;
 	
@@ -67,21 +70,23 @@ public class InvoiceItem implements Serializable{
 
 	}
 	public InvoiceItem(int qty, String placeName, double subTotal, SubInvoice subInvoice,
-			Set<Ticket> tickets) {
+			Set<Ticket> tickets, int attractionPlaceId) {
 		super();
 		this.qty = qty;
 		this.placeName = placeName;
 		this.subTotal = subTotal;
 		this.subInvoice = subInvoice;
 //		this.tickets = tickets;
+		this.attractionPlaceId = attractionPlaceId;
 	}
 	
-	public InvoiceItem(int qty, String placeName, double subTotal, SubInvoice subInvoice) {
+	public InvoiceItem(int qty, int attractionPlaceId,String placeName, double subTotal, SubInvoice subInvoice) {
 		super();
 		this.qty = qty;
 		this.placeName = placeName;
 		this.subTotal = subTotal;
 		this.subInvoice = subInvoice;
+		this.attractionPlaceId = attractionPlaceId;
 		
 	}
 	

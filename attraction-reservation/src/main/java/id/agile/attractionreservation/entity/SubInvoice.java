@@ -33,6 +33,9 @@ public class SubInvoice implements Serializable{
 	@Column(name="total")
 	private double total;
 	
+	@Column(name="booking_code")
+	private String bookingCode;
+	
 	@Column(name="raised_date")
 	private String raisedDate;
 	
@@ -70,9 +73,9 @@ public class SubInvoice implements Serializable{
 	}
     
 	public SubInvoice(  double total, String raisedDate, String dueDate, String status,
-			Set<InvoiceItem> invoiceItems, GrandInvoice grandInvoice, User user) {
+			Set<InvoiceItem> invoiceItems, GrandInvoice grandInvoice, User user, String bookingCode) {
 		super();
-
+		this.bookingCode = bookingCode;
 		this.total = total;
 		this.raisedDate = raisedDate;
 		this.dueDate = dueDate;
@@ -145,6 +148,13 @@ public class SubInvoice implements Serializable{
 	public void setUser(User user) {
 		this.user = user;
 	}
+	public String getBookingCode() {
+		return bookingCode;
+	}
+	public void setBookingCode(String bookingCode) {
+		this.bookingCode = bookingCode;
+	}
+	
 
 
     
