@@ -34,93 +34,83 @@ public class Ticket implements Serializable{
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 
+	@Column(name="attraction_date")
+	private String attractionDate;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "attraction_schedule_id", nullable = false)
-	private AttractionSchedule attractionSchedule;
 
-	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "grand_invoice_id", nullable = false)
-	private GrandInvoice grandInvoice;
-
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "sub_invoice_id", nullable = false)
-	private SubInvoice subInvoice;
 
 	
 	public Ticket() {
 
 	}
-	
-	public Ticket(String bookingCode, User user, AttractionSchedule attractionSchedule, GrandInvoice grandInvoice,
-			SubInvoice subInvoice) {
+
+
+
+
+	public Ticket(String bookingCode, User user, String attractionDate) {
 		super();
 		this.bookingCode = bookingCode;
 		this.user = user;
-		this.attractionSchedule = attractionSchedule;
-		this.grandInvoice = grandInvoice;
-		this.subInvoice = subInvoice;
+		this.attractionDate = attractionDate;
 	}
+
+
+
 
 	public int getId() {
 		return id;
 	}
 
+
+
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
+
+
 
 	public String getBookingCode() {
 		return bookingCode;
 	}
 
+
+
+
 	public void setBookingCode(String bookingCode) {
 		this.bookingCode = bookingCode;
 	}
+
+
+
 
 	public User getUser() {
 		return user;
 	}
 
+
+
+
 	public void setUser(User user) {
 		this.user = user;
 	}
 
-	public AttractionSchedule getAttractionSchedule() {
-		return attractionSchedule;
+
+
+
+	public String getAttractionDate() {
+		return attractionDate;
 	}
 
-	public void setAttractionSchedule(AttractionSchedule attractionSchedule) {
-		this.attractionSchedule = attractionSchedule;
-	}
 
-	public GrandInvoice getGrandInvoice() {
-		return grandInvoice;
-	}
 
-	public void setGrandInvoice(GrandInvoice grandInvoice) {
-		this.grandInvoice = grandInvoice;
-	}
 
-	public SubInvoice getSubInvoice() {
-		return subInvoice;
-	}
-
-	public void setSubInvoice(SubInvoice subInvoice) {
-		this.subInvoice = subInvoice;
+	public void setAttractionDate(String attractionDate) {
+		this.attractionDate = attractionDate;
 	}
 	
 	
-	
-	
-	
 
-	
-
-	
-	
-	
-	
 }
 

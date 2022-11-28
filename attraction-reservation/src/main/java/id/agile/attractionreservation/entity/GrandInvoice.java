@@ -1,6 +1,8 @@
 package id.agile.attractionreservation.entity;
 
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -27,9 +29,6 @@ public class GrandInvoice implements Serializable{
 	@Column(name="grand_invoice__id")
 	private int id;
 	
-//
-//	@Column(name="user_id")
-//	private int userId;
 	
 	@Column(name="grand_total")
 	private double grandTotal;
@@ -46,7 +45,7 @@ public class GrandInvoice implements Serializable{
 	@JsonIgnore
 	@OneToMany(mappedBy = "grandInvoice", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
-	private Set<SubInvoice> subInvoices;
+	private Set<SubInvoice> subInvoices ;
 	public void addSubInvoice(SubInvoice subInvoice){
 		subInvoices.add(subInvoice);
 		subInvoice.setGrandInvoice(this);
@@ -56,30 +55,19 @@ public class GrandInvoice implements Serializable{
     	subInvoice.setGrandInvoice(null);
     }
     
+    
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 
-	
-	@JsonIgnore
-	@OneToMany(mappedBy = "grandInvoice", fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
-	private Set<Ticket> tickets;
-	public void addTicket(Ticket ticket){
-		tickets.add(ticket);
-		ticket.setGrandInvoice(this);
-    }
-    public void removeTicket(Ticket ticket){
-    	tickets.remove(ticket);
-    	ticket.setGrandInvoice(null);
-    }
     
+
     public GrandInvoice() {
 		super();
 	}
     
 	public GrandInvoice(double grandTotal, String raisedDate, String dueDate, String status,
-			Set<SubInvoice> subInvoices, User user, Set<Ticket> tickets) {
+			Set<SubInvoice> subInvoices, User user) {
 		super();
 		this.grandTotal = grandTotal;
 		this.raisedDate = raisedDate;
@@ -87,8 +75,21 @@ public class GrandInvoice implements Serializable{
 		this.status = status;
 		this.subInvoices = subInvoices;
 		this.user = user;
-		this.tickets = tickets;
+
 	}
+	
+	public GrandInvoice(double grandTotal, String raisedDate, String dueDate, String status,
+ User user) {
+		super();
+		this.grandTotal = grandTotal;
+		this.raisedDate = raisedDate;
+		this.dueDate = dueDate;
+		this.status = status;
+		this.subInvoices = new HashSet<>();
+		this.user = user;
+
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -131,13 +132,7 @@ public class GrandInvoice implements Serializable{
 	public void setUser(User user) {
 		this.user = user;
 	}
-	public Set<Ticket> getTickets() {
-		return tickets;
-	}
-	public void setTickets(Set<Ticket> tickets) {
-		this.tickets = tickets;
-	}
-	
+
 	
     
     

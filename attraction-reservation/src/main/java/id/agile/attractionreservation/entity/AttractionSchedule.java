@@ -38,42 +38,18 @@ public class AttractionSchedule implements Serializable{
 	@JoinColumn(name = "attraction_place_id", nullable = false)
 	private AttractionPlace attractionPlace;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy = "attractionSchedule", fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
-	private Set<Ticket> tickets;
-	public void addTicket(Ticket ticket){
-		tickets.add(ticket);
-		ticket.setAttractionSchedule(this);
-    }
-    public void removeTicket(Ticket ticket){
-    	tickets.remove(ticket);
-    	ticket.setAttractionSchedule(null);
-    }
-    
-    @JsonIgnore
-	@OneToMany(mappedBy = "attractionSchedule", fetch = FetchType.LAZY,
-          cascade = CascadeType.ALL)
-	private Set<InvoiceItem> invoiceItems;
-	public void addInvoiceItem(InvoiceItem invoiceItem){
-		invoiceItems.add(invoiceItem);
-		invoiceItem.setAttractionSchedule(this);
-	}
-	public void removeInvoiceItem(InvoiceItem invoiceItem){
-		invoiceItems.remove(invoiceItem);
-		invoiceItem.setAttractionSchedule(null);
-	}
+
 	
 	public AttractionSchedule() {
 
 	}
-	public AttractionSchedule(int availableTicket, String attractionDate, AttractionPlace attractionPlace,
-			Set<Ticket> tickets) {
+	public AttractionSchedule(int availableTicket, String attractionDate, AttractionPlace attractionPlace
+			) {
 		super();
 		this.availableTicket = availableTicket;
 		this.attractionDate = attractionDate;
 		this.attractionPlace = attractionPlace;
-		this.tickets = tickets;
+
 	}
 	public int getId() {
 		return id;
@@ -98,12 +74,6 @@ public class AttractionSchedule implements Serializable{
 	}
 	public void setAttractionPlace(AttractionPlace attractionPlace) {
 		this.attractionPlace = attractionPlace;
-	}
-	public Set<Ticket> getTickets() {
-		return tickets;
-	}
-	public void setTickets(Set<Ticket> tickets) {
-		this.tickets = tickets;
 	}
 
 	

@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -27,107 +29,99 @@ public class InvoiceItem implements Serializable{
 	@Column(name="sub_invoice_item_id")
 	private int id;
 	
-	
 	@Column(name="qty")
-	private double qty;
+	private int qty;
+	
+	@Column(name="place_name")
+	private String placeName;
 	
 	@Column(name="sub_total")
 	private double subTotal;
-	
-	@Column(name="status")
-	private String status;
-	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "attraction_schedule_id", nullable = false)
-	private AttractionSchedule attractionSchedule;
+
 
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "sub_invoice_id", nullable = false)
 	private SubInvoice subInvoice;
+	
+	
+//	@ManyToMany(fetch = FetchType.EAGER)
+//    @JoinTable(
+//            name = "subInvoiceItem_ticket",
+//            joinColumns = @JoinColumn(name = "sub_invoice_item_id"),
+//            inverseJoinColumns = @JoinColumn(name = "ticket_id")
+//    )
+//    private Set<Ticket> tickets;
+// 
+//    public void addTicket(Ticket ticket) {
+//    	tickets.add(ticket);
+//    }
+//    public void removeTicket (Ticket ticket){
+//    	tickets.remove(ticket);
+//
+//    }
+//	
+	
 
 	public InvoiceItem() {
 
 	}
-	
-	
-	public InvoiceItem(double qty, double subTotal, String status, AttractionSchedule attractionSchedule,
-			SubInvoice subInvoice) {
+	public InvoiceItem(int qty, String placeName, double subTotal, SubInvoice subInvoice,
+			Set<Ticket> tickets) {
 		super();
 		this.qty = qty;
+		this.placeName = placeName;
 		this.subTotal = subTotal;
-		this.status = status;
-		this.attractionSchedule = attractionSchedule;
 		this.subInvoice = subInvoice;
+//		this.tickets = tickets;
 	}
-
-
+	
+	public InvoiceItem(int qty, String placeName, double subTotal, SubInvoice subInvoice) {
+		super();
+		this.qty = qty;
+		this.placeName = placeName;
+		this.subTotal = subTotal;
+		this.subInvoice = subInvoice;
+		
+	}
+	
 	public int getId() {
 		return id;
 	}
-
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
-
 	public double getQty() {
 		return qty;
 	}
-
-
-	public void setQty(double qty) {
+	public void setQty(int qty) {
 		this.qty = qty;
 	}
-
-
+	public String getPlaceName() {
+		return placeName;
+	}
+	public void setPlaceName(String placeName) {
+		this.placeName = placeName;
+	}
 	public double getSubTotal() {
 		return subTotal;
 	}
-
-
 	public void setSubTotal(double subTotal) {
 		this.subTotal = subTotal;
 	}
-
-
-	public String getStatus() {
-		return status;
-	}
-
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-
-
-
 	public SubInvoice getSubInvoice() {
 		return subInvoice;
 	}
-
-
 	public void setSubInvoice(SubInvoice subInvoice) {
 		this.subInvoice = subInvoice;
 	}
-
-
-	public AttractionSchedule getAttractionSchedule() {
-		return attractionSchedule;
-	}
-
-
-	public void setAttractionSchedule(AttractionSchedule attractionSchedule) {
-		this.attractionSchedule = attractionSchedule;
-	}
-
-
-	
-
-	
-
+//	public Set<Ticket> getTickets() {
+//		return tickets;
+//	}
+//	public void setTickets(Set<Ticket> tickets) {
+//		this.tickets = tickets;
+//	}
+//	
 	
 	
 	
