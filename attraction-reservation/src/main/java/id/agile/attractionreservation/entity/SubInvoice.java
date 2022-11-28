@@ -1,6 +1,8 @@
 package id.agile.attractionreservation.entity;
 
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -27,14 +29,12 @@ public class SubInvoice implements Serializable{
 	@Column(name="sub_invoice_id")
 	private int id;
 	
-//	@Column(name="attraction_schedule_id")
-//	private int attractionScheduleId;
-	
-	@Column(name="qty")
-	private int qty;
 	
 	@Column(name="total")
 	private double total;
+	
+	@Column(name="booking_code")
+	private String bookingCode;
 	
 	@Column(name="raised_date")
 	private String raisedDate;
@@ -48,7 +48,7 @@ public class SubInvoice implements Serializable{
 	@JsonIgnore
 	@OneToMany(mappedBy = "subInvoice", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
-	private Set<InvoiceItem> invoiceItems;
+	private Set<InvoiceItem> invoiceItems ;
 	public void addInvoiceItem(InvoiceItem invoiceItem){
 		invoiceItems.add(invoiceItem);
 		invoiceItem.setSubInvoice(this);
@@ -67,28 +67,15 @@ public class SubInvoice implements Serializable{
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy = "subInvoice", fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
-	private Set<Ticket> tickets;
-	public void addTicket(Ticket ticket){
-		tickets.add(ticket);
-		ticket.setSubInvoice(this);
-    }
-    public void removeTicket(Ticket ticket){
-    	tickets.remove(ticket);
-    	ticket.setSubInvoice(null);
-    }
     
     public SubInvoice() {
 
 	}
     
-	public SubInvoice( int qty, double total, String raisedDate, String dueDate, String status,
-			Set<InvoiceItem> invoiceItems, GrandInvoice grandInvoice, User user, Set<Ticket> tickets) {
+	public SubInvoice(  double total, String raisedDate, String dueDate, String status,
+			Set<InvoiceItem> invoiceItems, GrandInvoice grandInvoice, User user, String bookingCode) {
 		super();
-
-		this.qty = qty;
+		this.bookingCode = bookingCode;
 		this.total = total;
 		this.raisedDate = raisedDate;
 		this.dueDate = dueDate;
@@ -96,7 +83,21 @@ public class SubInvoice implements Serializable{
 		this.invoiceItems = invoiceItems;
 		this.grandInvoice = grandInvoice;
 		this.user = user;
-		this.tickets = tickets;
+
+	}
+	
+	public SubInvoice(  double total, String raisedDate, String dueDate, String status,
+			 GrandInvoice grandInvoice, User user) {
+		super();
+
+		this.total = total;
+		this.raisedDate = raisedDate;
+		this.dueDate = dueDate;
+		this.status = status;
+		this.invoiceItems =  new HashSet<>();
+		this.grandInvoice = grandInvoice;
+		this.user = user;
+
 	}
 	public int getId() {
 		return id;
@@ -105,12 +106,6 @@ public class SubInvoice implements Serializable{
 		this.id = id;
 	}
 
-	public int getQty() {
-		return qty;
-	}
-	public void setQty(int qty) {
-		this.qty = qty;
-	}
 	public double getTotal() {
 		return total;
 	}
@@ -153,14 +148,14 @@ public class SubInvoice implements Serializable{
 	public void setUser(User user) {
 		this.user = user;
 	}
-	public Set<Ticket> getTickets() {
-		return tickets;
+	public String getBookingCode() {
+		return bookingCode;
 	}
-	public void setTickets(Set<Ticket> tickets) {
-		this.tickets = tickets;
+	public void setBookingCode(String bookingCode) {
+		this.bookingCode = bookingCode;
 	}
 	
-	
+
 
     
 
