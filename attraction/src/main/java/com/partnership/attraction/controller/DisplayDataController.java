@@ -1,5 +1,6 @@
 package com.partnership.attraction.controller;
 
+import java.text.ParseException;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,4 +59,13 @@ public class DisplayDataController {
     public AttractionPlace details(@PathVariable(required=true,name="id") Integer id) {
         return displayDataService.showDetails(id);
     }
+
+    @GetMapping("/available")
+    public String details(@RequestParam(required = false) Map<String, String> params) throws ParseException {
+        int id = Integer.parseInt(params.get("attractionId"));
+        String date = params.get("date");
+        int quantity = Integer.parseInt(params.get("quantity"));
+        return displayDataService.isAvailable(id, date, quantity);
+    }
+
 }

@@ -1,5 +1,7 @@
 package com.partnership.attraction.entity;
 
+import java.util.Date;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,8 +19,7 @@ public class AttractionSchedule {
 	@Column(name="available_ticket")
 	private int availableTicket;
 	
-	@Column(name="attraction_date")
-	private String attractionDate;
+	private Date date;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "attraction_place_id", nullable = false)
