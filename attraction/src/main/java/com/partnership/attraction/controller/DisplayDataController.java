@@ -1,5 +1,6 @@
 package com.partnership.attraction.controller;
 
+import java.text.ParseException;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class DisplayDataController {
     DisplayDataService displayDataService;
 
     @GetMapping("/details")
-    public List<AttractionPlace> details(@RequestParam(required = false) Map<String, String> params) {
+    public List<AttractionPlace> allDetails(@RequestParam(required = false) Map<String, String> params) {
         String city = params.get("city");
         String category = params.get("category");
         String sortBy = params.get("sortBy");
@@ -50,9 +51,21 @@ public class DisplayDataController {
                         return null;
                 }
             }
-
         }
-
         return data;
     }
+
+    @GetMapping("/details/{id}")
+    public AttractionPlace details(@PathVariable(required=true,name="id") Integer id) {
+        return displayDataService.showDetails(id);
+    }
+
+    @GetMapping("/available")
+    public String details(@RequestParam(required = false) Map<String, String> params) throws ParseException {
+        int id = Integer.parseInt(params.get("attractionId"));
+        String date = params.get("date");
+        int quantity = Integer.parseInt(params.get("quantity"));
+        return displayDataService.isAvailable(id, date, quantity);
+    }
+
 }

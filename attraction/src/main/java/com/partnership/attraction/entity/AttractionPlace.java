@@ -1,5 +1,9 @@
 package com.partnership.attraction.entity;
 
+import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -8,7 +12,6 @@ import lombok.*;
 @Setter
 public class AttractionPlace {
 
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="attraction_place_id")
@@ -44,5 +47,23 @@ public class AttractionPlace {
 	@Column(name="place_rating")
 	private double placeRating;
 
+	@ManyToMany(cascade = CascadeType.ALL)
+    @Column(name = "facility")
+    @JoinTable(name = "attraction_facility",
+    joinColumns = @JoinColumn(name = "attraction_place_id"),
+    inverseJoinColumns = @JoinColumn(name = "facility_id"))
+	private List<Facility> facilities;
+
+	public List<String> getFacilities(){
+		return this.facilities.stream().map(Facility::getFacilityName).collect(Collectors.toList());
+	}
+
+	public String getPicture(){
+		return "https://picsum.photos/300/200";
+	}
+
+	public String getContactPerson(){
+		return "+628" + (10000000 + (new Random()).nextInt(900000000));
+	}
 }
 
