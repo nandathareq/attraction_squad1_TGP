@@ -27,4 +27,3 @@ public class Facility {
 	private List<AttractionPlace> attractions;
 
 }
-
