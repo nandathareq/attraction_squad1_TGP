@@ -6,6 +6,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -15,7 +16,12 @@ import java.util.concurrent.TimeUnit;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.bind.ValidationException;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -90,15 +96,36 @@ public BookingController(AttractionScheduleRepository attractionScheduleReposito
 
 		double grandTotal =(double) body.get("grandTotal");
 		List<Map<String,?>> subInvoicesRequest = (List<Map<String, ?>>) body.get("subInvoice");
+//		System.out.println(subInvoicesRequest.toString().substring(1, subInvoicesRequest.toString().length()-1));
 		
 		User user = userRepository.findByEmail((String) body.get("issuer"));
 		GrandInvoice grandInvoice = new GrandInvoice(grandTotal,nowAsISO,deadlineAsISO,"UNPAID",user);
 		grandInvoiceRepository.save(grandInvoice);
 		
+		String partnershipBookUrl = "http://localhost:8000/partnership/book";
+
+		RestTemplate restTemplate = new RestTemplate();
+		
+		String requestJson = "{\"issuedTo\":\"qj32@mail.com?\",\"total\":\"12000000.0\"}";
+//		String requestJson = subInvoicesRequest.toString().substring(1, subInvoicesRequest.toString().length()-1);
+		
+		Map<String, Object> report = new HashMap<>();
+		JSONArray itemsPost = new JSONArray();
+		JSONArray subInvoicesPost = new JSONArray();
+		JSONObject partnershipPost = new JSONObject();
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		
+		
+		
+		
+		
 		
 		for (Map<String, ?> subInvoiceRequest : subInvoicesRequest) {
 			User userSubInvoice = userRepository.findByEmail((String) subInvoiceRequest.get("issuedTo"));
 			double total = (double) subInvoiceRequest.get("total");
+			
 			SubInvoice subInvoice = new SubInvoice(total,nowAsISO,deadlineAsISO,"UNPAID",grandInvoice,userSubInvoice);
 			subInvoiceRepository.save(subInvoice);
 			List<Map<String,?>> subInvoiceItemsRequest = (List<Map<String, ?>>) subInvoiceRequest.get("items");
@@ -110,11 +137,28 @@ public BookingController(AttractionScheduleRepository attractionScheduleReposito
 				InvoiceItem invoiceItem = new InvoiceItem(qty,attractionPlaceId,placeName,subTotal,subInvoice);
 				subInvoice.addInvoiceItem(invoiceItem);
 				invoiceItemRepository.save(invoiceItem);
+				
+				JSONObject itemPost = new JSONObject();
+				itemPost.put("attractionPlaceId", attractionPlaceId);
+				itemPost.put("placeName", placeName);
+				itemPost.put("qty", qty);
+				itemPost.put("subTotal",subTotal);
+				itemsPost.put(itemPost);
 			}
 			grandInvoice.addSubInvoice(subInvoice);
 			subInvoiceRepository.save(subInvoice);
+			JSONObject subInvoicePost = new JSONObject();
+			subInvoicePost.put("issuedTo", userSubInvoice.getEmail());
+			subInvoicePost.put("total", total);
+			subInvoicePost.put("items", itemsPost);
+			subInvoicesPost.put(subInvoicePost);
 		}
+		partnershipPost.put("subInvoice",subInvoicesPost);
 		grandInvoiceRepository.save(grandInvoice);
+		
+		HttpEntity<String> entity = new HttpEntity<String>(partnershipPost.toString(),headers);
+		restTemplate.postForObject(partnershipBookUrl, entity, String.class);
+	
 		
 
 	}
@@ -126,7 +170,6 @@ public BookingController(AttractionScheduleRepository attractionScheduleReposito
 	    RestTemplate restTemplate = new RestTemplate();
 	    String result = restTemplate.getForObject(uri, String.class);
 
-	    System.out.println(result);
 	}
 	
 
