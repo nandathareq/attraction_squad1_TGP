@@ -1,6 +1,7 @@
 package com.partnership.attraction.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -25,5 +26,7 @@ public class AttractionSchedule {
 	@JoinColumn(name = "attraction_place_id", nullable = false)
 	private AttractionPlace attractionPlace;
 	
+	@OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL)
+    private List<IssuedTicket> ticketsSold;
 }
 
