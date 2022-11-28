@@ -145,7 +145,6 @@ public BookingController(AttractionScheduleRepository attractionScheduleReposito
 				
 				JSONObject itemPost = new JSONObject();
 				itemPost.put("attractionPlaceId", attractionPlaceId);
-				itemPost.put("placeName", placeName);
 				itemPost.put("qty", qty);
 				itemPost.put("date", nowPost);
 				itemsPost.put(itemPost);
