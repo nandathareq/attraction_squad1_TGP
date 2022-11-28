@@ -138,18 +138,27 @@ public BookingController(AttractionScheduleRepository attractionScheduleReposito
 				subInvoice.addInvoiceItem(invoiceItem);
 				invoiceItemRepository.save(invoiceItem);
 				
+				TimeZone tzPost = TimeZone.getTimeZone("GMT+07:00");
+				DateFormat dfPost = new SimpleDateFormat("yyyy-MM-dd"); // Quoted "Z" to indicate UTC, no timezone offset
+				dfPost.setTimeZone(tzPost);
+				String nowPost = dfPost.format(new Date(System.currentTimeMillis()));
+				
 				JSONObject itemPost = new JSONObject();
 				itemPost.put("attractionPlaceId", attractionPlaceId);
 				itemPost.put("placeName", placeName);
 				itemPost.put("qty", qty);
-				itemPost.put("subTotal",subTotal);
+				itemPost.put("date", nowPost);
 				itemsPost.put(itemPost);
+				
 			}
+			
+			
 			grandInvoice.addSubInvoice(subInvoice);
 			subInvoiceRepository.save(subInvoice);
 			JSONObject subInvoicePost = new JSONObject();
-			subInvoicePost.put("issuedTo", userSubInvoice.getEmail());
-			subInvoicePost.put("total", total);
+			subInvoicePost.put("email", userSubInvoice.getEmail());
+			subInvoicePost.put("name", userSubInvoice.getFirstName()+" "+userSubInvoice.getLastName());
+			subInvoicePost.put("subInvoiceId", subInvoice.getId());
 			subInvoicePost.put("items", itemsPost);
 			subInvoicesPost.put(subInvoicePost);
 		}
@@ -159,7 +168,7 @@ public BookingController(AttractionScheduleRepository attractionScheduleReposito
 		HttpEntity<String> entity = new HttpEntity<String>(partnershipPost.toString(),headers);
 		restTemplate.postForObject(partnershipBookUrl, entity, String.class);
 	
-		
+		System.out.println(partnershipPost.toString());
 
 	}
 	
