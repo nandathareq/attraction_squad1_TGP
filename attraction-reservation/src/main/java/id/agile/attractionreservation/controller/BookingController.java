@@ -88,7 +88,7 @@ public BookingController(AttractionScheduleRepository attractionScheduleReposito
 
 	
 	@PostMapping("/v1/ticket/book")
-	public String getAllAttractionSchedule(@RequestBody Map<String, ?> body,HttpServletRequest request)  {
+	public ResponseEntity getAllAttractionSchedule(@RequestBody Map<String, ?> body,HttpServletRequest request)  {
 		TimeZone tz = TimeZone.getTimeZone("GMT+07:00");
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
 		df.setTimeZone(tz);
@@ -176,7 +176,12 @@ public BookingController(AttractionScheduleRepository attractionScheduleReposito
 		
 		JSONObject returnJson = new JSONObject();
 		returnJson.put("response", true);
-		return returnJson.toString();
+		
+		
+//		return returnJson.toString();
+		return new ResponseEntity<String>(returnJson.toString(),HttpStatus.OK);
+		
+		
 		
 
 	}
