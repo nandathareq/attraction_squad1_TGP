@@ -9,8 +9,10 @@ class DetailsListCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ButtonStyle style =
-        ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 20));
+    final ButtonStyle style = ElevatedButton.styleFrom(
+        textStyle: const TextStyle(fontSize: 20),
+        backgroundColor: Color.fromARGB(255, 118, 17, 28));
+
     final format = new NumberFormat("#,##0", "en_US");
     return Container(
       child: Scaffold(
@@ -29,13 +31,37 @@ class DetailsListCard extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: Text(
-                model.placeName,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
+            Row(
+              children: [
+                Column(
+                  children: [
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(left: 10, top: 10, bottom: 5),
+                      child: Text(
+                        model.placeName,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      child: Align(
+                        alignment: Alignment.topRight,
+                        child: Icon(
+                          Icons.pin_drop,
+                          color: Color.fromARGB(255, 118, 17, 28),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
             Row(
               children: [
