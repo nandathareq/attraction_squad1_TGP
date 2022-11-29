@@ -13,10 +13,26 @@ class AttractionProvider with ChangeNotifier {
     return [..._attractions];
   }
 
-  Future<void> fetchAndSetAttractions() async {
+  Future<void> fetchAndSetAttractions(
+      {String? cityParam = '',
+      String? categoryParam = '',
+      String? sortByParam = ''}) async {
+    String? city = cityParam ?? '';
+    String? category = categoryParam ?? '';
+    String? sortBy = sortByParam ?? '';
+    String baseUrl = "http://10.0.2.2:8000/partnership/details";
+    // print(cityParam);
+    if (city != '' || category != '') {
+      baseUrl =
+          "http://10.0.2.2:8000/partnership/details?city=$city&category=$category&sortBy=$sortBy&descending=";
+    }
+
+    // String? city = cityParam;
     try {
-      final resp =
-          await http.get(Uri.parse('http://10.0.2.2:8000/partnership/details'));
+      // final resp = await http.get(Uri.parse(
+      //     'http://10.0.2.2:8000/partnership/details?city=&category=&sortBy=&descending='));
+      print(baseUrl);
+      final resp = await http.get(Uri.parse(baseUrl));
 
       final extractedDatas = json.decode(resp.body);
 

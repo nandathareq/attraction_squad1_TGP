@@ -16,8 +16,9 @@ class ListScreen extends StatefulWidget {
 class _ListScreen extends State<ListScreen> {
   bool _isLoading = false;
   bool _init = true;
-
-  final _scaffold = GlobalKey<ScaffoldState>();
+  String? city = '';
+  String? category = '';
+  // final _scaffold = GlobalKey<ScaffoldState>();
 
   @override
   void didChangeDependencies() {
@@ -27,8 +28,9 @@ class _ListScreen extends State<ListScreen> {
       setState(() {
         _isLoading = true;
       });
+
       Provider.of<AttractionProvider>(context)
-          .fetchAndSetAttractions()
+          .fetchAndSetAttractions(cityParam: city, categoryParam: category)
           .then((_) {})
           .catchError((err) {})
           .whenComplete(() {
@@ -96,8 +98,21 @@ class _ListScreen extends State<ListScreen> {
                               selectedColor: Color.fromARGB(255, 118, 17, 28),
                             ),
                             isRadio: false,
-                            onSelected: (val, index, isSelected) =>
-                                print('$index button is selected'),
+                            onSelected: (val, index, isSelected) {
+                              if (isSelected) {
+                                setState(() {
+                                  city = val;
+                                  category = '';
+                                });
+                              } else {
+                                setState(() {
+                                  city = '';
+                                  category = '';
+                                });
+                              }
+                            },
+
+                            // print('$index button is selected'),
                             buttons: const [
                               "Jakarta",
                               "Yogyakarta",
@@ -121,8 +136,19 @@ class _ListScreen extends State<ListScreen> {
                               selectedColor: Color.fromARGB(255, 118, 17, 28),
                             ),
                             isRadio: false,
-                            onSelected: (val, index, isSelected) =>
-                                print('$index button is selected'),
+                            onSelected: (val, index, isSelected) {
+                              if (isSelected) {
+                                setState(() {
+                                  category = val;
+                                  city = '';
+                                });
+                              } else {
+                                setState(() {
+                                  category = '';
+                                  city = '';
+                                });
+                              }
+                            },
                             buttons: const [
                               "Budaya",
                               "Bahari",
@@ -167,7 +193,14 @@ class _ListScreen extends State<ListScreen> {
                         width: double.infinity,
                         padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                         child: TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              // setState(() {
+                              //   Provider.of<AttractionProvider>(context,
+                              //           listen: false)
+                              //       .fetchAndSetAttractions(cityParam: city);
+                              // });
+                              Navigator.of(context).pop();
+                            },
                             child: Text(
                               "Terapkan",
                               style: TextStyle(color: Colors.white),
@@ -305,7 +338,8 @@ class _ListScreen extends State<ListScreen> {
             Center(
               child: FutureBuilder(
                 future: Provider.of<AttractionProvider>(context, listen: false)
-                    .fetchAndSetAttractions(),
+                    .fetchAndSetAttractions(
+                        cityParam: city, categoryParam: category),
                 builder: (ctx, dataSnapshot) {
                   if (dataSnapshot.connectionState == ConnectionState.waiting) {
                     return const Center(
