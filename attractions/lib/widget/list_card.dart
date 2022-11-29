@@ -111,10 +111,9 @@ class ListCard extends StatelessWidget {
                 ],
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
+                children: const [
                   Padding(
-                    padding: const EdgeInsets.only(right: 10, top: 15),
+                    padding: EdgeInsets.only(left: 125, top: 15),
                     child: Text('Harga', style: TextStyle(fontSize: 16)),
                   ),
                 ],

@@ -42,6 +42,7 @@ dependencies:
   bottom_drawer: ^0.0.5
   group_button: ^5.2.2
   searchbar_animation: ^0.0.4
+  counter: ^0.2.2
 
 dev_dependencies:
   flutter_test:

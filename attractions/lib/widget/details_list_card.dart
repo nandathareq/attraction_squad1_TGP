@@ -1,4 +1,5 @@
 import 'package:attractions/model/attraction_model.dart';
+import 'package:attractions/screen/book_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -280,7 +281,14 @@ class DetailsListCard extends StatelessWidget {
                         height: 40,
                         child: ElevatedButton(
                           style: style,
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                     BookScreen(model: model),
+                                ));
+                          },
                           child: const Text('Cari Tiket'),
                         ),
                       ),
