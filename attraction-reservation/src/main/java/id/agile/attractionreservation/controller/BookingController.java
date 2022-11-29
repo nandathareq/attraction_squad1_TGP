@@ -88,7 +88,7 @@ public BookingController(AttractionScheduleRepository attractionScheduleReposito
 
 	
 	@PostMapping("/v1/ticket/book")
-	public String getAllAttractionSchedule(@RequestBody Map<String, ?> body,HttpServletRequest request)  {
+	public ResponseEntity getAllAttractionSchedule(@RequestBody Map<String, ?> body,HttpServletRequest request)  {
 		TimeZone tz = TimeZone.getTimeZone("GMT+07:00");
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
 		df.setTimeZone(tz);
@@ -150,7 +150,7 @@ public BookingController(AttractionScheduleRepository attractionScheduleReposito
 
 				JSONObject itemPost = new JSONObject();
 				itemPost.put("attractionPlaceId", attractionPlaceId);
-				itemPost.put("qty", qty);
+				itemPost.put("quantity", qty);
 				itemPost.put("date", nowPost);
 				itemsPost.put(itemPost);
 				
@@ -166,7 +166,11 @@ public BookingController(AttractionScheduleRepository attractionScheduleReposito
 			subInvoicePost.put("tickets", itemsPost);
 //			subInvoicesPost.put(subInvoicePost);
 			HttpEntity<String> entity = new HttpEntity<String>(subInvoicePost.toString(),headers);
-			restTemplate.postForObject(partnershipBookUrl, entity, String.class);
+			
+			String respPost = restTemplate.postForObject(partnershipBookUrl, entity, String.class);
+			JSONObject respJsonPost = new JSONObject(respPost);
+			subInvoice.setBookingCode(respJsonPost.get("bookingCode").toString());
+			System.out.println(subInvoicePost.toString());
 
 	
 		}
@@ -176,7 +180,12 @@ public BookingController(AttractionScheduleRepository attractionScheduleReposito
 		
 		JSONObject returnJson = new JSONObject();
 		returnJson.put("response", true);
-		return returnJson.toString();
+		
+		
+//		return returnJson.toString();
+		return new ResponseEntity<String>(returnJson.toString(),HttpStatus.OK);
+		
+		
 		
 
 	}

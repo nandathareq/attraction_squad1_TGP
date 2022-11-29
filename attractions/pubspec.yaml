@@ -40,6 +40,8 @@ dependencies:
   provider: ^6.0.4
   intl: ^0.17.0
   bottom_drawer: ^0.0.5
+  group_button: ^5.2.2
+  searchbar_animation: ^0.0.4
 
 dev_dependencies:
   flutter_test:
