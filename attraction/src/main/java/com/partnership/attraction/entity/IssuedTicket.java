@@ -12,19 +12,15 @@ public class IssuedTicket {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-    private String bookingCode;
-
-    private String name;
-
-    private String email;
+    private String ticketCode;
 
     private int quantity;
-
-    private long totalPrice;
-
-    private boolean isPaid;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "attraction_schedule_id")
     private AttractionSchedule schedule;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idInvoice")
+    private Invoice invoice;
 }
