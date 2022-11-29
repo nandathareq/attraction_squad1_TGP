@@ -343,7 +343,7 @@ class _ListScreen extends State<ListScreen> {
                                     openHour: attraction.openHour,
                                     closeHour: attraction.closeHour,
                                     placeRating: attraction.placeRating,
-                                    fasilities: attraction.fasilities[0],
+                                    fasilities: attraction.fasilities,
                                     contactPerson: attraction.contactPerson,
                                     picture: attraction.picture,
                                     model: attraction,

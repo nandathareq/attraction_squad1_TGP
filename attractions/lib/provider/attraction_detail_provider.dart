@@ -37,8 +37,7 @@ class AttractionDetailProvider with ChangeNotifier {
             placeRating: double.parse(details['placeRating'].toString()),
             fasilities: details['facilities']
                 .toString()
-                .substring(1, details['facilities'].toString().length - 1)
-                .split(','),
+                .substring(1, details['facilities'].toString().length - 1),
             contactPerson: details['contactPerson'].toString(),
             picture: details['picture'].toString());
 

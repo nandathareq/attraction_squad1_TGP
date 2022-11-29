@@ -265,8 +265,10 @@ class DetailsListCard extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Padding(padding: EdgeInsets.only(left: 20, top: 35)),
-                    for (String item in model.fasilities) Text(" ${item},")
+                    Padding(
+                      padding: EdgeInsets.only(left: 20, top: 10, bottom: 10),
+                      child: Text(model.fasilities),
+                    ),
                   ],
                 ),
                 Center(
