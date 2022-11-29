@@ -1,5 +1,7 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter/material.dart';
-
+import 'package:group_button/group_button.dart';
+import 'package:searchbar_animation/searchbar_animation.dart';
 import '../provider/attraction_provider.dart';
 import 'package:provider/provider.dart';
 import '../widget/list_card.dart';
@@ -38,27 +40,224 @@ class _ListScreen extends State<ListScreen> {
     }
   }
 
+  final controller = GroupButtonController(
+      // selectedIndex: 0,
+      // selectedIndexes: [0, 1, 2, 3, 4],
+      // disabledIndexes: [10, 12, 13, 14, 15, 23],
+      // onDisablePressed: (i) => print('Button #$i is disabled'),
+      );
+
   @override
   Widget build(BuildContext context) {
+    final controller = GroupButtonController();
     return DefaultTabController(
       initialIndex: 0,
       length: 2,
       child: Scaffold(
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            showModalBottomSheet(
+                isScrollControlled: true,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(30),
+                    topLeft: Radius.circular(30),
+                  ),
+                ),
+                context: context,
+                builder: (context) {
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(0, 30, 0, 15),
+                        child: Container(
+                          height: 5,
+                          width: 100,
+                          decoration: const BoxDecoration(
+                              color: Colors.grey,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20))),
+                          child: const Text(''),
+                        ),
+                      ),
+                      ListTile(
+                          title: const Center(
+                            child: Text(
+                              "Atraksi Berdasarkan Kota",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Color.fromARGB(255, 118, 17, 28)),
+                            ),
+                          ),
+                          subtitle: GroupButton(
+                            options: GroupButtonOptions(
+                              selectedColor: Color.fromARGB(255, 118, 17, 28),
+                            ),
+                            isRadio: false,
+                            onSelected: (val, index, isSelected) =>
+                                print('$index button is selected'),
+                            buttons: const [
+                              "Jakarta",
+                              "Yogyakarta",
+                              "Bandung",
+                              "Semarang",
+                              "Surabaya"
+                            ],
+                            maxSelected: 1,
+                          )),
+                      ListTile(
+                          title: const Center(
+                            child: Text(
+                              "Atraksi Berdasarkan Kategori",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Color.fromARGB(255, 118, 17, 28)),
+                            ),
+                          ),
+                          subtitle: GroupButton(
+                            options: GroupButtonOptions(
+                              selectedColor: Color.fromARGB(255, 118, 17, 28),
+                            ),
+                            isRadio: false,
+                            onSelected: (val, index, isSelected) =>
+                                print('$index button is selected'),
+                            buttons: const [
+                              "Budaya",
+                              "Bahari",
+                              "Taman Hiburan",
+                              "Cagar Alam",
+                              "Pusat Perbelanjaan",
+                              "Tempat Ibadah"
+                            ],
+                            maxSelected: 1,
+                          )),
+                      ListTile(
+                          title: const Center(
+                            child: Text(
+                              "Urutkan Tempat Atraksi",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Color.fromARGB(255, 118, 17, 28)),
+                            ),
+                          ),
+                          subtitle: GroupButton(
+                            options: GroupButtonOptions(
+                              selectedColor: Color.fromARGB(255, 118, 17, 28),
+                            ),
+                            isRadio: false,
+                            onSelected: (val, index, isSelected) =>
+                                print('$index button is selected'),
+                            buttons: const [
+                              "Harga",
+                              "Rating",
+                            ],
+                            maxSelected: 1,
+                          )),
+                      Padding(
+                          padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                          child: Divider(
+                            indent: 10,
+                            endIndent: 10,
+                            height: 3,
+                            thickness: 2,
+                          )),
+                      Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                        child: TextButton(
+                            onPressed: () {},
+                            child: Text(
+                              "Terapkan",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                  Color.fromARGB(255, 118, 17, 28)),
+                            )),
+                      ),
+                    ],
+                  );
+                });
+            // Add your onPressed code here!
+          },
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+              side:
+                  BorderSide(width: 2, color: Color.fromARGB(255, 118, 17, 28)),
+              borderRadius: BorderRadius.circular(30)),
+          label: IntrinsicHeight(
+              child: Row(
+            children: [
+              Icon(Icons.filter_list_alt,
+                  color: Color.fromARGB(255, 118, 17, 28)),
+              Text(
+                "Filter",
+                style: TextStyle(color: Color.fromARGB(255, 118, 17, 28)),
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                child: VerticalDivider(
+                  color: Color.fromARGB(255, 118, 17, 28),
+                  thickness: 2,
+                  width: 5,
+                ),
+              ),
+
+              Text(
+                "Sort",
+                style: TextStyle(color: Color.fromARGB(255, 118, 17, 28)),
+              ),
+              Icon(Icons.sort, color: Color.fromARGB(255, 118, 17, 28)),
+
+              // Directionality(
+              //   textDirection: TextDirection.rtl,
+              //   child: TextButton.icon(
+              //       onPressed: () {},
+              //       icon: Icon(Icons.sort_rounded,
+              //           color: Color.fromARGB(255, 118, 17, 28)),
+              //       label: Text(
+              //         "Sort",
+              //         style: TextStyle(color: Color.fromARGB(255, 118, 17, 28)),
+              //       )),
+              // )
+            ],
+          )),
+        ),
         appBar: AppBar(
           title: const Text('Attraction'),
           centerTitle: true,
           actions: [
-            IconButton(
-                onPressed: () => {
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return Container(
-                              height: 1000,
-                            );
-                          })
-                    },
-                icon: Icon(Icons.sort))
+            SearchBarAnimation(
+              hintText: "Cari Atraksi",
+              searchBoxWidth: MediaQuery.of(context).size.width * 0.80,
+              textEditingController: TextEditingController(),
+              isOriginalAnimation: true,
+              enableKeyboardFocus: true,
+              buttonColour: Colors.transparent,
+              // buttonShadowColour: Colors.transparent,
+              buttonBorderColour: Colors.transparent,
+              enableBoxShadow: false,
+              enableButtonShadow: false,
+              isSearchBoxOnRightSide: true,
+              onFieldSubmitted: () {},
+              trailingWidget: Icon(
+                Icons.search_rounded,
+                size: 20,
+                color: Color.fromARGB(255, 118, 17, 28),
+              ),
+              secondaryButtonWidget: Icon(
+                Icons.close_rounded,
+                size: 20,
+                color: Color.fromARGB(255, 118, 17, 28),
+              ),
+              buttonWidget: const Icon(
+                Icons.search_rounded,
+                size: 20,
+                color: Colors.white,
+              ),
+            ),
           ],
           backgroundColor: const Color.fromARGB(255, 118, 17, 28),
           bottom: PreferredSize(
