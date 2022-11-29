@@ -150,7 +150,7 @@ public BookingController(AttractionScheduleRepository attractionScheduleReposito
 
 				JSONObject itemPost = new JSONObject();
 				itemPost.put("attractionPlaceId", attractionPlaceId);
-				itemPost.put("qty", qty);
+				itemPost.put("quantity", qty);
 				itemPost.put("date", nowPost);
 				itemsPost.put(itemPost);
 				
@@ -166,7 +166,11 @@ public BookingController(AttractionScheduleRepository attractionScheduleReposito
 			subInvoicePost.put("tickets", itemsPost);
 //			subInvoicesPost.put(subInvoicePost);
 			HttpEntity<String> entity = new HttpEntity<String>(subInvoicePost.toString(),headers);
-			restTemplate.postForObject(partnershipBookUrl, entity, String.class);
+			
+			String respPost = restTemplate.postForObject(partnershipBookUrl, entity, String.class);
+			JSONObject respJsonPost = new JSONObject(respPost);
+			subInvoice.setBookingCode(respJsonPost.get("bookingCode").toString());
+			System.out.println(subInvoicePost.toString());
 
 	
 		}

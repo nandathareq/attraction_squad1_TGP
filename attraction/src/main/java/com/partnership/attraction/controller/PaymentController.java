@@ -18,5 +18,9 @@ public class PaymentController {
     public BookingCodeDto bookTicket(@RequestBody InvoiceRequest invoiceRequest){
         return paymentService.generateBookingCode(invoiceRequest);
     }
-    
+//    @PostMapping("/bookticket")
+//    public String bookTicket(@RequestBody InvoiceRequest invoiceRequest){
+//        return "dafkjgs";
+//    }
+//    
 }
