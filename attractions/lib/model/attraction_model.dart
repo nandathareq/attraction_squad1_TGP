@@ -10,7 +10,7 @@ class AttractionModel {
   final String openHour;
   final String closeHour;
   final double placeRating;
-  final String fasilities;
+  final List<String> fasilities;
   final String contactPerson;
   final String picture;
 

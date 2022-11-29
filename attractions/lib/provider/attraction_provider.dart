@@ -35,7 +35,10 @@ class AttractionProvider with ChangeNotifier {
             openHour: attractions['openHour'].toString(),
             closeHour: attractions['closeHour'].toString(),
             placeRating: double.parse(attractions['placeRating'].toString()),
-            fasilities: attractions['fasilities'].toString(),
+            fasilities: attractions['facilities']
+                .toString()
+                .substring(1, attractions['facilities'].toString().length - 1)
+                .split(','),
             contactPerson: attractions['contactPerson'].toString(),
             picture: attractions['picture'].toString());
 

@@ -1,5 +1,8 @@
+import 'package:attractions/widget/details_list_card.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
+import '../model/attraction_model.dart';
 
 class ListCard extends StatelessWidget {
   final int id;
@@ -16,6 +19,7 @@ class ListCard extends StatelessWidget {
   final String fasilities;
   final String contactPerson;
   final String picture;
+  final AttractionModel model;
 
   const ListCard({
     Key? key,
@@ -33,85 +37,96 @@ class ListCard extends StatelessWidget {
     required this.fasilities,
     required this.contactPerson,
     required this.picture,
+    required this.model,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final format = new NumberFormat("#,##0", "en_US");
-    return Padding(
-      padding: const EdgeInsets.all(5),
-      child: Card(
-        elevation: 5,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              height: 150,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(picture),
-                  fit: BoxFit.cover,
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => DetailsListCard(model: model),
+            ));
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(5),
+        child: Card(
+          elevation: 5,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                height: 150,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(picture),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: Text(
-                placeName,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Text(
+                  placeName,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
               ),
-            ),
-            Row(
-              children: [
-                const Padding(
-                  padding: EdgeInsets.only(left: 5),
-                  child: Icon(
-                    Icons.star,
-                    color: Colors.yellow,
+              Row(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(left: 5),
+                    child: Icon(
+                      Icons.star,
+                      color: Colors.yellow,
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 3),
-                  child: Text(placeRating.toString()),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                const Padding(
-                  padding: EdgeInsets.only(left: 5, top: 5),
-                  child: Icon(
-                    Icons.pin_drop_outlined,
-                    color: Color.fromARGB(255, 118, 17, 28),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 3),
+                    child: Text(placeRating.toString()),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 3, top: 5),
-                  child: Text(city),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 125, top: 15),
-                  child: Text('Harga', style: TextStyle(fontSize: 16)),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 90, top: 5),
-                  child: Text(
-                    "Rp. ${format.format(price)}",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ],
+              ),
+              Row(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(left: 5, top: 5),
+                    child: Icon(
+                      Icons.pin_drop_outlined,
+                      color: Color.fromARGB(255, 118, 17, 28),
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                  Padding(
+                    padding: const EdgeInsets.only(left: 3, top: 5),
+                    child: Text(city),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 125, top: 15),
+                    child: Text('Harga', style: TextStyle(fontSize: 16)),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 90, top: 5),
+                    child: Text(
+                      "Rp. ${format.format(price)}",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
