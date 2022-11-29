@@ -25,7 +25,8 @@ class _BookScreenState extends State<BookScreen> {
   String? _name = null;
   String? _email = null;
   String? _phone = null;
-  Future? _response;
+  // Future? _response;
+  String? _response;
 
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -60,6 +61,10 @@ class _BookScreenState extends State<BookScreen> {
         ]
       }),
     );
+    final extractedDatas = json.decode(response.body);
+    setState(() {
+      _response = extractedDatas.toString();
+    });
   }
 
   @override
@@ -235,7 +240,11 @@ class _BookScreenState extends State<BookScreen> {
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     try {
-                      _response = book(
+                      // _response = book(
+                      //     email: _email,
+                      //     attractionId: widget.model.id,
+                      //     quantity: _jumlahTiket);
+                      book(
                           email: _email,
                           attractionId: widget.model.id,
                           quantity: _jumlahTiket);
@@ -243,7 +252,7 @@ class _BookScreenState extends State<BookScreen> {
                       print(e);
                     }
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("$_response")),
+                      SnackBar(content: Text("${_response.toString()}")),
                     );
                   }
                 },

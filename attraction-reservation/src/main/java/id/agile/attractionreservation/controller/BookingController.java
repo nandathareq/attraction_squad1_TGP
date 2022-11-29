@@ -115,6 +115,10 @@ public BookingController(AttractionScheduleRepository attractionScheduleReposito
 		JSONArray itemsPost = new JSONArray();
 		JSONArray subInvoicesPost = new JSONArray();
 		JSONObject partnershipPost = new JSONObject();
+		JSONObject returnJson = new JSONObject();
+		JSONArray bookingCodesReturnJson = new JSONArray();
+		
+		returnJson.put("response", true);
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
@@ -170,16 +174,20 @@ public BookingController(AttractionScheduleRepository attractionScheduleReposito
 			String respPost = restTemplate.postForObject(partnershipBookUrl, entity, String.class);
 			JSONObject respJsonPost = new JSONObject(respPost);
 			subInvoice.setBookingCode(respJsonPost.get("bookingCode").toString());
+			JSONObject bookingCodeReturnJson = new JSONObject();
+			bookingCodeReturnJson.put("bookingCode", respJsonPost.get("bookingCode").toString());
+			bookingCodesReturnJson.put(bookingCodeReturnJson);
+			
 			System.out.println(subInvoicePost.toString());
 
 	
 		}
 //		partnershipPost.put("subInvoice",subInvoicesPost);
 		grandInvoiceRepository.save(grandInvoice);
+		returnJson.put("bookingCodes", bookingCodesReturnJson);
 		
 		
-		JSONObject returnJson = new JSONObject();
-		returnJson.put("response", true);
+		
 		
 		
 //		return returnJson.toString();
