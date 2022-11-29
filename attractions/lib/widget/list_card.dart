@@ -86,7 +86,7 @@ class ListCard extends StatelessWidget {
                     padding: EdgeInsets.only(left: 5),
                     child: Icon(
                       Icons.star,
-                      color: Colors.yellow,
+                      color: Colors.amber,
                     ),
                   ),
                   Padding(

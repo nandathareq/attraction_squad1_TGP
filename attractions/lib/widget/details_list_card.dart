@@ -39,7 +39,7 @@ class DetailsListCard extends StatelessWidget {
                   children: [
                     Padding(
                       padding:
-                          const EdgeInsets.only(left: 10, top: 10, bottom: 5),
+                          const EdgeInsets.only(left: 20, top: 10, bottom: 5),
                       child: Text(
                         model.placeName,
                         overflow: TextOverflow.ellipsis,
@@ -56,7 +56,7 @@ class DetailsListCard extends StatelessWidget {
                         Column(
                           children: [
                             Padding(
-                              padding: EdgeInsets.only(right: 5),
+                              padding: EdgeInsets.only(right: 5, top: 5),
                               child: Icon(
                                 Icons.favorite_border_outlined,
                                 color: Color.fromARGB(255, 118, 17, 28),
@@ -67,7 +67,7 @@ class DetailsListCard extends StatelessWidget {
                         Column(
                           children: [
                             Padding(
-                              padding: EdgeInsets.only(right: 5),
+                              padding: EdgeInsets.only(right: 20, top: 5),
                               child: Icon(
                                 Icons.share_outlined,
                                 color: Color.fromARGB(255, 118, 17, 28),
@@ -93,10 +93,10 @@ class DetailsListCard extends StatelessWidget {
             Row(
               children: [
                 const Padding(
-                  padding: EdgeInsets.only(left: 5),
+                  padding: EdgeInsets.only(left: 20),
                   child: Icon(
                     Icons.star,
-                    color: Colors.yellow,
+                    color: Colors.amber,
                   ),
                 ),
                 Padding(
@@ -108,7 +108,7 @@ class DetailsListCard extends StatelessWidget {
             Row(
               children: [
                 const Padding(
-                  padding: EdgeInsets.only(left: 5, top: 5),
+                  padding: EdgeInsets.only(left: 20, top: 5),
                   child: Icon(
                     Icons.pin_drop,
                     color: Color.fromARGB(255, 118, 17, 28),
@@ -123,7 +123,7 @@ class DetailsListCard extends StatelessWidget {
             Row(
               children: [
                 const Padding(
-                  padding: EdgeInsets.only(left: 5, top: 5),
+                  padding: EdgeInsets.only(left: 20, top: 5),
                   child: Icon(
                     Icons.whatsapp,
                     color: Color.fromARGB(255, 118, 17, 28),
@@ -138,7 +138,7 @@ class DetailsListCard extends StatelessWidget {
             Row(
               children: [
                 const Padding(
-                  padding: EdgeInsets.only(left: 5, top: 5),
+                  padding: EdgeInsets.only(left: 20, top: 5),
                   child: Icon(
                     Icons.payments_sharp,
                     color: Color.fromARGB(255, 118, 17, 28),
@@ -155,7 +155,7 @@ class DetailsListCard extends StatelessWidget {
                 Row(
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.only(left: 5, top: 15),
+                      padding: const EdgeInsets.only(left: 20, top: 15),
                       child: Card(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
@@ -179,13 +179,14 @@ class DetailsListCard extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 15),
                 ),
                 Divider(
-                  color: Colors.black,
-                  thickness: 1,
+                  thickness: 0.5,
+                  indent: 15,
+                  endIndent: 15,
                 ),
                 Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 10, top: 15),
+                      padding: const EdgeInsets.only(left: 20, top: 15),
                       child: Text(
                         "Deskripsi Obyek Wisata",
                         style: TextStyle(
@@ -198,7 +199,7 @@ class DetailsListCard extends StatelessWidget {
                   children: <Widget>[
                     Padding(
                       padding:
-                          const EdgeInsets.only(left: 10, top: 15, right: 10),
+                          const EdgeInsets.only(left: 20, top: 5, right: 20),
                       child: Text(
                         model.description,
                         textAlign: TextAlign.justify,
@@ -210,13 +211,14 @@ class DetailsListCard extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 15),
                 ),
                 Divider(
-                  color: Colors.black,
-                  thickness: 1,
+                  thickness: 0.5,
+                  indent: 15,
+                  endIndent: 15,
                 ),
                 Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 10, top: 15),
+                      padding: const EdgeInsets.only(left: 20, top: 15),
                       child: Text(
                         "Jam Buka",
                         style: TextStyle(
@@ -228,7 +230,7 @@ class DetailsListCard extends StatelessWidget {
                 Row(
                   children: [
                     const Padding(
-                      padding: EdgeInsets.only(left: 5, top: 10),
+                      padding: EdgeInsets.only(left: 20, top: 10),
                       child: Icon(
                         Icons.access_time_sharp,
                         color: Color.fromARGB(255, 118, 17, 28),
@@ -245,13 +247,14 @@ class DetailsListCard extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 15),
                 ),
                 Divider(
-                  color: Colors.black,
-                  thickness: 1,
+                  thickness: 0.5,
+                  indent: 15,
+                  endIndent: 15,
                 ),
                 Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 10, top: 15),
+                      padding: const EdgeInsets.only(left: 20, top: 15),
                       child: Text(
                         "Fasilitas Yang Tersedia",
                         style: TextStyle(
@@ -262,7 +265,7 @@ class DetailsListCard extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Padding(padding: EdgeInsets.only(left: 5, top: 35)),
+                    Padding(padding: EdgeInsets.only(left: 20, top: 35)),
                     for (String item in model.fasilities) Text(" ${item},")
                   ],
                 ),
