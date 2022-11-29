@@ -284,7 +284,7 @@ class DetailsListCard extends StatelessWidget {
                           child: const Text('Cari Tiket'),
                         ),
                       ),
-                      const SizedBox(height: 10)
+                      const SizedBox(height: 20)
                     ],
                   ),
                 ),
