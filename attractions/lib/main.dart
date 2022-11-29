@@ -1,4 +1,7 @@
+import 'package:attractions/provider/attraction_provider.dart';
+import 'package:attractions/screen/list_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,10 +13,22 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Flutter Demo',
-      home: MyHomePage(title: 'Lifestyle'),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => AttractionProvider(),
+        )
+      ],
+      child: const MaterialApp(
+        title: 'Attractions',
+        home: MyHomePage(title: 'Lifestyle'),
+      ),
     );
+
+    // return const MaterialApp(
+    //   title: 'Flutter Demo',
+    //   home: MyHomePage(title: 'Lifestyle'),
+    // );
   }
 }
 
@@ -73,19 +88,25 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
           ),
-          Container(
-            padding: const EdgeInsets.all(15),
-            child: Center(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
-                  Icon(
-                    Icons.attractions_outlined,
-                    size: 47.0,
-                  ),
-                  SizedBox(height: 3),
-                  Text('Atraksi'),
-                ],
+          InkWell(
+            onTap: () {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => ListScreen()));
+            },
+            child: Container(
+              padding: const EdgeInsets.all(15),
+              child: Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: const [
+                    Icon(
+                      Icons.attractions_outlined,
+                      size: 47.0,
+                    ),
+                    SizedBox(height: 3),
+                    Text('Atraksi'),
+                  ],
+                ),
               ),
             ),
           ),
