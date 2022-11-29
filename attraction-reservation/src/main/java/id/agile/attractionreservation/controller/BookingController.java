@@ -4,6 +4,8 @@ package id.agile.attractionreservation.controller;
 import java.awt.print.Printable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -86,7 +88,7 @@ public BookingController(AttractionScheduleRepository attractionScheduleReposito
 
 	
 	@PostMapping("/v1/ticket/book")
-	public void getAllAttractionSchedule(@RequestBody Map<String, ?> body,HttpServletRequest request)  {
+	public String getAllAttractionSchedule(@RequestBody Map<String, ?> body,HttpServletRequest request)  {
 		TimeZone tz = TimeZone.getTimeZone("GMT+07:00");
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
 		df.setTimeZone(tz);
@@ -102,7 +104,7 @@ public BookingController(AttractionScheduleRepository attractionScheduleReposito
 		GrandInvoice grandInvoice = new GrandInvoice(grandTotal,nowAsISO,deadlineAsISO,"UNPAID",user);
 		grandInvoiceRepository.save(grandInvoice);
 		
-		String partnershipBookUrl = "http://localhost:8000/partnership/book";
+		String partnershipBookUrl = "http://localhost:8000/partnership/payment/bookticket";
 
 		RestTemplate restTemplate = new RestTemplate();
 		
@@ -138,11 +140,14 @@ public BookingController(AttractionScheduleRepository attractionScheduleReposito
 				subInvoice.addInvoiceItem(invoiceItem);
 				invoiceItemRepository.save(invoiceItem);
 				
-				TimeZone tzPost = TimeZone.getTimeZone("GMT+07:00");
-				DateFormat dfPost = new SimpleDateFormat("yyyy-MM-dd"); // Quoted "Z" to indicate UTC, no timezone offset
-				dfPost.setTimeZone(tzPost);
-				String nowPost = dfPost.format(new Date(System.currentTimeMillis()));
 				
+				String now = (String) subInvoiceItemRequest.get("date");
+		        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm'Z'");
+		        LocalDateTime formatDateTime = LocalDateTime.parse(now, formatter);
+		        
+				DateTimeFormatter dfPost2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");   // Quoted "Z" to indicate UTC, no timezone offset
+				String nowPost = formatDateTime.format(dfPost2);
+
 				JSONObject itemPost = new JSONObject();
 				itemPost.put("attractionPlaceId", attractionPlaceId);
 				itemPost.put("qty", qty);
@@ -157,17 +162,22 @@ public BookingController(AttractionScheduleRepository attractionScheduleReposito
 			JSONObject subInvoicePost = new JSONObject();
 			subInvoicePost.put("email", userSubInvoice.getEmail());
 			subInvoicePost.put("name", userSubInvoice.getFirstName()+" "+userSubInvoice.getLastName());
-			subInvoicePost.put("subInvoiceId", subInvoice.getId());
-			subInvoicePost.put("items", itemsPost);
-			subInvoicesPost.put(subInvoicePost);
+			subInvoicePost.put("idInvoice", subInvoice.getId());
+			subInvoicePost.put("tickets", itemsPost);
+//			subInvoicesPost.put(subInvoicePost);
+			HttpEntity<String> entity = new HttpEntity<String>(subInvoicePost.toString(),headers);
+			restTemplate.postForObject(partnershipBookUrl, entity, String.class);
+
+	
 		}
-		partnershipPost.put("subInvoice",subInvoicesPost);
+//		partnershipPost.put("subInvoice",subInvoicesPost);
 		grandInvoiceRepository.save(grandInvoice);
 		
-		HttpEntity<String> entity = new HttpEntity<String>(partnershipPost.toString(),headers);
-		restTemplate.postForObject(partnershipBookUrl, entity, String.class);
-	
-		System.out.println(partnershipPost.toString());
+		
+		JSONObject returnJson = new JSONObject();
+		returnJson.put("response", true);
+		return returnJson.toString();
+		
 
 	}
 	
