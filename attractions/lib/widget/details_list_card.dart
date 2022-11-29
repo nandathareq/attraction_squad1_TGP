@@ -10,6 +10,7 @@ class DetailsListCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ButtonStyle style = ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         textStyle: const TextStyle(fontSize: 20),
         backgroundColor: Color.fromARGB(255, 118, 17, 28));
 
@@ -32,6 +33,7 @@ class DetailsListCard extends StatelessWidget {
               ),
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
                   children: [
@@ -48,17 +50,42 @@ class DetailsListCard extends StatelessWidget {
                   ],
                 ),
                 Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Container(
-                      child: Align(
-                        alignment: Alignment.topRight,
-                        child: Icon(
-                          Icons.pin_drop,
-                          color: Color.fromARGB(255, 118, 17, 28),
+                    Row(
+                      children: [
+                        Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(right: 5),
+                              child: Icon(
+                                Icons.favorite_border_outlined,
+                                color: Color.fromARGB(255, 118, 17, 28),
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
+                        Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(right: 5),
+                              child: Icon(
+                                Icons.share_outlined,
+                                color: Color.fromARGB(255, 118, 17, 28),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
+                    // Container(
+                    //   child: Padding(
+                    //     padding: EdgeInsets.only(right: 10),
+                    //     child: Icon(
+                    //       Icons.favorite_border_outlined,
+                    //       color: Color.fromARGB(255, 118, 17, 28),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ],
@@ -128,8 +155,23 @@ class DetailsListCard extends StatelessWidget {
                 Row(
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.only(left: 20, top: 15),
-                      child: Text(model.category),
+                      padding: const EdgeInsets.only(left: 5, top: 15),
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        color: Color.fromARGB(255, 118, 17, 28),
+                        child: SizedBox(
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                top: 5, bottom: 5, right: 10, left: 10),
+                            child: Text(
+                              model.category,
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),

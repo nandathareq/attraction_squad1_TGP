@@ -54,6 +54,8 @@ class ListCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(5),
         child: Card(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           elevation: 5,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,6 +63,9 @@ class ListCard extends StatelessWidget {
               Container(
                 height: 150,
                 decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(15),
+                      topRight: Radius.circular(15)),
                   image: DecorationImage(
                     image: NetworkImage(picture),
                     fit: BoxFit.cover,
@@ -106,17 +111,19 @@ class ListCard extends StatelessWidget {
                 ],
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 125, top: 15),
+                    padding: const EdgeInsets.only(right: 10, top: 15),
                     child: Text('Harga', style: TextStyle(fontSize: 16)),
                   ),
                 ],
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 90, top: 5),
+                    padding: const EdgeInsets.only(right: 10, top: 5),
                     child: Text(
                       "Rp. ${format.format(price)}",
                       style:
