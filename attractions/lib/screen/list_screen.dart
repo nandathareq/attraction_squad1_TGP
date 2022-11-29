@@ -15,6 +15,8 @@ class _ListScreen extends State<ListScreen> {
   bool _isLoading = false;
   bool _init = true;
 
+  final _scaffold = GlobalKey<ScaffoldState>();
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -45,6 +47,19 @@ class _ListScreen extends State<ListScreen> {
         appBar: AppBar(
           title: const Text('Attraction'),
           centerTitle: true,
+          actions: [
+            IconButton(
+                onPressed: () => {
+                      showModalBottomSheet(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Container(
+                              height: 1000,
+                            );
+                          })
+                    },
+                icon: Icon(Icons.sort))
+          ],
           backgroundColor: const Color.fromARGB(255, 118, 17, 28),
           bottom: PreferredSize(
             preferredSize: const TabBar(
