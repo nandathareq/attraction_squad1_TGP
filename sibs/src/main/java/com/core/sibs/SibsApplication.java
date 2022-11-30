@@ -15,6 +15,20 @@ public class SibsApplication {
 		SpringApplication.run(SibsApplication.class, args);
 	}
 
+	private String generateRekeningNumber(int n) {
+        String RekeningNumber = "0123456789";
+        StringBuilder sb = new StringBuilder(n);
+
+        for (int i = 0; i < n; i++) {
+            int index = (int) (RekeningNumber.length()
+                    * Math.random());
+
+            sb.append(RekeningNumber
+                    .charAt(index));
+        }
+        return sb.toString();
+    }
+
 	@Bean
 	CommandLineRunner init(NasabahRepository nasabahRepository, RekeningRepository rekeningRepository, KreditRepository kreditRepository, RekeningNasabahRepository rekeningNasabahRepository, KreditNasabahRepository kreditNasabahRepository){
 		return args -> {
@@ -133,7 +147,7 @@ public class SibsApplication {
 			// set rekening ownership and balance
 
 			RekeningNasabah escrow = new RekeningNasabah();
-			escrow.setNasabahCif(nasabah1);
+			escrow.setNasabah(nasabah1);
 			escrow.setRekeningId(rekening1);
 			escrow.setBalance(0);
 			rekeningNasabahRepository.save(escrow);
@@ -145,9 +159,10 @@ public class SibsApplication {
 			for (Nasabah nasabah : nasabahs) {
 				for (Rekening rekening : rekenings) {
 					RekeningNasabah rek = new RekeningNasabah();
-					rek.setNasabahCif(nasabah);
+					rek.setNasabah(nasabah);
 					rek.setRekeningId(rekening);
 					rek.setBalance(10000000.00);
+					rek.setNomorRekening(generateRekeningNumber(12));
 					rekeningNasabahRepository.save(rek);
 				}
 

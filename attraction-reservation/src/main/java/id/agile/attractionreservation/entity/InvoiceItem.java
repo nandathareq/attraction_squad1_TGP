@@ -47,25 +47,36 @@ public class InvoiceItem implements Serializable{
 	@JoinColumn(name = "sub_invoice_id", nullable = false)
 	private SubInvoice subInvoice;
 	
+	@Column(name="attraction_date")
+	private String attractionDate;
 	
-//	@ManyToMany(fetch = FetchType.EAGER)
-//    @JoinTable(
-//            name = "subInvoiceItem_ticket",
-//            joinColumns = @JoinColumn(name = "sub_invoice_item_id"),
-//            inverseJoinColumns = @JoinColumn(name = "ticket_id")
-//    )
-//    private Set<Ticket> tickets;
-// 
-//    public void addTicket(Ticket ticket) {
-//    	tickets.add(ticket);
-//    }
-//    public void removeTicket (Ticket ticket){
-//    	tickets.remove(ticket);
-//
-//    }
-//	
+	
+	
+	
+	@ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "subInvoiceItem_ticket",
+            joinColumns = @JoinColumn(name = "sub_invoice_item_id"),
+            inverseJoinColumns = @JoinColumn(name = "ticket_id")
+    )
+    private Set<Ticket> tickets;
+ 
+    public void addTicket(Ticket ticket) {
+    	tickets.add(ticket);
+    }
+    public void removeTicket (Ticket ticket){
+    	tickets.remove(ticket);
+
+    }
+	
 	
 
+	public String getAttractionDate() {
+		return attractionDate;
+	}
+	public void setAttractionDate(String attractionDate) {
+		this.attractionDate = attractionDate;
+	}
 	public InvoiceItem() {
 
 	}
@@ -76,17 +87,18 @@ public class InvoiceItem implements Serializable{
 		this.placeName = placeName;
 		this.subTotal = subTotal;
 		this.subInvoice = subInvoice;
-//		this.tickets = tickets;
+		this.tickets = tickets;
 		this.attractionPlaceId = attractionPlaceId;
 	}
 	
-	public InvoiceItem(int qty, int attractionPlaceId,String placeName, double subTotal, SubInvoice subInvoice) {
+	public InvoiceItem(int qty, int attractionPlaceId,String placeName, double subTotal, SubInvoice subInvoice, String attractionDate) {
 		super();
 		this.qty = qty;
 		this.placeName = placeName;
 		this.subTotal = subTotal;
 		this.subInvoice = subInvoice;
 		this.attractionPlaceId = attractionPlaceId;
+		this.attractionDate = attractionDate;
 		
 	}
 	

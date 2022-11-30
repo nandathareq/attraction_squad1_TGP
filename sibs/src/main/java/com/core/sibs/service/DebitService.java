@@ -5,12 +5,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.core.sibs.entity.Nasabah;
-import com.core.sibs.entity.Rekening;
-import com.core.sibs.entity.RekeningNasabah;
-import com.core.sibs.repository.NasabahRepository;
-import com.core.sibs.repository.RekeningNasabahRepository;
-import com.core.sibs.repository.RekeningRepository;
+import com.core.sibs.entity.*;
+import com.core.sibs.repository.*;
+
 
 @Component
 public class DebitService {
@@ -24,24 +21,24 @@ public class DebitService {
     @Autowired
     NasabahRepository nasabahRepo;
 
-    public boolean transferRekening(double nominal, long rekeningAsalId, 
-    long nasabahAsalId, long rekeningTujuanId, long nasabahTujuanId){
+    public boolean transferRekening(double nominal, long rekeningAsalId,
+            long nasabahAsalId, long rekeningTujuanId, long nasabahTujuanId) {
 
         Optional<Rekening> rekeningAsal = rekeningRepo.findById(rekeningAsalId);
         Optional<Nasabah> nasabahAsal = nasabahRepo.findById(nasabahAsalId);
-        
+
         Optional<Rekening> rekeningTujuan = rekeningRepo.findById(rekeningTujuanId);
         Optional<Nasabah> nasabahTujuan = nasabahRepo.findById(nasabahTujuanId);
 
         boolean isDebetSuccess = debetRekening(nominal, rekeningAsal, nasabahAsal);
-        if(isDebetSuccess){
+        if (isDebetSuccess) {
             kreditRekening(nominal, rekeningTujuan, nasabahTujuan);
         }
 
         return isDebetSuccess;
     }
 
-    public boolean debetRekeningExternal(double nominal, long rekeningAsalId, long nasabahAsalId){
+    public boolean debetRekeningExternal(double nominal, long rekeningAsalId, long nasabahAsalId) {
 
         Optional<Rekening> rekeningAsal = rekeningRepo.findById(rekeningAsalId);
         Optional<Nasabah> nasabahAsal = nasabahRepo.findById(nasabahAsalId);
@@ -52,7 +49,7 @@ public class DebitService {
     }
 
     public Boolean kreditRekeningExternal(double nominal, long rekeningAsalId, long nasabahAsalId) {
-        
+
         Optional<Rekening> rekeningAsal = rekeningRepo.findById(rekeningAsalId);
         Optional<Nasabah> nasabahAsal = nasabahRepo.findById(nasabahAsalId);
 
@@ -63,7 +60,7 @@ public class DebitService {
 
     private boolean debetRekening(double nominal, Optional<Rekening> rekeningAsal, Optional<Nasabah> nasabahAsal) {
         RekeningNasabah rekeningNasabah = rekeningNasabahRepo
-                .findByNasabahCifAndRekeningId(nasabahAsal, rekeningAsal);
+                .findByNasabahAndRekeningId(nasabahAsal, rekeningAsal);
 
         if (rekeningNasabah == null) {
             return false;
@@ -83,7 +80,7 @@ public class DebitService {
 
     private boolean kreditRekening(double nominal, Optional<Rekening> rekeningTujuan, Optional<Nasabah> nasabahTujuan) {
         RekeningNasabah rekeningNasabah = rekeningNasabahRepo
-                .findByNasabahCifAndRekeningId(nasabahTujuan, rekeningTujuan);
+                .findByNasabahAndRekeningId(nasabahTujuan, rekeningTujuan);
 
         if (rekeningNasabah == null) {
             return false;
