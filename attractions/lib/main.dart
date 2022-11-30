@@ -1,5 +1,7 @@
 import 'package:attractions/provider/attraction_provider.dart';
+import 'package:attractions/provider/reservation_detail_provider.dart';
 import 'package:attractions/screen/list_screen.dart';
+import 'package:attractions/screen/ringkasan_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,11 +19,13 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (_) => AttractionProvider(),
-        )
+        ),
+        ChangeNotifierProvider(create: (_) => ReservationProvider()),
       ],
-      child: const MaterialApp(
+      child: MaterialApp(
         title: 'Attractions',
         home: MyHomePage(title: 'Lifestyle'),
+        // home: RingkasanScreen(booking: 'gb14lo'),
       ),
     );
 

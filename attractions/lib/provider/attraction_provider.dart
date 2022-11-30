@@ -58,7 +58,7 @@ class AttractionProvider with ChangeNotifier {
                 .substring(1, attractions['facilities'].toString().length - 1),
             contactPerson: attractions['contactPerson'].toString(),
             picture: attractions['picture'].toString());
-        print(currentData.placeName);
+
         loadedDatas.add(currentData);
       });
       _attractions = loadedDatas;
@@ -66,5 +66,4 @@ class AttractionProvider with ChangeNotifier {
       rethrow;
     }
   }
-
 }

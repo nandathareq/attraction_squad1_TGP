@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:attractions/screen/ringkasan_screen.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:counter/counter.dart';
@@ -26,7 +27,7 @@ class _BookScreenState extends State<BookScreen> {
   String? _email = null;
   String? _phone = null;
   // Future? _response;
-  String? _response;
+  Map<String, dynamic>? _response;
 
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -55,15 +56,17 @@ class _BookScreenState extends State<BookScreen> {
                 "qty": quantity,
                 "subTotal": 600000.0,
                 "date": "2022-11-28T10:46Z"
-              },
+              }
             ]
           }
         ]
       }),
     );
     final extractedDatas = json.decode(response.body);
+
+    // print(extractedDatas.toString());
     setState(() {
-      _response = extractedDatas.toString();
+      _response = extractedDatas;
     });
   }
 
@@ -237,23 +240,33 @@ class _BookScreenState extends State<BookScreen> {
                 style: TextButton.styleFrom(
                     primary: Colors.white,
                     backgroundColor: const Color.fromARGB(255, 118, 17, 28)),
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     try {
                       // _response = book(
                       //     email: _email,
                       //     attractionId: widget.model.id,
                       //     quantity: _jumlahTiket);
-                      book(
+                      await book(
                           email: _email,
                           attractionId: widget.model.id,
                           quantity: _jumlahTiket);
+
+                      print(_response.toString());
+
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RingkasanScreen(
+                                booking: _response?['bookingCodes'][0]
+                                    ['bookingCode']),
+                          ));
                     } catch (e) {
                       print(e);
                     }
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("${_response.toString()}")),
-                    );
+                    // ScaffoldMessenger.of(context).showSnackBar(
+                    //   SnackBar(content: Text("${_response.toString()}")),
+                    // );
                   }
                 },
                 child: const Text('Pesan')),
