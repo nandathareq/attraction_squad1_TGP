@@ -2,11 +2,27 @@ import 'package:attractions/model/attraction_model.dart';
 import 'package:attractions/screen/book_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:share_plus/share_plus.dart';
 
 class DetailsListCard extends StatelessWidget {
   final AttractionModel model;
 
   DetailsListCard({super.key, required this.model});
+
+  void _onShare(BuildContext context, String title, String url) async {
+    // A builder is used to retrieve the context immediately
+    // surrounding the ElevatedButton.
+    //
+    // The context's `findRenderObject` returns the first
+    // RenderObject in its descendent tree when it's not
+    // a RenderObjectWidget. The ElevatedButton's RenderObject
+    // has its position and size after it's built.
+    final box = context.findRenderObject() as RenderBox?;
+
+    await Share.share("$title - $url",
+        subject: title,
+        sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,12 +84,23 @@ class DetailsListCard extends StatelessWidget {
                         Column(
                           children: [
                             Padding(
-                              padding: EdgeInsets.only(right: 20, top: 5),
-                              child: Icon(
-                                Icons.share_outlined,
-                                color: Color.fromARGB(255, 118, 17, 28),
-                              ),
-                            ),
+                                padding: EdgeInsets.only(right: 20, top: 5),
+                                child: IconButton(
+                                  onPressed: () {
+                                    _onShare(context, model.placeName,
+                                        model.description);
+                                  },
+                                  icon: Icon(
+                                    Icons.share_outlined,
+                                    color: Color.fromARGB(255, 118, 17, 28),
+                                  ),
+                                )
+
+                                // Icon(
+                                //   Icons.share_outlined,
+                                //   color: Color.fromARGB(255, 118, 17, 28),
+                                // ),
+                                ),
                           ],
                         ),
                       ],
@@ -286,7 +313,7 @@ class DetailsListCard extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                     BookScreen(model: model),
+                                      BookScreen(model: model),
                                 ));
                           },
                           child: const Text('Cari Tiket'),

@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
@@ -34,6 +35,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -43,6 +45,7 @@ import id.agile.attractionreservation.entity.AttractionSchedule;
 import id.agile.attractionreservation.entity.GrandInvoice;
 import id.agile.attractionreservation.entity.InvoiceItem;
 import id.agile.attractionreservation.entity.SubInvoice;
+import id.agile.attractionreservation.entity.Ticket;
 import id.agile.attractionreservation.entity.User;
 import id.agile.attractionreservation.repository.AttractionPlaceRepository;
 import id.agile.attractionreservation.repository.AttractionReviewRepository;
@@ -115,6 +118,10 @@ public BookingController(AttractionScheduleRepository attractionScheduleReposito
 		JSONArray itemsPost = new JSONArray();
 		JSONArray subInvoicesPost = new JSONArray();
 		JSONObject partnershipPost = new JSONObject();
+		JSONObject returnJson = new JSONObject();
+		JSONArray bookingCodesReturnJson = new JSONArray();
+		
+		returnJson.put("response", true);
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
@@ -136,7 +143,8 @@ public BookingController(AttractionScheduleRepository attractionScheduleReposito
 				String placeName = (String) subInvoiceItemRequest.get("placeName");
 				int qty = (int) subInvoiceItemRequest.get("qty");
 				double subTotal = (double) subInvoiceItemRequest.get("subTotal");
-				InvoiceItem invoiceItem = new InvoiceItem(qty,attractionPlaceId,placeName,subTotal,subInvoice);
+				String attractionDate = (String) subInvoiceItemRequest.get("date");
+				InvoiceItem invoiceItem = new InvoiceItem(qty,attractionPlaceId,placeName,subTotal,subInvoice,attractionDate);
 				subInvoice.addInvoiceItem(invoiceItem);
 				invoiceItemRepository.save(invoiceItem);
 				
@@ -163,6 +171,7 @@ public BookingController(AttractionScheduleRepository attractionScheduleReposito
 			subInvoicePost.put("email", userSubInvoice.getEmail());
 			subInvoicePost.put("name", userSubInvoice.getFirstName()+" "+userSubInvoice.getLastName());
 			subInvoicePost.put("idInvoice", subInvoice.getId());
+			
 			subInvoicePost.put("tickets", itemsPost);
 //			subInvoicesPost.put(subInvoicePost);
 			HttpEntity<String> entity = new HttpEntity<String>(subInvoicePost.toString(),headers);
@@ -170,16 +179,20 @@ public BookingController(AttractionScheduleRepository attractionScheduleReposito
 			String respPost = restTemplate.postForObject(partnershipBookUrl, entity, String.class);
 			JSONObject respJsonPost = new JSONObject(respPost);
 			subInvoice.setBookingCode(respJsonPost.get("bookingCode").toString());
+			JSONObject bookingCodeReturnJson = new JSONObject();
+			bookingCodeReturnJson.put("bookingCode", respJsonPost.get("bookingCode").toString());
+			bookingCodesReturnJson.put(bookingCodeReturnJson);
+			
 			System.out.println(subInvoicePost.toString());
 
 	
 		}
 //		partnershipPost.put("subInvoice",subInvoicesPost);
 		grandInvoiceRepository.save(grandInvoice);
+		returnJson.put("bookingCodes", bookingCodesReturnJson);
 		
 		
-		JSONObject returnJson = new JSONObject();
-		returnJson.put("response", true);
+		
 		
 		
 //		return returnJson.toString();
@@ -199,6 +212,85 @@ public BookingController(AttractionScheduleRepository attractionScheduleReposito
 
 	}
 	
+	@GetMapping("/v1/subInvoice/detail")
+	public ResponseEntity<?> getSubInvoiceDetail(HttpServletRequest request,@RequestParam(required = false) Map<String, String> params)  {
+		JSONObject subInvoiceJson = new JSONObject();
+		JSONArray subInvoiceItemsJson = new JSONArray();
+		JSONObject userJson = new JSONObject();
+		
+		int subInvoiceId = Integer.parseInt(params.get("subInvoiceId")) ;
+		
+		Optional<SubInvoice> subInvoice = subInvoiceRepository.findById(subInvoiceId);
+		subInvoiceJson.put("subInvoiceId",subInvoice.get().getId());
+		subInvoiceJson.put("bookingCode",subInvoice.get().getBookingCode());
+		subInvoiceJson.put("raisedDate",subInvoice.get().getRaisedDate());
+		subInvoiceJson.put("dueDate",subInvoice.get().getDueDate());
+		subInvoiceJson.put("status",subInvoice.get().getStatus());
+		subInvoiceJson.put("grandInvoiceId",subInvoice.get().getGrandInvoice().getId());
+		subInvoiceJson.put("nomorRekening", subInvoice.get().getAccountNumber());
+		subInvoiceJson.put("idTransaksi", subInvoice.get().getIdTransaction());
+		subInvoiceJson.put("paidDate",subInvoice.get().getPaidDate());
+		subInvoiceJson.put("total",subInvoice.get().getTotal());
+
+		userJson.put("userId", subInvoice.get().getUser().getId());
+		userJson.put("userName", subInvoice.get().getUser().getFirstName()+" "+subInvoice.get().getUser().getLastName());
+		userJson.put("userEmail", subInvoice.get().getUser().getEmail());
+		subInvoiceJson.put("user", userJson);
+		
+		
+		
+		
+		for (InvoiceItem invoiceItem : subInvoice.get().getInvoiceItems()) {
+			JSONObject subInvoiceItemJson = new JSONObject();
+			subInvoiceItemJson.put("placeName",invoiceItem.getPlaceName());
+			subInvoiceItemJson.put("qty",invoiceItem.getQty());
+			subInvoiceItemJson.put("subTotal",invoiceItem.getSubTotal());
+			subInvoiceItemJson.put("attractionDate",invoiceItem.getAttractionDate());
+			subInvoiceItemsJson.put(subInvoiceItemJson);
+		}
+		subInvoiceJson.put("items",subInvoiceItemsJson);
+
+		return new ResponseEntity<Map<String,Object>>(subInvoiceJson.toMap(),HttpStatus.OK);
+
+		
+	}
+	
+	@GetMapping("/v1/ticket/detail")
+	public ResponseEntity<?> getTicketDetail(HttpServletRequest request,@RequestParam(required = false) Map<String, String> params)  {
+		JSONObject ticketRespJson = new JSONObject();
+		JSONArray ticketsJson = new JSONArray();
+		JSONObject userJson = new JSONObject();
+
+		String bookingCode = params.get("bookingCode") ;
+		
+		List<Ticket> tickets = ticketRepository.findByBookingCode(bookingCode);
+
+		Optional<SubInvoice> subInvoice = subInvoiceRepository.getOneByBookingCode(bookingCode);
+		
+		userJson.put("userId", subInvoice.get().getUser().getId());
+		userJson.put("userName", subInvoice.get().getUser().getFirstName()+" "+subInvoice.get().getUser().getLastName());
+		userJson.put("userEmail", subInvoice.get().getUser().getEmail());
+		userJson.put("userMobileNumber", subInvoice.get().getUser().getMobileNumber());
+		ticketRespJson.put("user", userJson);
+
+		for (Ticket ticket : tickets) {
+			JSONObject ticketJson = new JSONObject();
+			ticketJson.put("ticketId",ticket.getId());
+			ticketJson.put("attractionPlaceId",ticket.getAttractionPlaceId());
+			ticketJson.put("placeName",ticket.getPlaceName());
+			ticketJson.put("attractionDate",ticket.getAttractionDate());
+			ticketJson.put("bookingCode",ticket.getBookingCode());
+			ticketJson.put("ticketCode",ticket.getTicketCode());
+			ticketsJson.put(ticketJson);
+			
+		}
+		
+		ticketRespJson.put("tickets", ticketsJson);
+		
+		return new ResponseEntity<Map<String,Object>>(ticketRespJson.toMap(),HttpStatus.OK);
+
+		
+	}
 
 
 

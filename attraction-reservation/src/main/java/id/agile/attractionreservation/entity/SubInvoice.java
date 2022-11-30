@@ -42,6 +42,37 @@ public class SubInvoice implements Serializable{
 	@Column(name="due_date")
 	private String dueDate;
 	
+	@Column(name="paid_date")
+	private String paidDate;
+	
+	@Column(name="id_transaction")
+	private String idTransaction;
+	
+	@Column(name="account_number")
+	private String accountNumber;
+	
+	
+	public SubInvoice(int id, double total, String bookingCode, String raisedDate, String dueDate, String paidDate,
+			String status, Set<InvoiceItem> invoiceItems, GrandInvoice grandInvoice, User user) {
+		super();
+		this.id = id;
+		this.total = total;
+		this.bookingCode = bookingCode;
+		this.raisedDate = raisedDate;
+		this.dueDate = dueDate;
+		this.paidDate = paidDate;
+		this.status = status;
+		this.invoiceItems = invoiceItems;
+		this.grandInvoice = grandInvoice;
+		this.user = user;
+	}
+	public String getPaidDate() {
+		return paidDate;
+	}
+	public void setPaidDate(String paidDate) {
+		this.paidDate = paidDate;
+	}
+
 	@Column(name="status")
 	private String status;
 	
@@ -72,19 +103,7 @@ public class SubInvoice implements Serializable{
 
 	}
     
-	public SubInvoice(  double total, String raisedDate, String dueDate, String status,
-			Set<InvoiceItem> invoiceItems, GrandInvoice grandInvoice, User user, String bookingCode) {
-		super();
-		this.bookingCode = bookingCode;
-		this.total = total;
-		this.raisedDate = raisedDate;
-		this.dueDate = dueDate;
-		this.status = status;
-		this.invoiceItems = invoiceItems;
-		this.grandInvoice = grandInvoice;
-		this.user = user;
 
-	}
 	
 	public SubInvoice(  double total, String raisedDate, String dueDate, String status,
 			 GrandInvoice grandInvoice, User user) {
@@ -154,7 +173,18 @@ public class SubInvoice implements Serializable{
 	public void setBookingCode(String bookingCode) {
 		this.bookingCode = bookingCode;
 	}
-	
+	public String getIdTransaction() {
+		return idTransaction;
+	}
+	public void setIdTransaction(String idTransaction) {
+		this.idTransaction = idTransaction;
+	}
+	public String getAccountNumber() {
+		return accountNumber;
+	}
+	public void setAccountNumber(String accountNumber) {
+		this.accountNumber = accountNumber;
+	}
 
 
     
