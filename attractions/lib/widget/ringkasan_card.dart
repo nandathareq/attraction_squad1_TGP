@@ -3,8 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class RingkasanCard extends StatelessWidget {
+  final String bookingCode;
+  final double total;
+  final List<dynamic> items;
+
+  const RingkasanCard(
+      {Key? key,
+      required this.bookingCode,
+      required this.total,
+      required this.items});
+
   @override
   Widget build(BuildContext context) {
+    final format = new NumberFormat("#,##0", "en_US");
     final ButtonStyle gaya = ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         textStyle: const TextStyle(fontSize: 20),
@@ -51,7 +62,7 @@ class RingkasanCard extends StatelessWidget {
                         Padding(
                             padding: EdgeInsets.only(bottom: 5),
                             child: Text(
-                              "Rp. 100.000",
+                              "Rp.${format.format(total)}",
                               style: TextStyle(
                                   fontSize: 32, fontWeight: FontWeight.bold),
                             )),

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:attractions/screen/ringkasan_screen.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:counter/counter.dart';
@@ -55,15 +56,17 @@ class _BookScreenState extends State<BookScreen> {
                 "qty": quantity,
                 "subTotal": 600000.0,
                 "date": "2022-11-28T10:46Z"
-              },
+              }
             ]
           }
         ]
       }),
     );
     final extractedDatas = json.decode(response.body);
+
+    print(extractedDatas.toString());
     setState(() {
-      _response = extractedDatas.toString();
+      _response = extractedDatas;
     });
   }
 
@@ -248,6 +251,13 @@ class _BookScreenState extends State<BookScreen> {
                           email: _email,
                           attractionId: widget.model.id,
                           quantity: _jumlahTiket);
+
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                RingkasanScreen(booking: _response.toString()),
+                          ));
                     } catch (e) {
                       print(e);
                     }
