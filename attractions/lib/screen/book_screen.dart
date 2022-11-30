@@ -255,8 +255,9 @@ class _BookScreenState extends State<BookScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                                RingkasanScreen(booking: _response.toString()),
+                            builder: (context) => RingkasanScreen(
+                                booking: _response['bookingCodes'][0]
+                                    ['bookingCode']),
                           ));
                     } catch (e) {
                       print(e);
