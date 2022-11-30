@@ -1,37 +1,26 @@
 package com.core.sibs.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
 
-import com.core.sibs.controller.entity.ExternalRequest;
-import com.core.sibs.controller.entity.TransferRequest;
-import com.core.sibs.service.DebitService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import com.core.sibs.entity.RekeningNasabah;
+import com.core.sibs.service.ShowService;
+
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 @RestController
-@RequestMapping("/core_banking")
+@RequestMapping("/core_banking/details")
 public class testcontroller {
 
     @Autowired
-    DebitService debitService;
+    ShowService showService;
 
-    @PostMapping("/internal/transfer")
-    public Boolean trensferInternal(@RequestBody TransferRequest transferRequest) {
-
-        return debitService.transferRekening(transferRequest.getNominal(), transferRequest.getRekeningIdAsal(), transferRequest.getCifAsal(), transferRequest.getRekeningIdTujuan(), transferRequest.getCifTujuan());
+    @GetMapping("/{id}")
+    public List<RekeningNasabah> details(@PathVariable(required=true,name="id") Long id) {
+        return showService.getRekening(id);
     }
-
-    @PostMapping("/external/debet")
-    public Boolean debitExternal(@RequestBody ExternalRequest externalRequest) {
-
-        return debitService.debetRekeningExternal(externalRequest.getNominal(), externalRequest.getRekeningId(), externalRequest.getCif());
-    }
-
-    @PostMapping("/external/kredit")
-    public Boolean test(@RequestBody ExternalRequest externalRequest) {
-
-        return debitService.kreditRekeningExternal(externalRequest.getNominal(), externalRequest.getRekeningId(), externalRequest.getCif());
-    }
+    
 }

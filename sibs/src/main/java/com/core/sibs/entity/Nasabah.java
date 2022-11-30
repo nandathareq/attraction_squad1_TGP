@@ -11,7 +11,8 @@ public class Nasabah {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long cif;
+    @Column(name = "nasabah_id")
+    private long id;
 
     @Column(name = "nama_nasabah")
     private String nama;
