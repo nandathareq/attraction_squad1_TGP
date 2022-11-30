@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.partnership.attraction.controller.dto.BookingCodeDto;
 import com.partnership.attraction.controller.requestEntity.InvoiceRequest;
+import com.partnership.attraction.controller.requestEntity.PaymentRequest;
 import com.partnership.attraction.service.PaymentService;
 
 @RestController
@@ -18,9 +19,9 @@ public class PaymentController {
     public BookingCodeDto bookTicket(@RequestBody InvoiceRequest invoiceRequest){
         return paymentService.generateBookingCode(invoiceRequest);
     }
-//    @PostMapping("/bookticket")
-//    public String bookTicket(@RequestBody InvoiceRequest invoiceRequest){
-//        return "dafkjgs";
-//    }
-//    
+   @PostMapping("/payticket")
+   public boolean payTicket(@RequestBody PaymentRequest paymentRequest){
+       return paymentService.receivePayment(paymentRequest);
+   }
+   
 }

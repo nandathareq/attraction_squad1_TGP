@@ -25,6 +25,21 @@ public class PaymentService {
     @Autowired
     InvoiceRepository invoiceRepo;
 
+    public boolean receivePayment(PaymentRequest paymentRequest){
+
+        Invoice invoice = invoiceRepo.findByBookingCode(paymentRequest.getKodeBooking());
+
+        if(invoice.getTotalPrice() != paymentRequest.getNominal()){
+            return false;
+        }
+
+        invoice.setPaid(true);
+
+        invoiceRepo.save(invoice);
+
+        return true;
+    }
+
     public BookingCodeDto generateBookingCode(InvoiceRequest invoiceRequest) {
 
         if (!ticketsAvailabilityCheck(invoiceRequest.getTickets())) {

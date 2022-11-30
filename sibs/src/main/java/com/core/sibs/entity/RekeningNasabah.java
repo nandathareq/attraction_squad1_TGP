@@ -18,16 +18,17 @@ public class RekeningNasabah {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rekening", nullable = false)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
+    @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
     private Rekening rekeningId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "nasabah", nullable = false)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
+    @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
     private Nasabah nasabah;
 
     private double balance;
 
+    @Column(name = "nomor_rekening")
     private String nomorRekening;
 
 }

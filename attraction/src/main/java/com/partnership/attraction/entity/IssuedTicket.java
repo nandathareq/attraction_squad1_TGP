@@ -1,5 +1,7 @@
 package com.partnership.attraction.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,9 +20,11 @@ public class IssuedTicket {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "attraction_schedule_id")
+    @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
     private AttractionSchedule schedule;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idInvoice")
+    @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
     private Invoice invoice;
 }

@@ -6,6 +6,7 @@ import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import com.partnership.attraction.controller.dto.TicketDto;
 import com.partnership.attraction.entity.AttractionPlace;
 import com.partnership.attraction.service.DisplayDataService;
 
@@ -56,16 +57,21 @@ public class DisplayDataController {
     }
 
     @GetMapping("/details/{id}")
-    public AttractionPlace details(@PathVariable(required=true,name="id") Integer id) {
+    public AttractionPlace details(@PathVariable(required = true, name = "id") Integer id) {
         return displayDataService.showDetails(id);
     }
 
     @GetMapping("/available")
-    public String details(@RequestParam(required = false) Map<String, String> params) throws ParseException {
+    public String availableDetails(@RequestParam(required = false) Map<String, String> params) throws ParseException {
         int id = Integer.parseInt(params.get("attractionId"));
         String date = params.get("date");
         int quantity = Integer.parseInt(params.get("quantity"));
         return displayDataService.isAvailable(id, date, quantity);
+    }
+
+    @GetMapping("/ticket/{bookingcode}")
+    public List<TicketDto> getTickets(@PathVariable(required = true, name = "bookingcode") String bookingCode) {
+        return displayDataService.getTickets(bookingCode);
     }
 
 }

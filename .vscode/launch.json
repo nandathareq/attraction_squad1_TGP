@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-SibsApplication<sibs>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.core.sibs.SibsApplication",
+            "projectName": "sibs",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-AttractionApplication<attraction>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.partnership.attraction.AttractionApplication",
+            "projectName": "attraction",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

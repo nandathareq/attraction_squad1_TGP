@@ -39,6 +39,7 @@ public class SibsApplication {
 				nasabah1 = new Nasabah();
 				nasabah1.setNama("CIMB NIAGA");
 				nasabah1.setNoTelpon("081533465435");
+				nasabah1.setPin("123456");
 				nasabahRepository.save(nasabah1);
 			}
 
@@ -47,6 +48,7 @@ public class SibsApplication {
 				nasabah2 = new Nasabah();
 				nasabah2.setNama("Faishal Fachtur");
 				nasabah2.setNoTelpon("0856454327854");
+				nasabah2.setPin("123456");
 				nasabahRepository.save(nasabah2);
 			}
 
@@ -55,6 +57,7 @@ public class SibsApplication {
 				nasabah3 = new Nasabah();
 				nasabah3.setNama("Fachry Firdaus");
 				nasabah3.setNoTelpon("0811176546787");
+				nasabah3.setPin("123456");
 				nasabahRepository.save(nasabah3);
 			}
 
@@ -63,6 +66,7 @@ public class SibsApplication {
 				nasabah4 = new Nasabah();
 				nasabah4.setNama("Sonya Barista");
 				nasabah4.setNoTelpon("0878263746534");
+				nasabah4.setPin("123456");
 				nasabahRepository.save(nasabah4);
 			}
 
@@ -71,6 +75,7 @@ public class SibsApplication {
 				nasabah5 = new Nasabah();
 				nasabah5.setNama("Dhimas Putranto");
 				nasabah5.setNoTelpon("085676545879");
+				nasabah5.setPin("123456");
 				nasabahRepository.save(nasabah5);
 			}
 
@@ -80,6 +85,7 @@ public class SibsApplication {
 				nasabah6 = new Nasabah();
 				nasabah6.setNama("Nanda Thareq");
 				nasabah6.setNoTelpon("085837575964");
+				nasabah6.setPin("123456");
 				nasabahRepository.save(nasabah6);
 			}
 
