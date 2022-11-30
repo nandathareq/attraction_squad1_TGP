@@ -77,7 +77,7 @@ class _BookScreenState extends State<BookScreen> {
       ),
       body: Container(
         padding: const EdgeInsets.all(20),
-        child: Column(
+        child: ListView(
           children: [
             const Text(
               "Detail Pesanan",
