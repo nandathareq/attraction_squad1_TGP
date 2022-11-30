@@ -2,6 +2,8 @@ package com.core.sibs.entity;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.*;
 
 @Entity
@@ -15,12 +17,17 @@ public class RekeningNasabah {
     private long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "rekening_id", nullable = false)
+    @JoinColumn(name = "rekening", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
     private Rekening rekeningId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cif", nullable = false)
-    private Nasabah nasabahCif;
+    @JoinColumn(name = "nasabah", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
+    private Nasabah nasabah;
 
     private double balance;
+
+    private String nomorRekening;
+
 }

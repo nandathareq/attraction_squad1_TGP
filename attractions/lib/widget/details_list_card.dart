@@ -29,7 +29,7 @@ class DetailsListCard extends StatelessWidget {
     final ButtonStyle style = ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         textStyle: const TextStyle(fontSize: 20),
-        backgroundColor: Color.fromARGB(255, 118, 17, 28));
+        backgroundColor: const Color.fromARGB(255, 118, 17, 28));
 
     final format = new NumberFormat("#,##0", "en_US");
     return Container(

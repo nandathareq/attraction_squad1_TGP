@@ -66,5 +66,4 @@ class AttractionProvider with ChangeNotifier {
       rethrow;
     }
   }
-
 }
