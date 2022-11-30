@@ -91,7 +91,7 @@ public BookingController(AttractionScheduleRepository attractionScheduleReposito
 
 	
 	@PostMapping("/v1/ticket/book")
-	public ResponseEntity getAllAttractionSchedule(@RequestBody Map<String, ?> body,HttpServletRequest request)  {
+	public ResponseEntity bookTicket(@RequestBody Map<String, ?> body,HttpServletRequest request)  {
 		TimeZone tz = TimeZone.getTimeZone("GMT+07:00");
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
 		df.setTimeZone(tz);
@@ -218,9 +218,10 @@ public BookingController(AttractionScheduleRepository attractionScheduleReposito
 		JSONArray subInvoiceItemsJson = new JSONArray();
 		JSONObject userJson = new JSONObject();
 		
-		int subInvoiceId = Integer.parseInt(params.get("subInvoiceId")) ;
-		
-		Optional<SubInvoice> subInvoice = subInvoiceRepository.findById(subInvoiceId);
+//		int subInvoiceId = Integer.parseInt(params.get("subInvoiceId")) ;
+		String bookingCode = params.get("bookingCode") ;
+//		Optional<SubInvoice> subInvoice = subInvoiceRepository.findById(subInvoiceId);
+		Optional<SubInvoice> subInvoice = subInvoiceRepository.getOneByBookingCode(bookingCode);
 		subInvoiceJson.put("subInvoiceId",subInvoice.get().getId());
 		subInvoiceJson.put("bookingCode",subInvoice.get().getBookingCode());
 		subInvoiceJson.put("raisedDate",subInvoice.get().getRaisedDate());
@@ -290,6 +291,22 @@ public BookingController(AttractionScheduleRepository attractionScheduleReposito
 		return new ResponseEntity<Map<String,Object>>(ticketRespJson.toMap(),HttpStatus.OK);
 
 		
+	}
+	
+	@PostMapping("/v1/ticket/pay")
+	public ResponseEntity<?> getAllAttractionSchedule(@RequestBody Map<String, ?> body,HttpServletRequest request)  {
+		JSONObject respJson = new JSONObject();
+		respJson.put("grandTotal", body.get("grandTotal"));
+		respJson.put("issuer", body.get("issuer"));
+		respJson.put("bookingCode", body.get("bookingCode"));
+		respJson.put("nomorRekening", body.get("nomorRekening"));
+		respJson.put("pin", body.get("pin"));
+		System.out.println(respJson.toMap());
+		return new ResponseEntity<Map<String,Object>>(respJson.toMap(),HttpStatus.OK);
+		
+		
+		
+
 	}
 
 
