@@ -73,7 +73,7 @@ class _ListScreen extends State<ListScreen> {
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       Padding(
-                        padding: EdgeInsets.fromLTRB(0, 30, 0, 15),
+                        padding: const EdgeInsets.fromLTRB(0, 30, 0, 15),
                         child: Container(
                           height: 5,
                           width: 100,
@@ -94,7 +94,7 @@ class _ListScreen extends State<ListScreen> {
                             ),
                           ),
                           subtitle: GroupButton(
-                            options: GroupButtonOptions(
+                            options: const GroupButtonOptions(
                               selectedColor: Color.fromARGB(255, 118, 17, 28),
                             ),
                             isRadio: false,
@@ -132,7 +132,7 @@ class _ListScreen extends State<ListScreen> {
                             ),
                           ),
                           subtitle: GroupButton(
-                            options: GroupButtonOptions(
+                            options: const GroupButtonOptions(
                               selectedColor: Color.fromARGB(255, 118, 17, 28),
                             ),
                             isRadio: false,
@@ -169,7 +169,7 @@ class _ListScreen extends State<ListScreen> {
                             ),
                           ),
                           subtitle: GroupButton(
-                            options: GroupButtonOptions(
+                            options: const GroupButtonOptions(
                               selectedColor: Color.fromARGB(255, 118, 17, 28),
                             ),
                             isRadio: false,
@@ -181,7 +181,7 @@ class _ListScreen extends State<ListScreen> {
                             ],
                             maxSelected: 1,
                           )),
-                      Padding(
+                      const Padding(
                           padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
                           child: Divider(
                             indent: 10,
@@ -191,7 +191,7 @@ class _ListScreen extends State<ListScreen> {
                           )),
                       Container(
                         width: double.infinity,
-                        padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                        padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                         child: TextButton(
                             onPressed: () {
                               // setState(() {
