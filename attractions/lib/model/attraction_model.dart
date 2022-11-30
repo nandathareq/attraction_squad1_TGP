@@ -1,4 +1,5 @@
 class AttractionModel {
+  // final List<Map<String,dynamic>> items;
   final int id;
   final String placeName;
   final String description;
