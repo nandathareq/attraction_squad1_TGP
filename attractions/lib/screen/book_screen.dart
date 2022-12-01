@@ -72,7 +72,7 @@ class _BookScreenState extends State<BookScreen> {
     );
     final extractedDatas = json.decode(response.body);
 
-    // print(extractedDatas.toString());
+    print(extractedDatas.toString());
     setState(() {
       _response = extractedDatas;
     });

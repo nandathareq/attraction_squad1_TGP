@@ -48,7 +48,7 @@ public class DebitService {
     public HashMap<String, Object> debetRekeningExternal(ExternalRequest externalRequest) {
 
         HashMap<String, Object> response = new HashMap<String, Object>();
-
+        
         String pinRequest = externalRequest.getPin();
         String pinNasabah = rekeningNasabahRepo
                 .findByNomorRekening(externalRequest.getNoRekening())
