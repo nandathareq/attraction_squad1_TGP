@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../widget/get_tiket_card.dart';
 import 'package:provider/provider.dart';
-
+import 'package:attractions/screen/list_screen.dart';
 import '../provider/gettiket_provider.dart';
 
 class GetTiketScreen extends StatefulWidget {
@@ -48,6 +48,18 @@ class _GetTiketScreen extends State<GetTiketScreen> {
           child: Text('Detail Tiket'),
         ),
         backgroundColor: const Color.fromARGB(255, 118, 17, 28),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => ListScreen()),
+                    (Route<dynamic> route) => false);
+              },
+              icon: Icon(
+                Icons.home,
+                color: Colors.white,
+              ))
+        ],
       ),
       body: ListView(
         children: [

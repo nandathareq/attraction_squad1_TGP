@@ -92,6 +92,7 @@ public BookingController(AttractionScheduleRepository attractionScheduleReposito
 	
 	@PostMapping("/v1/ticket/book")
 	public ResponseEntity bookTicket(@RequestBody Map<String, ?> body,HttpServletRequest request)  {
+		System.out.println(body.toString());
 		TimeZone tz = TimeZone.getTimeZone("GMT+07:00");
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
 		df.setTimeZone(tz);
@@ -382,6 +383,20 @@ public BookingController(AttractionScheduleRepository attractionScheduleReposito
 		
 		
 
+	}
+	
+	@GetMapping("/v1/subInvoice")
+	public ResponseEntity<?> getSubInvoiceList(HttpServletRequest request,@RequestParam(required = false) Map<String, String> params)  {
+		
+		
+		int userId = Integer.parseInt(params.get("userId")) ;
+		User user = userRepository.findById(userId).get();
+		List<SubInvoice> subInvoiceByUser = subInvoiceRepository.findByUserOrderByIdDesc(user);
+		
+		return new ResponseEntity<List<SubInvoice>>(subInvoiceByUser,HttpStatus.OK);
+		
+
+		
 	}
 
 

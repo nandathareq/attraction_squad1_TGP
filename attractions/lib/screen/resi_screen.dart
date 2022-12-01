@@ -1,7 +1,7 @@
 import 'package:attractions/screen/get_tiket_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'package:attractions/screen/list_screen.dart';
 import '../provider/reservation_detail_provider.dart';
 
 class ResiScreen extends StatefulWidget {
@@ -37,7 +37,12 @@ class _ResiScreenState extends State<ResiScreen> {
               Row(
                 children: [
                   TextButton.icon(
-                      onPressed: (() {}),
+                      onPressed: (() {
+                        Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(
+                                builder: (context) => ListScreen()),
+                            (Route<dynamic> route) => false);
+                      }),
                       icon: const Icon(
                         Icons.close,
                         size: 20,

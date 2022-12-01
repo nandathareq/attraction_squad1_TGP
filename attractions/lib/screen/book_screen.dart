@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:attractions/main.dart';
 import 'package:attractions/screen/ringkasan_screen.dart';
 import 'package:http/http.dart' as http;
 
@@ -30,9 +31,9 @@ class _BookScreenState extends State<BookScreen> {
   // Future? _response;
   Map<String, dynamic>? _response;
 
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
+  // final TextEditingController _nameController = TextEditingController();
+  // final TextEditingController _emailController = TextEditingController();
+  // final TextEditingController _phoneController = TextEditingController();
 
   Future book(
       {required String? email,
@@ -190,27 +191,32 @@ class _BookScreenState extends State<BookScreen> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
-                          controller: _nameController,
+                          initialValue: userNameGlobal,
+                          // controller: _nameController,
                           decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               labelText: 'Nama anda'),
                           onChanged: ((value) => _name = value),
                           validator: (value) {
+                            _name = value;
                             if (value == null || value.isEmpty) {
                               return 'Masukkan nama anda';
                             }
+
                             return null;
                           }),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
-                          controller: _emailController,
+                          initialValue: userEmailGlobal,
+                          // controller: _emailController,
                           decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               labelText: 'Alamat email'),
                           onChanged: ((value) => _email = value),
                           validator: (value) {
+                            _email = value;
                             if (value == null ||
                                 value.isEmpty ||
                                 !value.contains("@")) {
@@ -222,7 +228,8 @@ class _BookScreenState extends State<BookScreen> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
-                          controller: _phoneController,
+                          initialValue: userMobileNumberGlobal,
+                          // controller: _phoneController,
                           decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               labelText: 'No ponsel'),
@@ -232,6 +239,7 @@ class _BookScreenState extends State<BookScreen> {
                           ],
                           onChanged: ((value) => _phone = value.toString()),
                           validator: (value) {
+                            _phone = value.toString();
                             if (value == null ||
                                 value.isEmpty ||
                                 value.length < 8) {

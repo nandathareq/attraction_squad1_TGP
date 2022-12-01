@@ -16,22 +16,24 @@ class AttractionProvider with ChangeNotifier {
   Future<void> fetchAndSetAttractions(
       {String? cityParam = '',
       String? categoryParam = '',
-      String? sortByParam = ''}) async {
+      String? sortByParam = '',
+      bool? descParam = false}) async {
     String? city = cityParam ?? '';
     String? category = categoryParam ?? '';
-    String? sortBy = sortByParam ?? '';
+    bool? desc = descParam ?? false;
+    String? sortBy = sortByParam.toString().toLowerCase() ?? '';
     String baseUrl = "http://10.0.2.2:8000/partnership/details";
     // print(cityParam);
     if (city != '' || category != '') {
       baseUrl =
-          "http://10.0.2.2:8000/partnership/details?city=$city&category=$category&sortBy=$sortBy&descending=";
+          "http://10.0.2.2:8000/partnership/details?city=$city&category=$category&sortBy=$sortBy&descending=false";
     }
 
     // String? city = cityParam;
     try {
       // final resp = await http.get(Uri.parse(
       //     'http://10.0.2.2:8000/partnership/details?city=&category=&sortBy=&descending='));
-      print(baseUrl);
+      print(Uri.parse(baseUrl));
       final resp = await http.get(Uri.parse(baseUrl));
 
       final extractedDatas = json.decode(resp.body);

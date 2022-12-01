@@ -1,5 +1,6 @@
 import 'package:attractions/provider/attraction_provider.dart';
 import 'package:attractions/provider/gettiket_provider.dart';
+import 'package:attractions/provider/getinvoice_provider.dart';
 import 'package:attractions/provider/reservation_detail_provider.dart';
 import 'package:attractions/screen/get_tiket_screen.dart';
 import 'package:attractions/screen/list_screen.dart';
@@ -10,6 +11,12 @@ import 'package:provider/provider.dart';
 void main() {
   runApp(const MyApp());
 }
+
+const int userIdGlobal = 1;
+const int userIdRekeningGlobal = 2;
+const String userEmailGlobal = "faishal.fachtur@gmail.com";
+const String userNameGlobal = "Faishal Fachtur";
+const String userMobileNumberGlobal = "0856454327854";
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -25,6 +32,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ReservationProvider()),
         ChangeNotifierProvider(
           create: (context) => GetTiketProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => InvoiceProvider(),
         ),
       ],
       child: MaterialApp(

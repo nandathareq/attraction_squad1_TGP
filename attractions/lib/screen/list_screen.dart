@@ -1,9 +1,12 @@
 // ignore: import_of_legacy_library_into_null_safe
+import 'package:attractions/main.dart';
 import 'package:flutter/material.dart';
 import 'package:group_button/group_button.dart';
 import 'package:searchbar_animation/searchbar_animation.dart';
 import '../provider/attraction_provider.dart';
 import 'package:provider/provider.dart';
+import '../provider/getinvoice_provider.dart';
+import '../widget/invoice_card.dart';
 import '../widget/list_card.dart';
 
 class ListScreen extends StatefulWidget {
@@ -18,6 +21,8 @@ class _ListScreen extends State<ListScreen> {
   bool _init = true;
   String? city = '';
   String? category = '';
+  String? sortBy = '';
+  bool? desc = false;
   // final _scaffold = GlobalKey<ScaffoldState>();
 
   @override
@@ -30,7 +35,11 @@ class _ListScreen extends State<ListScreen> {
       });
 
       Provider.of<AttractionProvider>(context)
-          .fetchAndSetAttractions(cityParam: city, categoryParam: category)
+          .fetchAndSetAttractions(
+              cityParam: city,
+              categoryParam: category,
+              sortByParam: sortBy,
+              descParam: desc)
           .then((_) {})
           .catchError((err) {})
           .whenComplete(() {
@@ -54,7 +63,7 @@ class _ListScreen extends State<ListScreen> {
     final controller = GroupButtonController();
     return DefaultTabController(
       initialIndex: 0,
-      length: 2,
+      length: 3,
       child: Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: FloatingActionButton.extended(
@@ -102,12 +111,10 @@ class _ListScreen extends State<ListScreen> {
                               if (isSelected) {
                                 setState(() {
                                   city = val;
-                                  category = '';
                                 });
                               } else {
                                 setState(() {
                                   city = '';
-                                  category = '';
                                 });
                               }
                             },
@@ -140,12 +147,10 @@ class _ListScreen extends State<ListScreen> {
                               if (isSelected) {
                                 setState(() {
                                   category = val;
-                                  city = '';
                                 });
                               } else {
                                 setState(() {
                                   category = '';
-                                  city = '';
                                 });
                               }
                             },
@@ -173,11 +178,53 @@ class _ListScreen extends State<ListScreen> {
                               selectedColor: Color.fromARGB(255, 118, 17, 28),
                             ),
                             isRadio: false,
-                            onSelected: (val, index, isSelected) =>
-                                print('$index button is selected'),
+                            onSelected: (val, index, isSelected) {
+                              print('$index button is selected');
+                              if (isSelected) {
+                                setState(() {
+                                  sortBy = val;
+                                });
+                              } else {
+                                setState(() {
+                                  sortBy = '';
+                                });
+                              }
+                            },
                             buttons: const [
                               "Harga",
                               "Rating",
+                            ],
+                            maxSelected: 1,
+                          )),
+                      ListTile(
+                          title: const Center(
+                            child: Text(
+                              "Urutkan Naik/Turun",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Color.fromARGB(255, 118, 17, 28)),
+                            ),
+                          ),
+                          subtitle: GroupButton(
+                            options: const GroupButtonOptions(
+                              selectedColor: Color.fromARGB(255, 118, 17, 28),
+                            ),
+                            isRadio: false,
+                            onSelected: (val, index, isSelected) {
+                              print('$index button is selected');
+                              if (isSelected) {
+                                setState(() {
+                                  val == "Naik" ? desc = false : desc = true;
+                                });
+                              } else {
+                                setState(() {
+                                  desc = false;
+                                });
+                              }
+                            },
+                            buttons: const [
+                              "Naik",
+                              "Turun",
                             ],
                             maxSelected: 1,
                           )),
@@ -303,6 +350,10 @@ class _ListScreen extends State<ListScreen> {
                 Tab(
                   icon: Icon(Icons.map_outlined),
                   text: "Itinerary",
+                ),
+                Tab(
+                  icon: Icon(Icons.receipt_long_outlined),
+                  text: "History Transaction",
                 )
               ],
             ).preferredSize,
@@ -327,6 +378,16 @@ class _ListScreen extends State<ListScreen> {
                       "Itinerary",
                       style: TextStyle(color: Color.fromARGB(255, 118, 17, 28)),
                     ),
+                  ),
+                  Tab(
+                    icon: Icon(
+                      Icons.receipt_long_outlined,
+                      color: Color.fromARGB(255, 118, 17, 28),
+                    ),
+                    child: Text(
+                      "History",
+                      style: TextStyle(color: Color.fromARGB(255, 118, 17, 28)),
+                    ),
                   )
                 ],
               ),
@@ -339,7 +400,10 @@ class _ListScreen extends State<ListScreen> {
               child: FutureBuilder(
                 future: Provider.of<AttractionProvider>(context, listen: false)
                     .fetchAndSetAttractions(
-                        cityParam: city, categoryParam: category),
+                        cityParam: city,
+                        categoryParam: category,
+                        sortByParam: sortBy,
+                        descParam: desc),
                 builder: (ctx, dataSnapshot) {
                   if (dataSnapshot.connectionState == ConnectionState.waiting) {
                     return const Center(
@@ -394,6 +458,51 @@ class _ListScreen extends State<ListScreen> {
             ),
             const Center(
               child: Text('baru'),
+            ),
+            Center(
+              child: FutureBuilder(
+                future: Provider.of<InvoiceProvider>(context, listen: false)
+                    .fetchInvoice(userIdGlobal),
+                builder: (ctx, dataSnapshot) {
+                  if (dataSnapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else {
+                    if (dataSnapshot.error != null) {
+                      return const Center(
+                        child: Text(
+                          'Something went wrong',
+                          style: TextStyle(color: Colors.red),
+                        ),
+                      );
+                    } else {
+                      return Consumer<InvoiceProvider>(
+                        builder: (ctx, invoice, ch) {
+                          final invoiceDatas = invoice.invoices;
+
+                          return ListView(
+                            physics: const ScrollPhysics(),
+                            children: invoiceDatas
+                                .map(
+                                  (invoice) => InvoiceCard(
+                                    key: ValueKey(invoice.id),
+                                    id: invoice.id,
+                                    grandInvoiceId: invoice.grandInvoiceId,
+                                    total: invoice.total,
+                                    bookingCode: invoice.bookingCode,
+                                    raisedDate: invoice.raisedDate,
+                                    status: invoice.status,
+                                  ),
+                                )
+                                .toList(),
+                          );
+                        },
+                      );
+                    }
+                  }
+                },
+              ),
             ),
           ],
         ),

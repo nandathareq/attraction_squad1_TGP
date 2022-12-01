@@ -6,6 +6,7 @@ import 'package:intl/intl.dart' as intl;
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
+import 'package:attractions/main.dart';
 
 intl.DateFormat dateFormat = intl.DateFormat('dd MMMM yyyy');
 
@@ -19,6 +20,7 @@ class RingkasanCard extends StatelessWidget {
   String? pinInput;
   bool? paymentStatus;
   String? paymentMessage;
+  List<dynamic>? rekenings;
 
   RingkasanCard(
       {Key? key,
@@ -26,25 +28,17 @@ class RingkasanCard extends StatelessWidget {
       required this.total,
       required this.items});
 
+  final String apiUrl =
+      "http://10.0.2.2:8080/core_banking/details/$userIdRekeningGlobal";
+  Future<List<dynamic>> _fecthRekening() async {
+    var result = await http.get(Uri.parse(apiUrl));
+    rekenings = json.decode(result.body);
+
+    return json.decode(result.body);
+  }
+
   List<DropdownMenuItem<String>> get dropdownItems {
     List<DropdownMenuItem<String>> menuItems = [
-      // DropdownMenuItem(
-      //     child: RichText(
-      //       text: TextSpan(
-      //         children: [
-      //           TextSpan(
-      //             text: "Click ",
-      //           ),
-      //           WidgetSpan(
-      //             child: Icon(Icons.add, size: 14),
-      //           ),
-      //           TextSpan(
-      //             text: " to add",
-      //           ),
-      //         ],
-      //       ),
-      //     ),
-      //     value: "USA"),
       DropdownMenuItem(
           value: "230215250415",
           child: Row(
@@ -293,29 +287,98 @@ class RingkasanCard extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        DropdownButtonFormField(
-                            decoration: InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                // borderSide:
-                                //     BorderSide(color: Colors.blue, width: 2),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              border: OutlineInputBorder(
-                                // borderSide:
-                                //     BorderSide(color: Colors.blue, width: 2),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              filled: true,
-                              // fillColor: Colors.blueAccent,
-                            ),
-                            validator: (value) =>
-                                value == null ? "Select a country" : null,
-                            // dropdownColor: Colors.blueAccent,
-                            value: selectedRekening,
-                            onChanged: (String? newValue) {
-                              selectedRekening = newValue!;
-                            },
-                            items: dropdownItems),
+                        FutureBuilder(
+                          future: _fecthRekening(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<List<dynamic>> snapshot) {
+                            if (snapshot.hasData) {
+                              List<dynamic>? rekenings = snapshot.data;
+                              return DropdownButtonFormField(
+                                  hint: Row(
+                                    children: const [
+                                      Icon(Icons.credit_card),
+                                      Padding(
+                                          padding:
+                                              EdgeInsets.fromLTRB(5, 4, 10, 4)),
+                                      Text("Pilih Sumber Dana")
+                                    ],
+                                  ),
+                                  decoration: InputDecoration(
+                                    enabledBorder: OutlineInputBorder(
+                                      // borderSide:
+                                      //     BorderSide(color: Colors.blue, width: 2),
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    border: OutlineInputBorder(
+                                      // borderSide:
+                                      //     BorderSide(color: Colors.blue, width: 2),
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    filled: true,
+                                    // fillColor: Colors.blueAccent,
+                                  ),
+                                  validator: (value) =>
+                                      value == null ? "Select a country" : null,
+                                  // dropdownColor: Colors.blueAccent,
+                                  value: selectedRekening,
+                                  onChanged: (String? newValue) {
+                                    selectedRekening = newValue!;
+                                  },
+                                  items: rekenings?.map((item) {
+                                    return DropdownMenuItem(
+                                      child: Text(
+                                          "${item['rekeningId']['nama'].toString()} - ${item['nomorRekening'].toString()}"),
+                                      value: item['nomorRekening'].toString(),
+                                    );
+                                  }).toList()
+
+                                  // dropdownItems
+                                  );
+                            } else {
+                              return Center(child: CircularProgressIndicator());
+                            }
+                          },
+                        ),
+
+                        // DropdownButtonFormField(
+                        //     hint: Row(
+                        //       children: const [
+                        //         Icon(Icons.credit_card),
+                        //         Padding(
+                        //             padding: EdgeInsets.fromLTRB(5, 4, 10, 4)),
+                        //         Text("Pilih Sumber Dana")
+                        //       ],
+                        //     ),
+                        //     decoration: InputDecoration(
+                        //       enabledBorder: OutlineInputBorder(
+                        //         // borderSide:
+                        //         //     BorderSide(color: Colors.blue, width: 2),
+                        //         borderRadius: BorderRadius.circular(20),
+                        //       ),
+                        //       border: OutlineInputBorder(
+                        //         // borderSide:
+                        //         //     BorderSide(color: Colors.blue, width: 2),
+                        //         borderRadius: BorderRadius.circular(20),
+                        //       ),
+                        //       filled: true,
+                        //       // fillColor: Colors.blueAccent,
+                        //     ),
+                        //     validator: (value) =>
+                        //         value == null ? "Select a country" : null,
+                        //     // dropdownColor: Colors.blueAccent,
+                        //     value: selectedRekening,
+                        //     onChanged: (String? newValue) {
+                        //       selectedRekening = newValue!;
+                        //     },
+                        //     items: dataProvince.map((item) {
+                        //       return DropdownMenuItem(
+                        //         child: Text(item['province']),
+                        //         value: item['province'],
+                        //       );
+                        //     }).toList()
+                        //     // dropdownItems
+                        //     ),
+
                         // ElevatedButton(
                         //     onPressed: () {
                         //       if (_dropdownFormKey.currentState!.validate()) {
