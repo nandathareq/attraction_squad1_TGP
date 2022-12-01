@@ -1,3 +1,4 @@
+import 'package:attractions/screen/resi_screen.dart';
 import 'package:pinput/pinput.dart';
 import 'package:attractions/widget/dropdown_item.dart';
 import 'package:flutter/material.dart';
@@ -190,7 +191,7 @@ class RingkasanCard extends StatelessWidget {
                             child: Text(
                               "Pembayaran ke ",
                               style: TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.normal),
+                                  fontSize: 16, fontWeight: FontWeight.normal),
                             )),
                       ],
                     ),
@@ -590,51 +591,15 @@ class RingkasanCard extends StatelessWidget {
                                               if (pinInput?.length == 6) {
                                                 await pay(pinInput!);
                                                 paymentStatus == true
-                                                    ? showDialog<String>(
-                                                        context: context,
-                                                        builder:
-                                                            (BuildContext
-                                                                    context) =>
-                                                                AlertDialog(
-                                                                  shape: RoundedRectangleBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              20)),
-                                                                  content: Text(
-                                                                    "$paymentMessage",
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .center,
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .black),
-                                                                  ),
-                                                                  title:
-                                                                      const Text(
-                                                                    'Payment Sukses',
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .center,
-                                                                  ),
-                                                                  // content: const Text('AlertDialog description'),
-                                                                  actions: <
-                                                                      Widget>[
-                                                                    Center(
-                                                                      child:
-                                                                          TextButton(
-                                                                        onPressed: () => Navigator.pop(
-                                                                            context,
-                                                                            'OK'),
-                                                                        child:
-                                                                            const Text(
-                                                                          'OK',
-                                                                          style:
-                                                                              TextStyle(color: Color.fromARGB(255, 118, 17, 28)),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ))
+                                                    ? Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder:
+                                                                (context) =>
+                                                                    ResiScreen(
+                                                                      bookingCode:
+                                                                          bookingCode,
+                                                                    )))
                                                     : showDialog<String>(
                                                         context: context,
                                                         builder:

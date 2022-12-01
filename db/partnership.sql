@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 29, 2022 at 03:21 AM
+-- Generation Time: Dec 01, 2022 at 10:36 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -2039,11 +2039,11 @@ CREATE TABLE `invoice` (
 
 INSERT INTO `invoice` (`id`, `booking_code`, `email`, `id_invoice`, `is_paid`, `name`, `total_price`) VALUES
 (1, 'o2d89y', 'nanda.keren@mail.com', NULL, b'0', 'nanda', 300000),
-(2, 'ij8jzb', 'nanda.keren@mail.com', '657646545', b'0', 'nanda', 300000),
-(3, '0yr37z', 'nanda.keren@mail.com', '657646545', b'0', 'nanda', 400000),
-(4, 'x90zov', 'nanda.keren@mail.com', '657646545', b'0', 'nanda', 3000000),
+(2, 'ij8jzb', 'nanda.keren@mail.com', '657646545', b'1', 'nanda', 300000),
+(3, '0yr37z', 'nanda.keren@mail.com', '657646545', b'1', 'nanda', 400000),
+(4, 'x90zov', 'nanda.keren@mail.com', '657646545', b'1', 'nanda', 3000000),
 (5, 'ntkbm1', 'nanda.keren@mail.com', '657646545', b'0', 'nanda', 0),
-(6, 'fedk0k', 'sonya.cantik@mail.com', '123456', b'0', 'sonya', 3000000);
+(6, 'fedk0k', 'sonya.cantik@mail.com', '123456', b'1', 'sonya', 3000000);
 
 -- --------------------------------------------------------
 
