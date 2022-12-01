@@ -52,10 +52,10 @@ class ReservationProvider with ChangeNotifier {
     }
   }
 
-  Future<void> fetchResi() async {
+  Future<void> fetchResi({bookingCode}) async {
     try {
       final response = await http.get(Uri.parse(
-          'http://10.10.62.220:5000/api/v1/subInvoice/detail?bookingCode=gb14lo'));
+          'http://10.10.62.220:5000/api/v1/subInvoice/detail?bookingCode=$bookingCode'));
 
       final resiData = json.decode(response.body);
 

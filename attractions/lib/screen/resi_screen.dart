@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../provider/attraction_provider.dart';
 import '../provider/reservation_detail_provider.dart';
 
 class ResiScreen extends StatefulWidget {
-  const ResiScreen({super.key});
+  final String bookingCode;
+  const ResiScreen({super.key, required this.bookingCode});
 
   @override
   State<ResiScreen> createState() => _ResiScreenState();
@@ -17,7 +17,7 @@ class _ResiScreenState extends State<ResiScreen> {
     super.didChangeDependencies();
 
     Provider.of<ReservationProvider>(context)
-        .fetchResi()
+        .fetchResi(bookingCode: widget.bookingCode)
         .then((_) {})
         .catchError((err) {})
         .whenComplete(() {
