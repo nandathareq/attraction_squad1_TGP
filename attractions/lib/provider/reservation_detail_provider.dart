@@ -64,7 +64,8 @@ class ReservationProvider with ChangeNotifier {
           date: resiData['paidDate'].toString(),
           idTransaksi: resiData['idTransaksi'].toString(),
           nasabah: resiData['user']['userName'].toString(),
-          rekening: "akjdhflkasdj",
+          rekening:
+              "${resiData['rekeningInfo']['rekening']} - ${resiData['rekeningInfo']['nomorRekening']}",
           kodeBooking: resiData['bookingCode'].toString());
 
       _dataResi = data;

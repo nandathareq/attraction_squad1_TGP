@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:attractions/screen/list_screen.dart';
 import '../provider/reservation_detail_provider.dart';
+import 'package:intl/intl.dart' as intl;
+
+intl.DateFormat dateFormat = intl.DateFormat('yyyy MMM dd HH:mm');
 
 class ResiScreen extends StatefulWidget {
   final String bookingCode;
@@ -91,7 +94,9 @@ class _ResiScreenState extends State<ResiScreen> {
                               ),
                               const Text("-----------------------------------"),
                               const Icon(Icons.access_alarm),
-                              const Text("NOMINAL"),
+                              const Text("NOMINAL",
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
                               Text(data.total),
                               Padding(
                                 padding: const EdgeInsets.all(30),
@@ -99,7 +104,9 @@ class _ResiScreenState extends State<ResiScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Row(children: const [
-                                      Text("Pembayaran Ke"),
+                                      Text("Pembayaran Ke",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold)),
                                       Spacer(),
                                       Text("SQ1.COM")
                                     ]),
@@ -109,8 +116,13 @@ class _ResiScreenState extends State<ResiScreen> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            const Text("Waktu Transaksi"),
-                                            Text(data.date)
+                                            const Text(
+                                              "Waktu Transaksi",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            Text(dateFormat.format(
+                                                DateTime.parse(data.date)))
                                           ],
                                         ),
                                         const Spacer(),
@@ -118,7 +130,10 @@ class _ResiScreenState extends State<ResiScreen> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              const Text("ID Transaksi"),
+                                              const Text("ID Transaksi",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold)),
                                               Text(data.idTransaksi)
                                             ]),
                                       ],
@@ -131,29 +146,40 @@ class _ResiScreenState extends State<ResiScreen> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              const Text("Dibayar oleh"),
+                                              const Text("Dibayar oleh",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold)),
                                               Text(data.nasabah)
                                             ]),
                                         Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              const Text(
-                                                  "Rekening Sumber Dana"),
+                                              const Text("Rekening Sumber Dana",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold)),
                                               Text(data.rekening)
                                             ]),
                                         Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              const Text("Kode Pemesanan"),
+                                              const Text("Kode Pemesanan",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold)),
                                               Text(data.kodeBooking)
                                             ]),
                                         Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              const Text("Total Pembayaran"),
+                                              const Text("Total Pembayaran",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold)),
                                               Text(data.total)
                                             ])
                                       ],
