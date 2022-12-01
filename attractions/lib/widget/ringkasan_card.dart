@@ -46,12 +46,12 @@ class RingkasanCard extends StatelessWidget {
       //     ),
       //     value: "USA"),
       DropdownMenuItem(
-          value: "726254463797",
+          value: "230215250415",
           child: Row(
             children: const [
               Icon(Icons.credit_card),
               Padding(padding: EdgeInsets.fromLTRB(5, 4, 10, 4)),
-              Text("Xtra Savers - 726254463797")
+              Text("Xtra Savers - 230215250415")
             ],
           )),
       DropdownMenuItem(

@@ -55,17 +55,17 @@ class ReservationProvider with ChangeNotifier {
   Future<void> fetchResi({bookingCode}) async {
     try {
       final response = await http.get(Uri.parse(
-          'http://10.10.62.220:5000/api/v1/subInvoice/detail?bookingCode=$bookingCode'));
+          'http://10.0.2.2:5000/api/v1/subInvoice/detail?bookingCode=$bookingCode'));
 
       final resiData = json.decode(response.body);
 
       final data = ResiModel(
           total: resiData['total'].toString(),
           date: resiData['paidDate'].toString(),
-          idTransaksi: resiData['idTransaksi'],
-          nasabah: resiData['user']['userName'],
+          idTransaksi: resiData['idTransaksi'].toString(),
+          nasabah: resiData['user']['userName'].toString(),
           rekening: "akjdhflkasdj",
-          kodeBooking: resiData['bookingCode']);
+          kodeBooking: resiData['bookingCode'].toString());
 
       _dataResi = data;
     } catch (e) {

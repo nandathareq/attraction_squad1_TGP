@@ -29,9 +29,9 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Attractions',
-        // home: MyHomePage(title: 'Lifestyle'),
+        home: MyHomePage(title: 'Lifestyle'),
         // home: RingkasanScreen(booking: 'gb14lo'),
-        home: GetTiketScreen(booking: 'gb14lo'),
+        // home: GetTiketScreen(booking: 'gb14lo'),
       ),
     );
 

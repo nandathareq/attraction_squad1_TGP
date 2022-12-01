@@ -26,7 +26,7 @@ class GetTiketProvider with ChangeNotifier {
           'http://10.0.2.2:5000/api/v1/ticket/detail?bookingCode=$kode'));
 
       final ekstracDatas = json.decode(resp.body);
-
+      print(ekstracDatas.toString());
       List<GetTiketModel> loadedDatas = [];
 
       List<GetUserModel> userDatas = [];

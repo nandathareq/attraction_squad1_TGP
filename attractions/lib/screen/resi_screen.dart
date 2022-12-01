@@ -1,3 +1,4 @@
+import 'package:attractions/screen/get_tiket_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -172,7 +173,14 @@ class _ResiScreenState extends State<ResiScreen> {
                   color: Colors.white,
                 ),
                 child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                GetTiketScreen(booking: widget.bookingCode),
+                          ));
+                    },
                     child: const Text(
                       "Lihat Tiket",
                       style: TextStyle(color: Colors.black),
