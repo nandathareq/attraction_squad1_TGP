@@ -110,11 +110,8 @@ public BookingController(AttractionScheduleRepository attractionScheduleReposito
 		String partnershipBookUrl = "http://localhost:8000/partnership/payment/bookticket";
 
 		RestTemplate restTemplate = new RestTemplate();
-		
-		String requestJson = "{\"issuedTo\":\"qj32@mail.com?\",\"total\":\"12000000.0\"}";
-//		String requestJson = subInvoicesRequest.toString().substring(1, subInvoicesRequest.toString().length()-1);
-		
-		Map<String, Object> report = new HashMap<>();
+
+
 		JSONArray itemsPost = new JSONArray();
 		JSONArray subInvoicesPost = new JSONArray();
 		JSONObject partnershipPost = new JSONObject();
@@ -126,10 +123,7 @@ public BookingController(AttractionScheduleRepository attractionScheduleReposito
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		
-		
-		
-		
-		
+			
 		
 		for (Map<String, ?> subInvoiceRequest : subInvoicesRequest) {
 			User userSubInvoice = userRepository.findByEmail((String) subInvoiceRequest.get("issuedTo"));
@@ -217,18 +211,36 @@ public BookingController(AttractionScheduleRepository attractionScheduleReposito
 		JSONObject subInvoiceJson = new JSONObject();
 		JSONArray subInvoiceItemsJson = new JSONArray();
 		JSONObject userJson = new JSONObject();
-		
-//		int subInvoiceId = Integer.parseInt(params.get("subInvoiceId")) ;
+
 		String bookingCode = params.get("bookingCode") ;
-//		Optional<SubInvoice> subInvoice = subInvoiceRepository.findById(subInvoiceId);
+		
 		Optional<SubInvoice> subInvoice = subInvoiceRepository.getOneByBookingCode(bookingCode);
 		subInvoiceJson.put("subInvoiceId",subInvoice.get().getId());
-		subInvoiceJson.put("bookingCode",subInvoice.get().getBookingCode());
+		subInvoiceJson.put("bookingCode",subInvoice.get().getBookingCode());	
 		subInvoiceJson.put("raisedDate",subInvoice.get().getRaisedDate());
 		subInvoiceJson.put("dueDate",subInvoice.get().getDueDate());
 		subInvoiceJson.put("status",subInvoice.get().getStatus());
 		subInvoiceJson.put("grandInvoiceId",subInvoice.get().getGrandInvoice().getId());
-		subInvoiceJson.put("nomorRekening", subInvoice.get().getAccountNumber());
+		
+	
+//		subInvoiceJson.put("nomorRekening", subInvoice.get().getAccountNumber());
+
+		if(!subInvoice.get().getStatus().equals("UNPAID")) {
+			System.out.println("masuk sini cok");
+			String checkRekeningSibsUrl = "http://localhost:8080/core_banking/details/rekening/"+subInvoice.get().getAccountNumber();
+			RestTemplate restTemplate = new RestTemplate();
+			String respPost = restTemplate.getForObject(checkRekeningSibsUrl, String.class);
+			JSONObject respJsonPost = new JSONObject(respPost);
+			subInvoiceJson.put("nomorRekening", subInvoice.get().getAccountNumber());
+			JSONObject rekeningDetail = new JSONObject();
+			rekeningDetail.put("nasabah", respJsonPost.get("nasabah"));
+			rekeningDetail.put("nomorRekening", respJsonPost.get("nomorRekening"));
+			rekeningDetail.put("rekening", respJsonPost.get("rekening"));
+			
+			subInvoiceJson.put("rekeningInfo", rekeningDetail);
+		}
+		
+		
 		subInvoiceJson.put("idTransaksi", subInvoice.get().getIdTransaction());
 		subInvoiceJson.put("paidDate",subInvoice.get().getPaidDate());
 		subInvoiceJson.put("total",subInvoice.get().getTotal());
@@ -296,13 +308,34 @@ public BookingController(AttractionScheduleRepository attractionScheduleReposito
 	@PostMapping("/v1/ticket/pay")
 	public ResponseEntity<?> getAllAttractionSchedule(@RequestBody Map<String, ?> body,HttpServletRequest request)  {
 		JSONObject respJson = new JSONObject();
-		respJson.put("grandTotal", body.get("grandTotal"));
-		respJson.put("issuer", body.get("issuer"));
-		respJson.put("bookingCode", body.get("bookingCode"));
-		respJson.put("nomorRekening", body.get("nomorRekening"));
+		respJson.put("nominal", body.get("grandTotal"));
+//		respJson.put("issuer", body.get("issuer"));
+		respJson.put("kodeBooking", body.get("bookingCode"));
+		respJson.put("noRekening", body.get("nomorRekening"));
 		respJson.put("pin", body.get("pin"));
+		
+		System.out.println("masuk sini");
+		System.out.println(body.toString());
+		System.out.println(respJson.toString());
+		
+		
+
+		
+		
+		String partnershipPayUrl = "http://localhost:8080/core_banking/payment/external/debet";
+		RestTemplate restTemplate = new RestTemplate();
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		HttpEntity<String> entity = new HttpEntity<String>(respJson.toString(),headers);
+		
+		String respPost = restTemplate.postForObject(partnershipPayUrl, entity, String.class);
+		JSONObject respJsonPost = new JSONObject(respPost);
 		System.out.println(respJson.toMap());
-		return new ResponseEntity<Map<String,Object>>(respJson.toMap(),HttpStatus.OK);
+		
+		return new ResponseEntity<Map<String,Object>>(respJsonPost.toMap(),HttpStatus.OK);
+		
+		
+//		return new ResponseEntity<String>("shjdf",HttpStatus.OK);
 		
 		
 		

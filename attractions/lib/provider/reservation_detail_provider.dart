@@ -24,12 +24,12 @@ class ReservationProvider with ChangeNotifier {
       final resp = await http.get(Uri.parse(
           'http://10.0.2.2:5000/api/v1/subInvoice/detail?bookingCode=$kode'));
 
-      print('http://10.0.2.2:5000/api/v1/subInvoice/detail?bookingCode=$kode');
+      // print('http://10.0.2.2:5000/api/v1/subInvoice/detail?bookingCode=$kode');
 
       final ekstrakDatas = json.decode(resp.body);
 
-      print(ekstrakDatas['items'].toString());
-      print(ekstrakDatas.toString());
+      // print(ekstrakDatas['items'].toString());
+      // print(ekstrakDatas.toString());
 
       List<ReservationModel> loadedDatas = [];
 
