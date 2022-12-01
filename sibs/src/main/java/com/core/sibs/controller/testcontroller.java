@@ -1,5 +1,6 @@
 package com.core.sibs.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,11 @@ public class testcontroller {
     @GetMapping("/{id}")
     public List<RekeningNasabah> details(@PathVariable(required=true,name="id") Long id) {
         return showService.getRekening(id);
+    }
+
+    @GetMapping("rekening/{noRekening}")
+    public HashMap<String, String> details(@PathVariable(required=true,name="noRekening") String noRekening) {
+        return showService.getRekeningDetail(noRekening);
     }
     
 }

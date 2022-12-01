@@ -73,5 +73,4 @@ public class DisplayDataController {
     public List<TicketDto> getTickets(@PathVariable(required = true, name = "bookingcode") String bookingCode) {
         return displayDataService.getTickets(bookingCode);
     }
-
 }
