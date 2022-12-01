@@ -2,6 +2,8 @@ import 'package:attractions/widget/dropdown_item.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+DateFormat dateFormat = DateFormat('dd MMMM yyyy');
+
 class RingkasanCard extends StatelessWidget {
   final String bookingCode;
   final double total;
@@ -255,7 +257,7 @@ class RingkasanCard extends StatelessWidget {
                               Padding(
                                   padding: EdgeInsets.only(left: 20, top: 5),
                                   child: Text(
-                                    '1 Pax',
+                                    "${double.parse(items[0]['qty'].toString()).round()} pax",
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
                                   )),
@@ -273,7 +275,9 @@ class RingkasanCard extends StatelessWidget {
                               Padding(
                                   padding: EdgeInsets.only(left: 20, top: 5),
                                   child: Text(
-                                    '6 Desember 2022',
+                                    dateFormat.format(DateTime.parse(
+                                            items[0]['attractionDate'])
+                                        .toLocal()),
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
                                   )),
@@ -292,7 +296,7 @@ class RingkasanCard extends StatelessWidget {
                                   padding: EdgeInsets.only(
                                       left: 20, top: 5, bottom: 10),
                                   child: Text(
-                                    'Rp. 100.000',
+                                    "Rp.${format.format(total)}",
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
                                   )),
