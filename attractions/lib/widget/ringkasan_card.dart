@@ -218,79 +218,87 @@ class RingkasanCard extends StatelessWidget {
                           Padding(
                               padding: EdgeInsets.only(left: 20, top: 5),
                               child: Text(
-                                '0001',
+                                bookingCode.toString(),
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               )),
                         ],
                       ),
-                      Row(
-                        children: [
-                          Padding(
-                              padding: EdgeInsets.only(left: 20, top: 20),
-                              child: Text('Pemesanan Tiket Untuk')),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Padding(
-                              padding: EdgeInsets.only(left: 20, top: 5),
-                              child: Text(
-                                'Monumen Nasional',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              )),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Padding(
-                              padding: EdgeInsets.only(left: 20, top: 20),
-                              child: Text('Jumlah Tiket')),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Padding(
-                              padding: EdgeInsets.only(left: 20, top: 5),
-                              child: Text(
-                                '1 Pax',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              )),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Padding(
-                              padding: EdgeInsets.only(left: 20, top: 20),
-                              child: Text('Tanggal Tiket Masuk')),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Padding(
-                              padding: EdgeInsets.only(left: 20, top: 5),
-                              child: Text(
-                                '6 Desember 2022',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              )),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Padding(
-                              padding: EdgeInsets.only(left: 20, top: 20),
-                              child: Text('Total Pembayaran')),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Padding(
-                              padding:
-                                  EdgeInsets.only(left: 20, top: 5, bottom: 10),
-                              child: Text(
-                                'Rp. 100.000',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              )),
-                        ],
+                      Container(
+                        child: Column(children: [
+                          Row(
+                            children: [
+                              Padding(
+                                  padding: EdgeInsets.only(left: 20, top: 20),
+                                  child: Text('Pemesanan Tiket Untuk')),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Padding(
+                                  padding: EdgeInsets.only(left: 20, top: 5),
+                                  child: Text(
+                                    items[0]['placeName'],
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  )),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Padding(
+                                  padding: EdgeInsets.only(left: 20, top: 20),
+                                  child: Text('Jumlah Tiket')),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Padding(
+                                  padding: EdgeInsets.only(left: 20, top: 5),
+                                  child: Text(
+                                    '1 Pax',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  )),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Padding(
+                                  padding: EdgeInsets.only(left: 20, top: 20),
+                                  child: Text('Tanggal Tiket Masuk')),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Padding(
+                                  padding: EdgeInsets.only(left: 20, top: 5),
+                                  child: Text(
+                                    '6 Desember 2022',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  )),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Padding(
+                                  padding: EdgeInsets.only(left: 20, top: 20),
+                                  child: Text('Total Pembayaran')),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Padding(
+                                  padding: EdgeInsets.only(
+                                      left: 20, top: 5, bottom: 10),
+                                  child: Text(
+                                    'Rp. 100.000',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  )),
+                            ],
+                          ),
+                        ]),
                       ),
                     ],
                   ),

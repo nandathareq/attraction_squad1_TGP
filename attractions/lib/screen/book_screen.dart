@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 
 import '../model/attraction_model.dart';
 
@@ -37,25 +38,32 @@ class _BookScreenState extends State<BookScreen> {
       {required String? email,
       required int attractionId,
       required num quantity}) async {
+    // print(widget.model.price.toDouble().runtimeType);
+
+    DateFormat newsFormatDate = DateFormat("yyyy-MM-dd'T'hh:mm'Z'");
+    String tanggalTicket = newsFormatDate.format(_tanggal).toString();
+
+    print(tanggalTicket);
+
     final response = await http.post(
       Uri.parse('http://10.0.2.2:5000/api/v1/ticket/book'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode(<String, dynamic>{
-        "grandTotal": 12000000.0,
+        "grandTotal": widget.model.price.toDouble() * quantity.toDouble(),
         "issuer": email,
         "subInvoice": [
           {
             "issuedTo": email,
-            "total": 12000000.0,
+            "total": widget.model.price.toDouble() * quantity.toDouble(),
             "items": [
               {
                 "attractionPlaceId": attractionId,
-                "placeName": "dufan",
+                "placeName": widget.model.placeName,
                 "qty": quantity,
-                "subTotal": 600000.0,
-                "date": "2022-11-28T10:46Z"
+                "subTotal": widget.model.price.toDouble() * quantity.toDouble(),
+                "date": tanggalTicket
               }
             ]
           }
