@@ -191,7 +191,7 @@ class RingkasanCard extends StatelessWidget {
                             child: Text(
                               "Pembayaran ke ",
                               style: TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.normal),
+                                  fontSize: 16, fontWeight: FontWeight.normal),
                             )),
                       ],
                     ),
