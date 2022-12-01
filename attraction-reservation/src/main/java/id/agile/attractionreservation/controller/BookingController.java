@@ -289,7 +289,7 @@ public BookingController(AttractionScheduleRepository attractionScheduleReposito
 		for (Ticket ticket : tickets) {
 			JSONObject ticketJson = new JSONObject();
 			ticketJson.put("ticketId",ticket.getId());
-			ticketJson.put("attractionPlaceId",ticket.getAttractionPlaceId());
+//			ticketJson.put("attractionPlaceId",ticket.getAttractionPlaceId());
 			ticketJson.put("placeName",ticket.getPlaceName());
 			ticketJson.put("attractionDate",ticket.getAttractionDate());
 			ticketJson.put("bookingCode",ticket.getBookingCode());
@@ -309,7 +309,7 @@ public BookingController(AttractionScheduleRepository attractionScheduleReposito
 	public ResponseEntity<?> getAllAttractionSchedule(@RequestBody Map<String, ?> body,HttpServletRequest request)  {
 		JSONObject respJson = new JSONObject();
 		respJson.put("nominal", body.get("grandTotal"));
-//		respJson.put("issuer", body.get("issuer"));
+
 		respJson.put("kodeBooking", body.get("bookingCode"));
 		respJson.put("noRekening", body.get("nomorRekening"));
 		respJson.put("pin", body.get("pin"));
@@ -320,8 +320,6 @@ public BookingController(AttractionScheduleRepository attractionScheduleReposito
 		
 		
 
-		
-		
 		String partnershipPayUrl = "http://localhost:8080/core_banking/payment/external/debet";
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders headers = new HttpHeaders();
@@ -330,12 +328,56 @@ public BookingController(AttractionScheduleRepository attractionScheduleReposito
 		
 		String respPost = restTemplate.postForObject(partnershipPayUrl, entity, String.class);
 		JSONObject respJsonPost = new JSONObject(respPost);
-		System.out.println(respJson.toMap());
 		
+		if (respJsonPost.get("paymentSucces").toString().equals("true")) {
+			SubInvoice subInvoice = subInvoiceRepository.getOneByBookingCode(body.get("bookingCode").toString()).get();
+			TimeZone tz = TimeZone.getTimeZone("GMT+07:00");
+			DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
+			df.setTimeZone(tz);
+			String nowAsISO = df.format(new Date(System.currentTimeMillis()));
+			subInvoice.setPaidDate(nowAsISO);
+			subInvoice.setAccountNumber(body.get("nomorRekening").toString());
+			subInvoice.setIdTransaction(respJsonPost.get("idTransaction").toString());
+			subInvoice.setStatus("PAID");
+			GrandInvoice grandInvoice = grandInvoiceRepository.findById(subInvoice.getGrandInvoice().getId()).get();
+			grandInvoice.setStatus("PAID");
+			grandInvoiceRepository.save(grandInvoice);
+			subInvoiceRepository.save(subInvoice);
+			
+			String partnershipTicketUrl = "http://localhost:8000/partnership/ticket/"+body.get("bookingCode").toString();
+			RestTemplate restTicketTemplate = new RestTemplate();
+//			HttpHeaders headersTicket = new HttpHeaders();
+//			headers.setContentType(MediaType.APPLICATION_JSON);
+//			HttpEntity<String> entity = new HttpEntity<String>(respJson.toString(),headers);
+			
+			String respTicketGet = restTicketTemplate.getForObject(partnershipTicketUrl, String.class);
+//			JSONObject respTicketJsonGet = new JSONObject(respTicketGet);
+			JSONArray respTicketJsonGet = new JSONArray(respTicketGet);
+			
+			for (Object object : respTicketJsonGet) {
+				JSONObject ticketJson = new JSONObject(object.toString());
+				
+				String bookingCodeTicket = body.get("bookingCode").toString();
+				String ticketCode = ticketJson.get("ticketCode").toString();
+				User userTicket = subInvoice.getUser();
+				String dateTicket = ticketJson.get("date").toString();
+				String placeNameTicket = ticketJson.get("attractionName").toString();
+				
+				Ticket ticket = new Ticket(bookingCodeTicket, ticketCode, userTicket, dateTicket, placeNameTicket);
+				userTicket.addTicket(ticket);
+				ticketRepository.save(ticket);
+				userRepository.save(userTicket);
+			}
+			
+
+			
+//			InvoiceItem invoiceItem = new InvoiceItem(qty,attractionPlaceId,placeName,subTotal,subInvoice,attractionDate);
+			
+		}
+
 		return new ResponseEntity<Map<String,Object>>(respJsonPost.toMap(),HttpStatus.OK);
 		
-		
-//		return new ResponseEntity<String>("shjdf",HttpStatus.OK);
+
 		
 		
 		

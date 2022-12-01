@@ -40,8 +40,8 @@ public class Ticket implements Serializable{
 	@Column(name="attraction_date")
 	private String attractionDate;
 	
-	@Column(name="attraction_place_id")
-	private String attractionPlaceId;
+//	@Column(name="attraction_place_id")
+//	private int attractionPlaceId;
 	
 	@Column(name="place_name")
 	private String placeName;
@@ -50,14 +50,14 @@ public class Ticket implements Serializable{
 	
 
 
-	
-	public String getAttractionPlaceId() {
-		return attractionPlaceId;
-	}
-
-	public void setAttractionPlaceId(String attractionPlaceId) {
-		this.attractionPlaceId = attractionPlaceId;
-	}
+//	
+//	public int getAttractionPlaceId() {
+//		return attractionPlaceId;
+//	}
+//
+//	public void setAttractionPlaceId(int attractionPlaceId) {
+//		this.attractionPlaceId = attractionPlaceId;
+//	}
 
 	public String getPlaceName() {
 		return placeName;
@@ -87,7 +87,19 @@ public class Ticket implements Serializable{
 		this.user = user;
 		this.attractionDate = attractionDate;
 	}
+	
+	
 
+	public Ticket(String bookingCode, String ticketCode, User user, String attractionDate, 
+			String placeName) {
+		super();
+		this.bookingCode = bookingCode;
+		this.ticketCode = ticketCode;
+		this.user = user;
+		this.attractionDate = attractionDate;
+//		this.attractionPlaceId = attractionPlaceId;
+		this.placeName = placeName;
+	}
 
 	public String getBookingCode() {
 		return bookingCode;
