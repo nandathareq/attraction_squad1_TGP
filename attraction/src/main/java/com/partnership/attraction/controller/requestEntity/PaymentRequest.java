@@ -1,4 +1,4 @@
-package com.core.sibs.controller.entity;
+package com.partnership.attraction.controller.requestEntity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -10,11 +10,10 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ExternalRequest {
+public class PaymentRequest {
 
-    private String noRekening;
-    private String pin;
-    private double nominal;
     private String kodeBooking;
+    private long nominal;
+    private String idTransaksi;
     
 }

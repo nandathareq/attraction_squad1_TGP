@@ -20,15 +20,16 @@ public class PaymentController {
     }
 
     @PostMapping("/external/debet")
-    public Boolean debitExternal(@RequestBody ExternalRequest externalRequest) {
+    public boolean debitExternal(@RequestBody ExternalRequest externalRequest){
 
-        return debitService.debetRekeningExternal(externalRequest.getNominal(), externalRequest.getRekeningId(), externalRequest.getCif());
+        return debitService.debetRekeningExternal(externalRequest);
+
     }
 
-    @PostMapping("/external/kredit")
-    public Boolean test(@RequestBody ExternalRequest externalRequest) {
+    // @PostMapping("/external/kredit")
+    // public Boolean test(@RequestBody ExternalRequest externalRequest) {
 
-        return debitService.kreditRekeningExternal(externalRequest.getNominal(), externalRequest.getRekeningId(), externalRequest.getCif());
-    }
+    //     return debitService.kreditRekeningExternal(externalRequest.getNominal(), externalRequest.getRekeningId(), externalRequest.getCif());
+    // }
     
 }

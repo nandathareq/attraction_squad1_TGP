@@ -20,4 +20,6 @@ public class Nasabah {
     @Column(name = "no_telpon")
     private String noTelpon;
 
+    private String pin;
+
 }

@@ -1,7 +1,6 @@
 package com.core.sibs.repository;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -12,6 +11,6 @@ public interface RekeningNasabahRepository extends JpaRepository<RekeningNasabah
 
     List<RekeningNasabah> findByNasabah(Nasabah nasabah);
 
-    RekeningNasabah findByNasabahAndRekeningId(Optional<Nasabah> nasabahAsal, Optional<Rekening> rekeningAsal);
+    RekeningNasabah findByNomorRekening(String noRekening);
     
 }

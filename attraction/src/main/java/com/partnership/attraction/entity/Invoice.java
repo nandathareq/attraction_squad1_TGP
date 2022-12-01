@@ -2,6 +2,8 @@ package com.partnership.attraction.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,5 +29,6 @@ public class Invoice {
     private boolean isPaid;
 
     @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
     private List<IssuedTicket> tickets;
 }
