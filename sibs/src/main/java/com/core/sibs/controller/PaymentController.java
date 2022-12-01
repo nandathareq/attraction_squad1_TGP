@@ -1,5 +1,7 @@
 package com.core.sibs.controller;
 
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,11 +18,12 @@ public class PaymentController {
     @PostMapping("/internal/transfer")
     public Boolean trensferInternal(@RequestBody TransferRequest transferRequest) {
 
-        return debitService.transferRekening(transferRequest.getNominal(), transferRequest.getRekeningIdAsal(), transferRequest.getCifAsal(), transferRequest.getRekeningIdTujuan(), transferRequest.getCifTujuan());
+        return debitService.transferRekening(transferRequest.getNominal(), transferRequest.getRekeningIdAsal(),
+                transferRequest.getCifAsal(), transferRequest.getRekeningIdTujuan(), transferRequest.getCifTujuan());
     }
 
     @PostMapping("/external/debet")
-    public boolean debitExternal(@RequestBody ExternalRequest externalRequest){
+    public HashMap<String, Object> debitExternal(@RequestBody ExternalRequest externalRequest) {
 
         return debitService.debetRekeningExternal(externalRequest);
 
@@ -29,7 +32,8 @@ public class PaymentController {
     // @PostMapping("/external/kredit")
     // public Boolean test(@RequestBody ExternalRequest externalRequest) {
 
-    //     return debitService.kreditRekeningExternal(externalRequest.getNominal(), externalRequest.getRekeningId(), externalRequest.getCif());
+    // return debitService.kreditRekeningExternal(externalRequest.getNominal(),
+    // externalRequest.getRekeningId(), externalRequest.getCif());
     // }
-    
+
 }
