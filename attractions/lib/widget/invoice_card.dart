@@ -50,7 +50,7 @@ class InvoiceCard extends StatelessWidget {
             dateFormat.format(DateTime.parse(raisedDate).toLocal()),
           ),
           trailing: Text(
-            status,
+            status == "PAID" ? "Lunas" : "Belum Lunas ",
             style:
                 TextStyle(color: status == "PAID" ? Colors.green : Colors.red),
           ),

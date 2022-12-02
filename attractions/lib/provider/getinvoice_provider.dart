@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import '../constant/constant.dart';
 import '../model/reservation_model.dart';
 import '../model/getinvoice_model.dart';
 
@@ -21,8 +22,8 @@ class InvoiceProvider with ChangeNotifier {
 
   Future<void> fetchInvoice(userId) async {
     try {
-      final resp = await http.get(
-          Uri.parse('http://10.0.2.2:5000/api/v1/subInvoice?userId=$userId'));
+      final resp = await http
+          .get(Uri.parse('$ipAddress:5000/api/v1/subInvoice?userId=$userId'));
 
       // print('http://10.0.2.2:5000/api/v1/subInvoice/detail?bookingCode=$kode');
 

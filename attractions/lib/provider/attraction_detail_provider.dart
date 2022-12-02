@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:attractions/constant/constant.dart';
 import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
@@ -15,8 +16,8 @@ class AttractionDetailProvider with ChangeNotifier {
 
   Future<void> fetchDetailAttractions(id) async {
     try {
-      final resp = await http
-          .get(Uri.parse('http://10.0.2.2:8000/partnership/details/$id'));
+      final resp =
+          await http.get(Uri.parse('$ipAddress:8000/partnership/details/$id'));
 
       final extractDatas = json.decode(resp.body);
 

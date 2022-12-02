@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import '../constant/constant.dart';
 import '../model/reservation_model.dart';
 import '../model/resi_model.dart';
 
@@ -22,7 +23,7 @@ class ReservationProvider with ChangeNotifier {
   Future<void> fetchCodeBoking(kode) async {
     try {
       final resp = await http.get(Uri.parse(
-          'http://10.0.2.2:5000/api/v1/subInvoice/detail?bookingCode=$kode'));
+          '$ipAddress:5000/api/v1/subInvoice/detail?bookingCode=$kode'));
 
       // print('http://10.0.2.2:5000/api/v1/subInvoice/detail?bookingCode=$kode');
 
@@ -55,7 +56,7 @@ class ReservationProvider with ChangeNotifier {
   Future<void> fetchResi({bookingCode}) async {
     try {
       final response = await http.get(Uri.parse(
-          'http://10.0.2.2:5000/api/v1/subInvoice/detail?bookingCode=$bookingCode'));
+          '$ipAddress:5000/api/v1/subInvoice/detail?bookingCode=$bookingCode'));
 
       final resiData = json.decode(response.body);
 

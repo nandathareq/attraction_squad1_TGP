@@ -8,6 +8,8 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:attractions/main.dart';
 
+import '../constant/constant.dart';
+
 intl.DateFormat dateFormat = intl.DateFormat('dd MMMM yyyy');
 
 class RingkasanCard extends StatelessWidget {
@@ -23,13 +25,10 @@ class RingkasanCard extends StatelessWidget {
   List<dynamic>? rekenings;
 
   RingkasanCard(
-      {Key? key,
-      required this.bookingCode,
-      required this.total,
-      required this.items});
+      {required this.bookingCode, required this.total, required this.items});
 
   final String apiUrl =
-      "http://10.0.2.2:8080/core_banking/details/$userIdRekeningGlobal";
+      "$ipAddress:8080/core_banking/details/$userIdRekeningGlobal";
   Future<List<dynamic>> _fecthRekening() async {
     var result = await http.get(Uri.parse(apiUrl));
     rekenings = json.decode(result.body);
@@ -79,9 +78,9 @@ class RingkasanCard extends StatelessWidget {
     return menuItems;
   }
 
-  Future pay(String pin) async {
+  Future pay(String pin, ipAddress) async {
     final response = await http.post(
-      Uri.parse('http://10.0.2.2:5000/api/v1/ticket/pay'),
+      Uri.parse('$ipAddress:5000/api/v1/ticket/pay'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -433,7 +432,7 @@ class RingkasanCard extends StatelessWidget {
                           Padding(
                               padding: EdgeInsets.only(left: 20, top: 5),
                               child: Text(
-                                bookingCode.toString(),
+                                bookingCode.toString().toUpperCase(),
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               )),
                         ],
@@ -652,7 +651,7 @@ class RingkasanCard extends StatelessWidget {
                                           TextButton(
                                             onPressed: () async {
                                               if (pinInput?.length == 6) {
-                                                await pay(pinInput!);
+                                                await pay(pinInput!, ipAddress);
                                                 paymentStatus == true
                                                     ? Navigator.push(
                                                         context,
@@ -753,7 +752,7 @@ class RingkasanCard extends StatelessWidget {
                                                         Color.fromARGB(
                                                             255, 118, 17, 28))),
                                             child: const Text(
-                                              'Validate',
+                                              'Bayar',
                                               style: TextStyle(
                                                   color: Colors.white),
                                             ),

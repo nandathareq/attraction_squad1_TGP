@@ -173,7 +173,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     size: 47.0,
                   ),
                   SizedBox(height: 3),
-                  Text('Event'),
+                  Text('Acara'),
                 ],
               ),
             ),

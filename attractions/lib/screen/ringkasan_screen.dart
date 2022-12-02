@@ -42,9 +42,8 @@ class _RingkasanScreen extends State<RingkasanScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text('Ringkasan'),
-        ),
+        title: Text('Ringkasan'),
+        centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 118, 17, 28),
       ),
       body: FutureBuilder(
@@ -59,7 +58,7 @@ class _RingkasanScreen extends State<RingkasanScreen> {
             if (dataSnapshot.error != null) {
               return const Center(
                 child: Text(
-                  'Something went wrong',
+                  'Terjadi Kesalahan',
                   style: TextStyle(color: Colors.red),
                 ),
               );

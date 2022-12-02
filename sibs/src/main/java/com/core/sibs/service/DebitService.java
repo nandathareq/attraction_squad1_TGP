@@ -57,7 +57,7 @@ public class DebitService {
 
         if (!pinRequest.equals(pinNasabah)) {
             response.put("paymentSucces", false);
-            response.put("detail", "pin invalid");
+            response.put("detail", "PIN Salah");
             return response;
         }
 
@@ -78,7 +78,7 @@ public class DebitService {
 
         if (!isPaid) {
             response.put("paymentSucces", false);
-            response.put("detail", "payment failed");
+            response.put("detail", "Pembayaran Gagal");
             return response;
         }
 
@@ -86,7 +86,7 @@ public class DebitService {
 
         if (!isDebetSuccess) {
             response.put("paymentSucces", false);
-            response.put("detail", "balance not enough");
+            response.put("detail", "Saldo Tidak Cukup");
             return response;
         }
 
