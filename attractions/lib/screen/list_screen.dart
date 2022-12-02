@@ -23,7 +23,6 @@ class _ListScreen extends State<ListScreen> {
   String? category = '';
   String? sortBy = '';
   bool? desc = false;
-  // final _scaffold = GlobalKey<ScaffoldState>();
 
   @override
   void didChangeDependencies() {

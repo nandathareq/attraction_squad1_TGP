@@ -59,7 +59,7 @@ public class AttractionPlace {
 	}
 
 	public String getPicture(){
-		return "https://picsum.photos/300/200";
+		return "https://picsum.photos/300/200?random=1";
 	}
 
 	public String getContactPerson(){

@@ -18,6 +18,17 @@
             "mainClass": "com.partnership.attraction.AttractionApplication",
             "projectName": "attraction",
             "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=52262 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=attraction"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-AttractionReservationApplication<attraction-reservation>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "id.agile.attractionreservation.AttractionReservationApplication",
+            "projectName": "attraction-reservation",
+            "args": "",
             "envFile": "${workspaceFolder}/.env"
         }
     ]
