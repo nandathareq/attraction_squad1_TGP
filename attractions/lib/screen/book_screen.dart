@@ -26,6 +26,7 @@ class _BookScreenState extends State<BookScreen> {
 
   num _jumlahTiket = 1;
   DateTime _tanggal = DateTime.now();
+  DateTime _initTanggal = DateTime.now();
   String? _name = null;
   String? _email = null;
   String? _phone = null;
@@ -156,8 +157,8 @@ class _BookScreenState extends State<BookScreen> {
                       height: 80,
                       child: CupertinoDatePicker(
                           mode: CupertinoDatePickerMode.date,
-                          initialDateTime: DateTime.now(),
-                          // minimumDate: DateTime.now(),
+                          initialDateTime: _initTanggal,
+                          minimumDate: _initTanggal,
                           onDateTimeChanged: (val) {
                             _tanggal = val;
                           }),
