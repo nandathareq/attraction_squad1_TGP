@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 30, 2022 at 11:21 AM
+-- Generation Time: Dec 02, 2022 at 10:34 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -111,42 +111,22 @@ CREATE TABLE `grand_invoice` (
 --
 
 INSERT INTO `grand_invoice` (`grand_invoice__id`, `due_date`, `grand_total`, `raised_date`, `status`, `user_id`) VALUES
-(1, '2022-11-29T18:56Z', 12000000, '2022-11-29T17:56Z', 'UNPAID', 1),
-(2, '2022-11-29T18:57Z', 12000000, '2022-11-29T17:57Z', 'UNPAID', 1),
-(3, '2022-11-29T18:58Z', 12000000, '2022-11-29T17:58Z', 'UNPAID', 1),
-(4, '2022-11-29T18:58Z', 12000000, '2022-11-29T17:58Z', 'UNPAID', 1),
-(5, '2022-11-29T18:58Z', 12000000, '2022-11-29T17:58Z', 'UNPAID', 1),
-(6, '2022-11-29T18:58Z', 12000000, '2022-11-29T17:58Z', 'UNPAID', 1),
-(7, '2022-11-29T18:58Z', 12000000, '2022-11-29T17:58Z', 'UNPAID', 1),
-(8, '2022-11-29T18:58Z', 12000000, '2022-11-29T17:58Z', 'UNPAID', 1),
-(9, '2022-11-29T18:58Z', 12000000, '2022-11-29T17:58Z', 'UNPAID', 1),
-(10, '2022-11-29T18:59Z', 12000000, '2022-11-29T17:59Z', 'UNPAID', 1),
-(11, '2022-11-29T18:59Z', 12000000, '2022-11-29T17:59Z', 'UNPAID', 1),
-(12, '2022-11-29T19:01Z', 12000000, '2022-11-29T18:01Z', 'UNPAID', 1),
-(13, '2022-11-29T19:02Z', 12000000, '2022-11-29T18:02Z', 'UNPAID', 1),
-(14, '2022-11-29T19:03Z', 12000000, '2022-11-29T18:03Z', 'UNPAID', 1),
-(15, '2022-11-29T19:04Z', 12000000, '2022-11-29T18:04Z', 'UNPAID', 1),
-(16, '2022-11-29T19:07Z', 12000000, '2022-11-29T18:07Z', 'UNPAID', 1),
-(17, '2022-11-29T19:08Z', 12000000, '2022-11-29T18:08Z', 'UNPAID', 1),
-(18, '2022-11-29T19:12Z', 12000000, '2022-11-29T18:12Z', 'UNPAID', 1),
-(19, '2022-11-30T00:08Z', 12000000, '2022-11-29T23:08Z', 'UNPAID', 1),
-(20, '2022-11-30T00:10Z', 12000000, '2022-11-29T23:10Z', 'UNPAID', 1),
-(21, '2022-11-30T00:15Z', 12000000, '2022-11-29T23:15Z', 'UNPAID', 1),
-(22, '2022-11-30T00:15Z', 12000000, '2022-11-29T23:15Z', 'UNPAID', 1),
-(23, '2022-11-30T00:15Z', 12000000, '2022-11-29T23:15Z', 'UNPAID', 1),
-(24, '2022-11-30T00:16Z', 12000000, '2022-11-29T23:16Z', 'UNPAID', 1),
-(25, '2022-11-30T00:16Z', 12000000, '2022-11-29T23:16Z', 'UNPAID', 1),
-(26, '2022-11-30T00:17Z', 12000000, '2022-11-29T23:17Z', 'UNPAID', 1),
-(27, '2022-11-30T00:18Z', 12000000, '2022-11-29T23:18Z', 'UNPAID', 1),
-(28, '2022-11-30T00:25Z', 12000000, '2022-11-29T23:25Z', 'UNPAID', 1),
-(29, '2022-11-30T00:25Z', 12000000, '2022-11-29T23:25Z', 'UNPAID', 1),
-(30, '2022-11-30T00:25Z', 12000000, '2022-11-29T23:25Z', 'UNPAID', 1),
-(31, '2022-11-30T00:25Z', 12000000, '2022-11-29T23:25Z', 'UNPAID', 1),
-(32, '2022-11-30T09:40Z', 12000000, '2022-11-30T08:40Z', 'UNPAID', 1),
-(33, '2022-11-30T09:40Z', 12000000, '2022-11-30T08:40Z', 'UNPAID', 1),
-(34, '2022-11-30T15:44Z', 12000000, '2022-11-30T14:44Z', 'UNPAID', 1),
-(35, '2022-11-30T15:44Z', 12000000, '2022-11-30T14:44Z', 'UNPAID', 1),
-(36, '2022-11-30T15:51Z', 12000000, '2022-11-30T14:51Z', 'UNPAID', 1);
+(1, '2022-12-01T18:37Z', 12000000, '2022-12-01T17:37Z', 'PAID', 1),
+(2, '2022-12-01T19:11Z', 12000000, '2022-12-01T18:11Z', 'UNPAID', 1),
+(3, '2022-12-01T19:37Z', 6000, '2022-12-01T18:37Z', 'PAID', 1),
+(4, '2022-12-01T22:42Z', 12000000, '2022-12-01T21:42Z', 'UNPAID', 1),
+(5, '2022-12-01T22:50Z', 20000, '2022-12-01T21:50Z', 'UNPAID', 1),
+(6, '2022-12-01T22:55Z', 20000, '2022-12-01T21:55Z', 'UNPAID', 1),
+(7, '2022-12-01T23:30Z', 40000, '2022-12-01T22:30Z', 'UNPAID', 1),
+(8, '2022-12-01T23:44Z', 40000, '2022-12-01T22:44Z', 'PAID', 1),
+(9, '2022-12-02T00:52Z', 175000, '2022-12-01T23:52Z', 'PAID', 1),
+(10, '2022-12-02T01:15Z', 810000, '2022-12-02T00:15Z', 'PAID', 1),
+(11, '2022-12-02T10:34Z', 40000, '2022-12-02T09:34Z', 'UNPAID', 1),
+(12, '2022-12-02T10:34Z', 40000, '2022-12-02T09:34Z', 'PAID', 1),
+(13, '2022-12-02T10:40Z', 30000, '2022-12-02T09:40Z', 'UNPAID', 1),
+(14, '2022-12-02T10:40Z', 30000, '2022-12-02T09:40Z', 'PAID', 1),
+(15, '2022-12-02T10:45Z', 810000, '2022-12-02T09:45Z', 'PAID', 1),
+(16, '2022-12-02T10:46Z', 20000, '2022-12-02T09:46Z', 'PAID', 1);
 
 -- --------------------------------------------------------
 
@@ -201,8 +181,22 @@ CREATE TABLE `sub_invoice` (
 --
 
 INSERT INTO `sub_invoice` (`sub_invoice_id`, `booking_code`, `due_date`, `raised_date`, `status`, `total`, `grand_invoice_id`, `user_id`, `paid_date`, `account_number`, `id_transaction`) VALUES
-(1, 'gb14lo', '2022-11-30T15:44Z', '2022-11-30T14:44Z', 'UNPAID', 12000000, 35, 1, '2022-11-30T14:44Z', '874425363', '278364872'),
-(2, '5uhbb1', '2022-11-30T15:51Z', '2022-11-30T14:51Z', 'UNPAID', 12000000, 36, 1, NULL, NULL, NULL);
+(1, 'z8xzt0', '2022-12-01T18:37Z', '2022-12-01T17:37Z', 'PAID', 12000000, 1, 1, '2022-12-01T17:37Z', '726254463797', '9876876587668'),
+(2, 'hdrz49', '2022-12-01T19:11Z', '2022-12-01T18:11Z', 'UNPAID', 12000000, 2, 1, NULL, NULL, NULL),
+(3, 'kyrcv6', '2022-12-01T19:37Z', '2022-12-01T18:37Z', 'PAID', 6000, 3, 1, '2022-12-01T18:38Z', '778629831212', '9876876587668'),
+(4, 'ratnf4', '2022-12-01T22:42Z', '2022-12-01T21:42Z', 'UNPAID', 12000000, 4, 1, NULL, NULL, NULL),
+(5, 'yadrgz', '2022-12-01T22:50Z', '2022-12-01T21:50Z', 'UNPAID', 20000, 5, 1, NULL, NULL, NULL),
+(6, 'vmign6', '2022-12-01T22:55Z', '2022-12-01T21:55Z', 'UNPAID', 20000, 6, 1, NULL, NULL, NULL),
+(7, 'iyggkp', '2022-12-01T23:30Z', '2022-12-01T22:30Z', 'UNPAID', 40000, 7, 1, NULL, NULL, NULL),
+(8, '9cjqnt', '2022-12-01T23:44Z', '2022-12-01T22:44Z', 'PAID', 40000, 8, 1, '2022-12-01T22:48Z', '639136319357', '9876876587668'),
+(9, 'ygqv52', '2022-12-02T00:52Z', '2022-12-01T23:52Z', 'PAID', 175000, 9, 1, '2022-12-01T23:53Z', '639136319357', '9876876587668'),
+(10, 'myqjnc', '2022-12-02T01:15Z', '2022-12-02T00:15Z', 'PAID', 810000, 10, 1, '2022-12-02T00:15Z', '778629831212', '9876876587668'),
+(11, 'clz23c', '2022-12-02T10:34Z', '2022-12-02T09:34Z', 'UNPAID', 40000, 11, 1, NULL, NULL, NULL),
+(12, 'pz0mo5', '2022-12-02T10:34Z', '2022-12-02T09:34Z', 'PAID', 40000, 12, 1, '2022-12-02T09:38Z', '778629831212', '9876876587668'),
+(13, 'dqd6gb', '2022-12-02T10:40Z', '2022-12-02T09:40Z', 'UNPAID', 30000, 13, 1, NULL, NULL, NULL),
+(14, 'kdu3cm', '2022-12-02T10:40Z', '2022-12-02T09:40Z', 'PAID', 30000, 14, 1, '2022-12-02T09:44Z', '778629831212', '9876876587668'),
+(15, 'kd449x', '2022-12-02T10:45Z', '2022-12-02T09:45Z', 'PAID', 810000, 15, 1, '2022-12-02T09:45Z', '726254463797', '9876876587668'),
+(16, 'jjkmg6', '2022-12-02T10:46Z', '2022-12-02T09:46Z', 'PAID', 20000, 16, 1, '2022-12-02T09:48Z', '778629831212', '9876876587668');
 
 -- --------------------------------------------------------
 
@@ -228,7 +222,20 @@ INSERT INTO `sub_invoice_items` (`sub_invoice_item_id`, `attraction_place_id`, `
 (1, 1, 'dufan', 4, 600000, 1, '2022-11-28T10:46Z'),
 (2, 2, 'tmii', 4, 600000, 1, '2022-11-28T10:46Z'),
 (3, 1, 'dufan', 4, 600000, 2, '2022-11-28T10:46Z'),
-(4, 2, 'tmii', 4, 600000, 2, '2022-11-28T10:46Z');
+(4, 85, 'Taman Pintar Yogyakarta', 1, 6000, 3, '2022-11-28T12:00Z'),
+(5, 1, 'dufan', 4, 600000, 4, '2022-11-28T10:46Z'),
+(6, 1, 'Monumen Nasional', 1, 20000, 5, '2022-11-28T12:00Z'),
+(7, 1, 'Monumen Nasional', 1, 20000, 6, '2022-11-28T12:00Z'),
+(8, 1, 'Monumen Nasional', 2, 40000, 7, '2022-11-28T12:00Z'),
+(9, 1, 'Monumen Nasional', 2, 40000, 8, '2022-11-28T12:00Z'),
+(10, 6, 'Taman Impian Jaya Ancol', 7, 175000, 9, '2022-11-28T12:00Z'),
+(11, 3, 'Dunia Fantasi', 3, 810000, 10, '2022-11-28T12:00Z'),
+(12, 174, 'Pasar Beringharjo', 4, 40000, 11, '2022-11-28T12:00Z'),
+(13, 174, 'Pasar Beringharjo', 4, 40000, 12, '2022-11-28T12:00Z'),
+(14, 4, 'Taman Mini Indonesia Indah (TMII)', 3, 30000, 13, '2022-11-28T12:00Z'),
+(15, 4, 'Taman Mini Indonesia Indah (TMII)', 3, 30000, 14, '2022-11-28T12:00Z'),
+(16, 3, 'Dunia Fantasi', 3, 810000, 15, '2022-11-28T12:00Z'),
+(17, 1, 'Monumen Nasional', 1, 20000, 16, '2022-11-28T12:00Z');
 
 -- --------------------------------------------------------
 
@@ -249,7 +256,6 @@ CREATE TABLE `sub_invoice_item_ticket` (
 
 CREATE TABLE `ticket` (
   `ticket_id` int(11) NOT NULL,
-  `attraction_place_id` int(11) NOT NULL,
   `place_name` varchar(255) NOT NULL,
   `attraction_date` varchar(255) DEFAULT NULL,
   `booking_code` varchar(255) DEFAULT NULL,
@@ -261,8 +267,19 @@ CREATE TABLE `ticket` (
 -- Dumping data for table `ticket`
 --
 
-INSERT INTO `ticket` (`ticket_id`, `attraction_place_id`, `place_name`, `attraction_date`, `booking_code`, `user_id`, `ticket_code`) VALUES
-(1, 1, 'dufan', '2022-11-28', 'gb14lo', 1, '00000001');
+INSERT INTO `ticket` (`ticket_id`, `place_name`, `attraction_date`, `booking_code`, `user_id`, `ticket_code`) VALUES
+(1, 'Monumen Nasional', '2022-11-27T17:00:00.000+00:00', 'z8xzt0', 1, 'bb6na'),
+(2, 'Kota Tua', '2022-11-27T17:00:00.000+00:00', 'z8xzt0', 1, '4m8xz'),
+(3, 'Taman Pintar Yogyakarta', '2022-11-27T17:00:00.000+00:00', 'kyrcv6', 1, '6oo7l'),
+(4, 'Monumen Nasional', '2022-11-27T17:00:00.000+00:00', '9cjqnt', 1, 'ol2am'),
+(5, 'Taman Impian Jaya Ancol', '2022-11-27T17:00:00.000+00:00', 'ygqv52', 1, '8acp3'),
+(6, 'Dunia Fantasi', '2022-11-27T17:00:00.000+00:00', 'myqjnc', 1, 'iplzs'),
+(7, 'Pasar Beringharjo', '2022-11-27T17:00:00.000+00:00', 'pz0mo5', 1, '1ilmp'),
+(8, 'Pasar Beringharjo', '2022-11-27T17:00:00.000+00:00', 'pz0mo5', 1, '1ilmp'),
+(9, 'Taman Mini Indonesia Indah (TMII)', '2022-11-27T17:00:00.000+00:00', 'kdu3cm', 1, '1y2dp'),
+(10, 'Dunia Fantasi', '2022-11-27T17:00:00.000+00:00', 'kd449x', 1, 'k566d'),
+(11, 'Dunia Fantasi', '2022-11-27T17:00:00.000+00:00', 'kd449x', 1, 'k566d'),
+(12, 'Monumen Nasional', '2022-11-27T17:00:00.000+00:00', 'jjkmg6', 1, 'gc9nu');
 
 -- --------------------------------------------------------
 
@@ -284,7 +301,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `email`, `first_name`, `last_name`, `mobile_number`, `password`) VALUES
-(1, 'qj32@mail.com', '123456', 'qj', '32', '94713336919\r'),
+(1, 'faishal.fachtur@gmail.com', 'Faishal', 'Fachtur', '0856454327854', '94713336919\r'),
 (2, 'ax59@mail.com', '123456', 'ax', '59', '91762198005\r'),
 (3, 'pv15@mail.com', '123456', 'pv', '15', '77201414989\r'),
 (4, 'vd42@mail.com', '123456', 'vd', '42', '95453961475\r'),
@@ -709,7 +726,7 @@ ALTER TABLE `facility`
 -- AUTO_INCREMENT for table `grand_invoice`
 --
 ALTER TABLE `grand_invoice`
-  MODIFY `grand_invoice__id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `grand_invoice__id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `itinerary`
@@ -727,19 +744,19 @@ ALTER TABLE `itinerary_items`
 -- AUTO_INCREMENT for table `sub_invoice`
 --
 ALTER TABLE `sub_invoice`
-  MODIFY `sub_invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `sub_invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `sub_invoice_items`
 --
 ALTER TABLE `sub_invoice_items`
-  MODIFY `sub_invoice_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `sub_invoice_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `ticket`
 --
 ALTER TABLE `ticket`
-  MODIFY `ticket_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ticket_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `users`
