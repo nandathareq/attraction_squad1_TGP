@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
 
+import '../constant/constant.dart';
 import '../model/attraction_model.dart';
 
 class AttractionProvider with ChangeNotifier {
@@ -22,11 +23,11 @@ class AttractionProvider with ChangeNotifier {
     String? category = categoryParam ?? '';
     bool? desc = descParam ?? false;
     String? sortBy = sortByParam.toString().toLowerCase() ?? '';
-    String baseUrl = "http://10.0.2.2:8000/partnership/details";
+    String baseUrl = "$ipAddress:8000/partnership/details";
     // print(cityParam);
     if (city != '' || category != '') {
       baseUrl =
-          "http://10.0.2.2:8000/partnership/details?city=$city&category=$category&sortBy=$sortBy&descending=false";
+          "$ipAddress:8000/partnership/details?city=$city&category=$category&sortBy=$sortBy&descending=$desc";
     }
 
     // String? city = cityParam;

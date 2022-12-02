@@ -37,6 +37,9 @@ class _ResiScreenState extends State<ResiScreen> {
           color: const Color.fromARGB(255, 118, 17, 28),
           child: Column(
             children: [
+              const SizedBox(
+                height: 50,
+              ),
               Row(
                 children: [
                   TextButton.icon(

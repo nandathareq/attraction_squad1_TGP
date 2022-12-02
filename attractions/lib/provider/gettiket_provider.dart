@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
 
+import '../constant/constant.dart';
 import '../model/gettiket_model.dart';
 
 class GetTiketProvider with ChangeNotifier {
@@ -22,8 +23,8 @@ class GetTiketProvider with ChangeNotifier {
 
   Future<void> fetchGetTikets(kode) async {
     try {
-      final resp = await http.get(Uri.parse(
-          'http://10.0.2.2:5000/api/v1/ticket/detail?bookingCode=$kode'));
+      final resp = await http.get(
+          Uri.parse('$ipAddress:5000/api/v1/ticket/detail?bookingCode=$kode'));
 
       final ekstracDatas = json.decode(resp.body);
       print(ekstracDatas.toString());

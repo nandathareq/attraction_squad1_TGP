@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
+import '../constant/constant.dart';
 import '../model/attraction_model.dart';
 
 class BookScreen extends StatefulWidget {
@@ -47,7 +48,7 @@ class _BookScreenState extends State<BookScreen> {
     print(tanggalTicket);
 
     final response = await http.post(
-      Uri.parse('http://10.0.2.2:5000/api/v1/ticket/book'),
+      Uri.parse('$ipAddress:5000/api/v1/ticket/book'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -285,7 +286,7 @@ class _BookScreenState extends State<BookScreen> {
                     // );
                   }
                 },
-                child: const Text('Pesan')),
+                child: const Text('Pesan Sekarang')),
           ],
         ),
       ),

@@ -211,11 +211,18 @@ class _ListScreen extends State<ListScreen> {
                             ),
                             isRadio: false,
                             onSelected: (val, index, isSelected) {
-                              print('$index button is selected');
+                              // print('$val button is selected');
                               if (isSelected) {
-                                setState(() {
-                                  val == "Naik" ? desc = false : desc = true;
-                                });
+                                // print(val);
+                                // print('$val button is selected');
+                                // print("${val == 'Naik'}");
+                                val == "Naik"
+                                    ? setState(() {
+                                        desc = false;
+                                      })
+                                    : setState(() {
+                                        desc = true;
+                                      });
                               } else {
                                 setState(() {
                                   desc = false;
