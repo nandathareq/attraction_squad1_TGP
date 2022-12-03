@@ -35,9 +35,9 @@ class InvoiceProvider with ChangeNotifier {
         final currentData = InvoiceModel(
             id: invoices['id'],
             grandInvoiceId: invoices['grandInvoice']['id'],
-            bookingCode: invoices['bookingCode'],
+            bookingCode: invoices['bookingCode'].toString(),
             total: invoices['total'],
-            raisedDate: invoices['raisedDate'],
+            raisedDate: invoices['raisedDate'].toString(),
             status: invoices['status']);
 
         loadedDatas.add(currentData);

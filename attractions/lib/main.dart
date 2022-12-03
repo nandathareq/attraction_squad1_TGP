@@ -58,6 +58,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(bottom: Radius.circular(20))),
         title: Center(child: Text(widget.title)),
         backgroundColor: const Color.fromARGB(255, 118, 17, 28),
       ),
