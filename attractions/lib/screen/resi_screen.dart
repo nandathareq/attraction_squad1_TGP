@@ -31,15 +31,16 @@ class _ResiScreenState extends State<ResiScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final format = new intl.NumberFormat("#,##0", "en_US");
     return Scaffold(
       body: Container(
-          padding: const EdgeInsets.all(10),
+          // padding: const EdgeInsets.all(10),
           color: const Color.fromARGB(255, 118, 17, 28),
-          child: Column(
+          child: ListView(
             children: [
-              const SizedBox(
-                height: 50,
-              ),
+              // const SizedBox(
+              //   height: 50,
+              // ),
               Row(
                 children: [
                   TextButton.icon(
@@ -84,109 +85,267 @@ class _ResiScreenState extends State<ResiScreen> {
                           ),
                           child: Column(
                             children: [
-                              const Icon(Icons.check),
+                              Padding(
+                                padding: EdgeInsets.only(top: 15, bottom: 5),
+                                child: Image.asset('assets/images/cek.png',
+                                    width: 70),
+                              ),
                               const Text(
                                 "Sukses!",
                                 style: TextStyle(
-                                    fontSize: 10, color: Colors.black),
+                                    fontSize: 25,
+                                    color: Colors.green,
+                                    fontWeight: FontWeight.bold),
                               ),
+                              Padding(padding: EdgeInsets.only(top: 10)),
                               const Text(
                                 "Transaksi Anda Telah Berhasil",
                                 style: TextStyle(
-                                    fontSize: 10, color: Colors.black),
+                                    fontSize: 14, color: Colors.black),
                               ),
-                              const Text("-----------------------------------"),
-                              const Icon(Icons.access_alarm),
+                              Padding(padding: EdgeInsets.only(top: 10)),
+                              const Text(
+                                  "-------------------------------------------------------------------------"),
+                              Padding(
+                                padding: EdgeInsets.only(bottom: 5, top: 5),
+                                child: Image.asset(
+                                  'assets/images/octo.png',
+                                  width: 120,
+                                ),
+                              ),
                               const Text("NOMINAL",
                                   style:
                                       TextStyle(fontWeight: FontWeight.bold)),
-                              Text(data.total),
                               Padding(
-                                padding: const EdgeInsets.all(30),
+                                padding: EdgeInsets.only(top: 10),
+                                child: Text(
+                                  "Rp.${format.format(data.total)}",
+                                  style: TextStyle(
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(30),
                                 child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Row(children: const [
-                                      Text("Pembayaran Ke",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold)),
-                                      Spacer(),
-                                      Text("SQ1.COM")
-                                    ]),
                                     Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
                                           children: [
-                                            const Text(
-                                              "Waktu Transaksi",
+                                            Text(
+                                              'Pembayaran Ke',
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold),
                                             ),
-                                            Text(dateFormat.format(
-                                                DateTime.parse(data.date)))
                                           ],
                                         ),
-                                        const Spacer(),
                                         Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              const Text("ID Transaksi",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                              Text(data.idTransaksi)
-                                            ]),
+                                          children: [
+                                            Text(
+                                              'SQ1.COM',
+                                              style: TextStyle(
+                                                  fontWeight:
+                                                      FontWeight.normal),
+                                            ),
+                                          ],
+                                        ),
                                       ],
                                     ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                    Padding(
+                                      padding: EdgeInsets.only(top: 15),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Column(
                                             children: [
-                                              const Text("Dibayar oleh",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                              Text(data.nasabah)
-                                            ]),
-                                        Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                              Row(
+                                                children: [
+                                                  Text(
+                                                    'Waktu Transaksi',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                          Column(
                                             children: [
-                                              const Text("Rekening Sumber Dana",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                              Text(data.rekening)
-                                            ]),
-                                        Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                              Text(
+                                                'ID Transaksi',
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(top: 5),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Column(
                                             children: [
-                                              const Text("Kode Pemesanan",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                              Text(data.kodeBooking)
-                                            ]),
-                                        Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                              Row(
+                                                children: [
+                                                  Text(dateFormat.format(
+                                                      DateTime.parse(
+                                                          data.date)))
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                          Column(
+                                            children: [Text(data.idTransaksi)],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(top: 15),
+                                      child: Row(
+                                        children: [
+                                          Column(
                                             children: [
-                                              const Text("Total Pembayaran",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                              Text(data.total)
-                                            ])
-                                      ],
-                                    )
+                                              Text(
+                                                'Dibayar oleh',
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(top: 5),
+                                      child: Row(
+                                        children: [
+                                          Column(
+                                            children: [
+                                              Text(
+                                                data.nasabah,
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.normal),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(top: 15),
+                                      child: Row(
+                                        children: [
+                                          Column(
+                                            children: [
+                                              Text(
+                                                'Rekening Sumber Dana',
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(top: 5),
+                                      child: Row(
+                                        children: [
+                                          Column(
+                                            children: [
+                                              Text(
+                                                data.rekening,
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.normal),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(top: 15),
+                                      child: Row(
+                                        children: [
+                                          Column(
+                                            children: [
+                                              Text(
+                                                'Kode Pemesanan',
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(top: 5),
+                                      child: Row(
+                                        children: [
+                                          Column(
+                                            children: [
+                                              Text(
+                                                data.kodeBooking.toUpperCase(),
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.normal),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(top: 15),
+                                      child: Row(
+                                        children: [
+                                          Column(
+                                            children: [
+                                              Text(
+                                                'Total Pembayaran',
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(top: 5),
+                                      child: Row(
+                                        children: [
+                                          Column(
+                                            children: [
+                                              Text(
+                                                "Rp. ${format.format(data.total)}",
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.normal),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -219,6 +378,9 @@ class _ResiScreenState extends State<ResiScreen> {
                       "Lihat Tiket",
                       style: TextStyle(color: Colors.black),
                     )),
+              ),
+              SizedBox(
+                height: 20,
               )
             ],
           )),

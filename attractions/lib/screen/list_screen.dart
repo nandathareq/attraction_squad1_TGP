@@ -314,6 +314,8 @@ class _ListScreen extends State<ListScreen> {
         appBar: AppBar(
           title: const Text('Attraction'),
           centerTitle: true,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(bottom: Radius.circular(25))),
           actions: [
             SearchBarAnimation(
               hintText: "Cari Atraksi",
@@ -364,35 +366,36 @@ class _ListScreen extends State<ListScreen> {
               ],
             ).preferredSize,
             child: const Material(
-              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadius.vertical(bottom: Radius.circular(25))),
+              color: Color.fromARGB(255, 118, 17, 28),
               child: TabBar(
                 indicatorColor: Color.fromARGB(255, 118, 17, 28),
                 tabs: <Widget>[
                   Tab(
-                    icon: Icon(Icons.pin_drop_outlined,
-                        color: Color.fromARGB(255, 118, 17, 28)),
+                    icon: Icon(Icons.pin_drop_outlined, color: Colors.white),
                     child: Text('Attraction',
-                        style:
-                            TextStyle(color: Color.fromARGB(255, 118, 17, 28))),
+                        style: TextStyle(color: Colors.white)),
                   ),
                   Tab(
                     icon: Icon(
                       Icons.map_outlined,
-                      color: Color.fromARGB(255, 118, 17, 28),
+                      color: Colors.white,
                     ),
                     child: Text(
                       "Itinerary",
-                      style: TextStyle(color: Color.fromARGB(255, 118, 17, 28)),
+                      style: TextStyle(color: Colors.white),
                     ),
                   ),
                   Tab(
                     icon: Icon(
                       Icons.receipt_long_outlined,
-                      color: Color.fromARGB(255, 118, 17, 28),
+                      color: Colors.white,
                     ),
                     child: Text(
                       "History",
-                      style: TextStyle(color: Color.fromARGB(255, 118, 17, 28)),
+                      style: TextStyle(color: Colors.white),
                     ),
                   )
                 ],
@@ -463,7 +466,7 @@ class _ListScreen extends State<ListScreen> {
               ),
             ),
             const Center(
-              child: Text('baru'),
+              child: Text('UNDER CONSTRUCTION'),
             ),
             Center(
               child: FutureBuilder(

@@ -259,7 +259,10 @@ class RingkasanCard extends StatelessWidget {
               children: [
                 Padding(
                   padding: EdgeInsets.only(left: 20),
-                  child: Text('Pembayaran dari '),
+                  child: Text(
+                    'Pembayaran dari ',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
                 ),
               ],
             ),
@@ -295,7 +298,10 @@ class RingkasanCard extends StatelessWidget {
                               return DropdownButtonFormField(
                                   hint: Row(
                                     children: const [
-                                      Icon(Icons.credit_card),
+                                      Icon(
+                                        Icons.credit_card,
+                                        color: Color.fromARGB(255, 118, 17, 28),
+                                      ),
                                       Padding(
                                           padding:
                                               EdgeInsets.fromLTRB(5, 4, 10, 4)),
@@ -303,14 +309,26 @@ class RingkasanCard extends StatelessWidget {
                                     ],
                                   ),
                                   decoration: InputDecoration(
+                                    focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color:
+                                              Color.fromARGB(255, 117, 17, 28),
+                                          width: 2,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
                                     enabledBorder: OutlineInputBorder(
-                                      // borderSide:
-                                      //     BorderSide(color: Colors.blue, width: 2),
+                                      borderSide: BorderSide(
+                                          color:
+                                              Color.fromARGB(255, 118, 17, 28),
+                                          width: 2),
                                       borderRadius: BorderRadius.circular(20),
                                     ),
                                     border: OutlineInputBorder(
-                                      // borderSide:
-                                      //     BorderSide(color: Colors.blue, width: 2),
+                                      borderSide: BorderSide(
+                                          color:
+                                              Color.fromARGB(255, 118, 17, 28),
+                                          width: 2),
                                       borderRadius: BorderRadius.circular(20),
                                     ),
                                     filled: true,
@@ -325,8 +343,23 @@ class RingkasanCard extends StatelessWidget {
                                   },
                                   items: rekenings?.map((item) {
                                     return DropdownMenuItem(
-                                      child: Text(
-                                          "${item['rekeningId']['nama'].toString()} - ${item['nomorRekening'].toString()}"),
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.credit_card,
+                                            color: Color.fromARGB(
+                                                255, 118, 17, 28),
+                                          ),
+                                          Padding(
+                                              padding: EdgeInsets.fromLTRB(
+                                                  5, 4, 10, 4)),
+                                          Text(
+                                            "${item['rekeningId']['nama'].toString()} - ${item['nomorRekening'].toString()}",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ],
+                                      ),
                                       value: item['nomorRekening'].toString(),
                                     );
                                   }).toList()
@@ -395,7 +428,10 @@ class RingkasanCard extends StatelessWidget {
               children: [
                 Padding(
                   padding: EdgeInsets.only(left: 20),
-                  child: Text('Detail Pembayaran '),
+                  child: Text(
+                    'Detail Pembayaran ',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
                 ),
               ],
             ),
@@ -526,8 +562,8 @@ class RingkasanCard extends StatelessWidget {
                 children: [
                   const SizedBox(height: 10),
                   SizedBox(
-                    width: 300,
-                    height: 40,
+                    width: 360,
+                    height: 45,
                     child: ElevatedButton(
                       style: gaya,
                       onPressed: () {
@@ -647,114 +683,131 @@ class RingkasanCard extends StatelessWidget {
                                           ),
                                           Padding(
                                               padding: EdgeInsets.fromLTRB(
-                                                  5, 5, 5, 5)),
-                                          TextButton(
-                                            onPressed: () async {
-                                              if (pinInput?.length == 6) {
-                                                await pay(pinInput!, ipAddress);
-                                                paymentStatus == true
-                                                    ? Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder:
-                                                                (context) =>
-                                                                    ResiScreen(
-                                                                      bookingCode:
-                                                                          bookingCode,
-                                                                    )))
-                                                    : showDialog<String>(
-                                                        context: context,
-                                                        builder:
-                                                            (BuildContext
-                                                                    context) =>
-                                                                AlertDialog(
-                                                                  shape: RoundedRectangleBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              20)),
-                                                                  title:
-                                                                      const Text(
-                                                                    'Payment Gagal',
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .center,
-                                                                  ),
-                                                                  content: Text(
-                                                                    paymentMessage!,
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .center,
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .black),
-                                                                  ),
-                                                                  actions: <
-                                                                      Widget>[
-                                                                    Center(
+                                                  5, 20, 5, 10)),
+                                          SizedBox(
+                                            width: 360,
+                                            height: 45,
+                                            child: TextButton(
+                                              onPressed: () async {
+                                                if (pinInput?.length == 6) {
+                                                  await pay(
+                                                      pinInput!, ipAddress);
+                                                  paymentStatus == true
+                                                      ? Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder:
+                                                                  (context) =>
+                                                                      ResiScreen(
+                                                                        bookingCode:
+                                                                            bookingCode,
+                                                                      )))
+                                                      : showDialog<String>(
+                                                          context: context,
+                                                          builder: (BuildContext
+                                                                  context) =>
+                                                              AlertDialog(
+                                                                shape: RoundedRectangleBorder(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            20)),
+                                                                title:
+                                                                    const Text(
+                                                                  'Payment Gagal',
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                ),
+                                                                content: Text(
+                                                                  paymentMessage!,
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .black),
+                                                                ),
+                                                                actions: <
+                                                                    Widget>[
+                                                                  Center(
+                                                                    child:
+                                                                        TextButton(
+                                                                      onPressed: () => Navigator.pop(
+                                                                          context,
+                                                                          'OK'),
                                                                       child:
-                                                                          TextButton(
-                                                                        onPressed: () => Navigator.pop(
-                                                                            context,
-                                                                            'OK'),
-                                                                        child:
-                                                                            const Text(
-                                                                          'OK',
-                                                                          style:
-                                                                              TextStyle(color: Color.fromARGB(255, 118, 17, 28)),
-                                                                        ),
+                                                                          const Text(
+                                                                        'OK',
+                                                                        style: TextStyle(
+                                                                            color: Color.fromARGB(
+                                                                                255,
+                                                                                118,
+                                                                                17,
+                                                                                28)),
                                                                       ),
                                                                     ),
-                                                                  ],
-                                                                ));
-                                              } else {
-                                                showDialog<String>(
-                                                    context: context,
-                                                    builder: (BuildContext
-                                                            context) =>
-                                                        AlertDialog(
-                                                          shape: RoundedRectangleBorder(
+                                                                  ),
+                                                                ],
+                                                              ));
+                                                } else {
+                                                  showDialog<String>(
+                                                      context: context,
+                                                      builder: (BuildContext
+                                                              context) =>
+                                                          AlertDialog(
+                                                            shape: RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            20)),
+                                                            title: const Text(
+                                                              'Silahkan Isi PIN Anda dengan Lengkap',
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                            ),
+                                                            // content: const Text('AlertDialog description'),
+                                                            actions: <Widget>[
+                                                              Center(
+                                                                child:
+                                                                    TextButton(
+                                                                  onPressed: () =>
+                                                                      Navigator.pop(
+                                                                          context,
+                                                                          'OK'),
+                                                                  child:
+                                                                      const Text(
+                                                                    'OK',
+                                                                    style: TextStyle(
+                                                                        color: Color.fromARGB(
+                                                                            255,
+                                                                            118,
+                                                                            17,
+                                                                            28)),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ));
+                                                }
+                                              },
+                                              style: ButtonStyle(
+                                                  shape: MaterialStateProperty
+                                                      .all<RoundedRectangleBorder>(
+                                                          RoundedRectangleBorder(
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          20)),
-                                                          title: const Text(
-                                                            'Silahkan Isi PIN Anda dengan Lengkap',
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                          ),
-                                                          // content: const Text('AlertDialog description'),
-                                                          actions: <Widget>[
-                                                            Center(
-                                                              child: TextButton(
-                                                                onPressed: () =>
-                                                                    Navigator.pop(
-                                                                        context,
-                                                                        'OK'),
-                                                                child:
-                                                                    const Text(
-                                                                  'OK',
-                                                                  style: TextStyle(
-                                                                      color: Color.fromARGB(
-                                                                          255,
-                                                                          118,
-                                                                          17,
-                                                                          28)),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ));
-                                              }
-                                            },
-                                            style: ButtonStyle(
-                                                backgroundColor:
-                                                    MaterialStateProperty.all(
-                                                        Color.fromARGB(
-                                                            255, 118, 17, 28))),
-                                            child: const Text(
-                                              'Bayar',
-                                              style: TextStyle(
-                                                  color: Colors.white),
+                                                                          20))),
+                                                  backgroundColor:
+                                                      MaterialStateProperty.all(
+                                                          Color.fromARGB(255,
+                                                              118, 17, 28))),
+                                              child: const Text(
+                                                'Bayar',
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
                                             ),
                                           ),
                                         ],

@@ -1,5 +1,5 @@
 class ResiModel {
-  final String total;
+  final double total;
   final String date;
   final String idTransaksi;
   final String nasabah;

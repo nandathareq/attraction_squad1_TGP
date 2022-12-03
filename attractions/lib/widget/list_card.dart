@@ -74,10 +74,13 @@ class ListCard extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(10),
-                child: Text(
-                  placeName,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                child: SizedBox(
+                  child: Text(
+                    placeName,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
               Row(

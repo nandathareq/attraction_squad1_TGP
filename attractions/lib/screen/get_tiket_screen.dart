@@ -44,6 +44,7 @@ class _GetTiketScreen extends State<GetTiketScreen> {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
         title: Center(
           child: Text('Detail Tiket'),
         ),

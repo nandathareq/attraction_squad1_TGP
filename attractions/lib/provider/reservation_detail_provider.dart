@@ -61,7 +61,7 @@ class ReservationProvider with ChangeNotifier {
       final resiData = json.decode(response.body);
 
       final data = ResiModel(
-          total: resiData['total'].toString(),
+          total: resiData['total'],
           date: resiData['paidDate'].toString(),
           idTransaksi: resiData['idTransaksi'].toString(),
           nasabah: resiData['user']['userName'].toString(),

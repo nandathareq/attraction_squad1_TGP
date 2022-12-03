@@ -30,10 +30,16 @@ class AttractionProvider with ChangeNotifier {
           "$ipAddress:8000/partnership/details?city=$city&category=$category&sortBy=$sortBy&descending=$desc";
     }
 
+    // String? city = cityParam;
     try {
+      // final resp = await http.get(Uri.parse(
+      //     'http://10.0.2.2:8000/partnership/details?city=&category=&sortBy=&descending='));
+      print(Uri.parse(baseUrl));
       final resp = await http.get(Uri.parse(baseUrl));
 
       final extractedDatas = json.decode(resp.body);
+
+      print(resp == null);
 
       List<AttractionModel> loadedDatas = [];
 
@@ -59,7 +65,6 @@ class AttractionProvider with ChangeNotifier {
         loadedDatas.add(currentData);
       });
       _attractions = loadedDatas;
-      print(loadedDatas ?? "ytdjtd");
     } catch (e) {
       rethrow;
     }

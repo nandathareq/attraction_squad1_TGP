@@ -1,1 +1,1 @@
-String ipAddress = "http://10.0.2.2";
+String ipAddress = "http://192.168.0.102";

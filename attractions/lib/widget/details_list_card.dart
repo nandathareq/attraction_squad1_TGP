@@ -28,13 +28,15 @@ class DetailsListCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final ButtonStyle style = ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        textStyle: const TextStyle(fontSize: 20),
+        textStyle: const TextStyle(fontSize: 18),
         backgroundColor: const Color.fromARGB(255, 118, 17, 28));
 
     final format = new NumberFormat("#,##0", "en_US");
     return Container(
       child: Scaffold(
         appBar: AppBar(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
           title: Text(model.placeName),
           backgroundColor: const Color.fromARGB(255, 118, 17, 28),
         ),
@@ -47,6 +49,7 @@ class DetailsListCard extends StatelessWidget {
                   image: NetworkImage(model.picture),
                   fit: BoxFit.cover,
                 ),
+                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
               ),
             ),
             Row(
@@ -304,8 +307,8 @@ class DetailsListCard extends StatelessWidget {
                     children: [
                       const SizedBox(height: 10),
                       SizedBox(
-                        width: 300,
-                        height: 40,
+                        width: 360,
+                        height: 45,
                         child: ElevatedButton(
                           style: style,
                           onPressed: () {

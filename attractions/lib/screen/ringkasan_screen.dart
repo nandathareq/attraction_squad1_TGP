@@ -43,6 +43,7 @@ class _RingkasanScreen extends State<RingkasanScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Ringkasan'),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 118, 17, 28),
       ),
